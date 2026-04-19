@@ -51,7 +51,12 @@ function App() {
               <a className="button button-primary" href="mailto:michael@preciadotech.com">
                 Work with Preciado Tech
               </a>
-              <a className="button button-secondary" href="https://www.michael-preciado.com/projects" target="_blank" rel="noreferrer">
+              <a
+                className="button button-secondary"
+                href="https://www.michael-preciado.com/projects"
+                target="_blank"
+                rel="noreferrer"
+              >
                 See project proof
               </a>
             </div>
