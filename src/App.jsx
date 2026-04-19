@@ -30,7 +30,7 @@ function App() {
       <header className="topbar">
         <div className="brand-block">
           <span className="brand-kicker">Preciado Tech</span>
-          <span className="brand-note">Remote AI and automation studio</span>
+          <span className="brand-note">Practical AI workflows, automation, and digital tools</span>
         </div>
         <a className="topbar-link" href="mailto:michael@preciadotech.com">
           Start a conversation
@@ -45,7 +45,7 @@ function App() {
             <p className="hero-text">
               Preciado Tech helps individuals and small teams build practical AI workflows,
               cleaner operations, and sharper digital experiences. The goal is simple, reduce
-              friction, save time, and turn messy work into systems that actually help.
+              friction, save time, and turn messy work into systems that genuinely create leverage.
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="mailto:michael@preciadotech.com">
@@ -67,7 +67,7 @@ function App() {
               <li>solo founders</li>
               <li>creators and freelancers</li>
               <li>small teams with operational drag</li>
-              <li>people who want useful systems, not hype</li>
+              <li>people who want useful systems instead of hype</li>
             </ul>
           </aside>
         </section>
@@ -108,7 +108,7 @@ function App() {
         </section>
 
         <section className="section-block cta-section">
-          <p className="section-kicker">Early direction</p>
+          <p className="section-kicker">Availability</p>
           <h2>Open to selective remote projects, collaborations, and systems work.</h2>
           <p className="section-text narrow">
             If you need a smarter workflow, a cleaner internal tool, or a sharper digital
