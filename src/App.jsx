@@ -32,7 +32,7 @@ function App() {
           <span className="brand-kicker">Preciado Tech</span>
           <span className="brand-note">Practical AI workflows, automation, and digital tools</span>
         </div>
-        <a className="topbar-link" href="mailto:michael@preciadotech.com">
+        <a className="topbar-link" href="mailto:michael@preciado-tech.com">
           Start a conversation
         </a>
       </header>
@@ -48,7 +48,7 @@ function App() {
               friction, save time, and turn messy work into systems that genuinely create leverage.
             </p>
             <div className="hero-actions">
-              <a className="button button-primary" href="mailto:michael@preciadotech.com">
+              <a className="button button-primary" href="mailto:michael@preciado-tech.com">
                 Work with Preciado Tech
               </a>
               <a
@@ -114,7 +114,7 @@ function App() {
             If you need a smarter workflow, a cleaner internal tool, or a sharper digital
             presence, Preciado Tech is being built to help with exactly that.
           </p>
-          <a className="button button-primary" href="mailto:michael@preciadotech.com">
+          <a className="button button-primary" href="mailto:michael@preciado-tech.com">
             Reach out
           </a>
         </section>
