@@ -62,9 +62,9 @@
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.95fr);
-  gap: 2.6rem;
+  gap: 2.35rem;
   align-items: center;
-  padding: 5.5rem 0.25rem 4.5rem;
+  padding: 5rem 0.25rem 4rem;
 }
 
 .hero-aura {
@@ -119,8 +119,8 @@
 }
 
 .hero-support {
-  margin-top: 0.9rem;
-  max-width: 40rem;
+  margin-top: 0.8rem;
+  max-width: 38rem;
   color: var(--text-soft);
 }
 
@@ -666,7 +666,8 @@
   .process-layout,
   .principles-layout,
   .service-grid,
-  .visual-grid {
+  .visual-grid,
+  .proof-grid {
     grid-template-columns: 1fr;
   }
 
@@ -714,8 +715,8 @@
   }
 
   .hero-section {
-    padding: 2.1rem 0 2rem;
-    gap: 1.4rem;
+    padding: 1.9rem 0 1.8rem;
+    gap: 1.2rem;
   }
 
   .hero-term__body {
@@ -736,7 +737,7 @@
   }
 
   .section-block {
-    padding: 2.35rem 0;
+    padding: 2.1rem 0;
   }
 
 .visual-frame {

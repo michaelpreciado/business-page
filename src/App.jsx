@@ -58,20 +58,38 @@ const proofPoints = [
   'Clean visual presentation without sacrificing utility',
 ]
 
+const proofItems = [
+  {
+    label: 'web.systems',
+    title: 'Business pages with sharper positioning',
+    description: 'Landing pages and brand surfaces designed to explain the offer faster and turn attention into action.',
+  },
+  {
+    label: 'ops.automation',
+    title: 'Internal systems that reduce repeated work',
+    description: 'Practical automation and lightweight tools that remove drag without making the workflow more fragile.',
+  },
+  {
+    label: 'ai.workflows',
+    title: 'AI setups built around real working habits',
+    description: 'Assistants, research flows, and operating systems designed for actual use, not demo theater.',
+  },
+]
+
 const visuals = [
   {
     src: '/images/michael-outdoors-cropped.jpg',
     alt: 'Michael Preciado outdoors at dusk in a mountain setting.',
     label: 'founder',
-    title: 'Calm, thoughtful execution',
-    description: 'A grounded personal image that adds trust without making the site feel like an influencer page.',
+    title: 'Operator taste with technical follow-through',
+    description: 'The value is not just tools. It is judgment, restraint, and the ability to turn messy ideas into usable systems that hold up.',
   },
   {
     src: '/images/create-graphic.jpg',
     alt: 'Minimal black graphic with two hands reaching toward a folder labeled create.',
     label: 'studio',
-    title: 'Technology in service of making',
-    description: 'A visual cue that the work is about building, shaping, and turning loose ideas into usable systems.',
+    title: 'Creative direction tied to real output',
+    description: 'Visual polish matters most when it supports trust, clarity, and the next decision a customer needs to make.',
   },
 ]
 
@@ -98,17 +116,17 @@ function App() {
           <div className="hero-aura" aria-hidden="true" />
           <div className="hero-copy">
             <p className="eyebrow">Remote studio · Practical AI &amp; automation</p>
-            <h1>Fix the messy parts of the business that keep stealing time.</h1>
+            <h1>Sharpen the business systems that feel slower, messier, and heavier than they should.</h1>
             <p className="hero-text hero-lead">
-              Preciado Tech helps founders, creators, and small teams clean up scattered workflows,
-              automate repetitive work, and present their business with more clarity, confidence, and trust.
+              Preciado Tech helps founders, creators, and small teams clean up workflows,
+              automate repetitive work, and build sharper digital experiences that earn trust faster.
             </p>
             <p className="hero-text hero-support">
-              The goal is simple &mdash; build systems that reduce drag, make better use of AI, and help the business feel easier to run.
+              The work is simple in spirit, reduce drag, create leverage, and make the business feel more composed.
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="mailto:michael@preciadotech.com?subject=Preciado%20Tech%20Inquiry">
-                Book a conversation
+                Talk through your workflow
               </a>
               <a
                 className="button button-secondary"
@@ -155,11 +173,28 @@ function App() {
         <section className="section-block trust-strip">
           <div className="trust-card">
             <p className="section-kicker">What we do</p>
-            <h2>Business systems work with a strong bias toward clarity and real use.</h2>
+            <h2>Business systems work with a strong bias toward clarity, utility, and real adoption.</h2>
             <p className="section-text narrow-left">
               This is not a hype-first AI shop. The work is about making useful systems, cleaner operations,
-              and better business presentation so the day-to-day feels less chaotic and more intentional.
+              and stronger digital presentation so the business becomes easier to run and easier to trust.
             </p>
+          </div>
+        </section>
+
+        <section className="section-block proof-section">
+          <div className="section-heading wide proof-heading">
+            <p className="section-kicker">Proof</p>
+            <h2>The work sits where speed, clarity, and business trust overlap.</h2>
+          </div>
+
+          <div className="proof-grid">
+            {proofItems.map((item) => (
+              <article key={item.title} className="proof-card">
+                <span className="panel-label">{item.label}</span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -229,8 +264,8 @@ function App() {
 
         <section className="section-block visuals-section">
           <div className="section-heading wide visuals-heading">
-            <p className="section-kicker">Visual identity</p>
-            <h2>Personal enough to feel real, structured enough to feel professional.</h2>
+            <p className="section-kicker">Founder and studio</p>
+            <h2>Trust comes from taste, execution, and the ability to make complex work feel clear.</h2>
           </div>
 
           <div className="visual-grid">
@@ -264,16 +299,11 @@ function App() {
           </p>
           <div className="hero-actions centered">
             <a className="button button-primary" href="mailto:michael@preciadotech.com?subject=Preciado%20Tech%20Inquiry">
-              Email Michael
+              Start the conversation
             </a>
           </div>
         </section>
       </main>
-
-      <footer className="site-footer">
-        <span>&copy; {new Date().getFullYear()} Preciado Tech</span>
-        <span className="footer-mark">preciado-tech</span>
-      </footer>
     </div>
   )
 }
