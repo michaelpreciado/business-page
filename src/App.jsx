@@ -60,7 +60,7 @@ const proofPoints = [
 
 const visuals = [
   {
-    src: '/images/michael-outdoors.jpg',
+    src: '/images/michael-outdoors-cropped.jpg',
     alt: 'Michael Preciado outdoors at dusk in a mountain setting.',
     label: 'founder',
     title: 'Calm, thoughtful execution',
