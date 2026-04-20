@@ -572,13 +572,13 @@
 }
 
 .portrait-frame {
-  aspect-ratio: 4 / 3.08;
-  max-width: 82%;
+  aspect-ratio: 4 / 4.35;
+  max-width: 84%;
 }
 
 .portrait-frame img {
-  object-position: center 16%;
-  transform: scale(1.34);
+  object-position: center 34%;
+  transform: scale(1.02);
 }
 
 .visual-frame img {
@@ -734,8 +734,8 @@
   }
 
   .portrait-frame {
-    max-width: 78%;
-    aspect-ratio: 4 / 3.18;
+    max-width: 84%;
+    aspect-ratio: 4 / 4.1;
   }
 
   .brand-note,
