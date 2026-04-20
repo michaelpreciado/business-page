@@ -24,12 +24,6 @@ const services = [
   },
 ]
 
-const outcomes = [
-  'Less manual follow-up and duplicated work',
-  'Clearer workflows your team can actually keep using',
-  'A more credible online presence that earns trust faster',
-]
-
 const process = [
   {
     step: 'Audit what feels heavy',
@@ -62,16 +56,16 @@ const visuals = [
   {
     src: '/images/michael-outdoors.jpg',
     alt: 'Michael Preciado outdoors at dusk in a mountain setting.',
-    label: 'founder.profile',
-    title: 'Calm, thoughtful execution',
-    description: 'A grounded personal image that adds trust without making the site feel like an influencer page.',
+    label: '// michael preciado',
+    title: 'Grounded operator. Not a hype-builder.',
+    description: 'Solo founder, working remotely. Focused on practical AI systems, lean automation, and business tools that create real leverage — without adding complexity.',
   },
   {
     src: '/images/create-graphic.jpg',
     alt: 'Minimal black graphic with two hands reaching toward a folder labeled create.',
-    label: 'creative.signal',
-    title: 'Technology in service of making',
-    description: 'A visual cue that the work is about building, shaping, and turning loose ideas into usable systems.',
+    label: '// the approach',
+    title: 'Technology in service of the work.',
+    description: 'Every system built here starts with a real operational problem. The goal is always the same: remove drag, improve clarity, and make the business easier to run.',
   },
 ]
 
@@ -120,7 +114,7 @@ function App() {
         <main>
           <section className="hero-section">
             <div className="hero-copy">
-              <p className="eyebrow">[ remote studio for practical ai, automation, and sharper business systems ]</p>
+              <p className="eyebrow">// remote studio — ai workflows, automation, and digital systems</p>
               <h1>Fix the messy parts of the business that keep stealing time.</h1>
               <p className="hero-text hero-lead">
                 Preciado Tech helps founders, creators, and small teams clean up scattered workflows,
@@ -157,19 +151,9 @@ function App() {
               </div>
 
               <div className="hero-panel hero-panel-primary">
-                <span className="panel-label">best_fit[]</span>
+                <span className="panel-label">// best fit</span>
                 <ul className="prompt-list">
                   {fit.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="signal-card">
-                <div className="signal-line" />
-                <p className="signal-heading">output.improves</p>
-                <ul className="signal-list prompt-list">
-                  {outcomes.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
@@ -179,7 +163,7 @@ function App() {
 
           <section className="section-block trust-strip">
             <div className="trust-card terminal-card">
-              <p className="section-kicker">what_preciado_tech_does()</p>
+              <p className="section-kicker">// about the work</p>
               <h2>Business systems work with a strong bias toward clarity and real use.</h2>
               <p className="section-text narrow-left">
                 This is not a hype-first AI shop. The work is about making useful systems, cleaner operations,
@@ -190,7 +174,7 @@ function App() {
 
           <section className="section-block section-intro-split">
             <div className="section-heading wide">
-              <p className="section-kicker">services.map()</p>
+              <p className="section-kicker">// services</p>
               <h2>Focused help where operational friction and digital trust overlap.</h2>
             </div>
             <p className="section-text intro-text">
@@ -214,7 +198,7 @@ function App() {
 
           <section className="section-block process-layout">
             <div className="process-copy">
-              <p className="section-kicker">process.flow</p>
+              <p className="section-kicker">// how it works</p>
               <h2>Start with the friction, then build the right fix.</h2>
               <p className="section-text">
                 Good systems work usually starts by spotting what feels heavier than it should.
@@ -234,7 +218,7 @@ function App() {
 
           <section className="section-block principles-layout">
             <div className="principles-card terminal-card">
-              <p className="section-kicker">why_it_works</p>
+              <p className="section-kicker">// principles</p>
               <h2>Useful first, cleanly designed, and built to hold up in real business use.</h2>
               <ul className="prompt-list">
                 {proofPoints.map((point) => (
@@ -244,7 +228,7 @@ function App() {
             </div>
 
             <div className="credibility-panel terminal-card">
-              <p className="panel-label">studio.posture</p>
+              <p className="panel-label">// studio posture</p>
               <p>
                 Small by choice, remote by default, and focused on thoughtful systems work that creates leverage
                 without turning the business into a science experiment.
@@ -254,14 +238,14 @@ function App() {
 
           <section className="section-block visuals-section">
             <div className="section-heading wide visuals-heading">
-              <p className="section-kicker">visual_identity</p>
-              <h2>Personal enough to feel real, structured enough to feel professional.</h2>
+              <p className="section-kicker">// the founder</p>
+              <h2>Built and run by one person with a clear point of view.</h2>
             </div>
 
             <div className="visual-grid">
               {visuals.map((item) => (
                 <article key={item.title} className="visual-card terminal-card">
-                  <div className={`visual-frame ${item.label === 'founder.profile' ? 'portrait-frame' : ''}`}>
+                  <div className={`visual-frame ${item.label === '// michael preciado' ? 'portrait-frame' : ''}`}>
                     <img src={item.src} alt={item.alt} loading="lazy" />
                   </div>
                   <div className="visual-copy">
@@ -275,7 +259,7 @@ function App() {
           </section>
 
           <section className="section-block cta-section">
-            <p className="section-kicker">start_here</p>
+            <p className="section-kicker">// let's talk</p>
             <h2>If the business feels scattered, slow, or harder to manage than it should, that is the work.</h2>
             <p className="section-text narrow">
               Reach out if you want help cleaning up operations, building a practical AI workflow,
@@ -283,7 +267,15 @@ function App() {
             </p>
             <div className="hero-actions centered">
               <a className="button button-primary" href="mailto:michael@preciadotech.com?subject=Preciado%20Tech%20Inquiry">
-                &gt; email michael
+                &gt; start a conversation
+              </a>
+              <a
+                className="button button-secondary"
+                href="https://www.michael-preciado.com/projects"
+                target="_blank"
+                rel="noreferrer"
+              >
+                &gt; see the work
               </a>
             </div>
           </section>

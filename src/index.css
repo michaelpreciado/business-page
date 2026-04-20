@@ -70,21 +70,21 @@ h2 {
   letter-spacing: -0.04em;
   color: var(--text-h);
   margin-bottom: 1rem;
-  max-width: 13ch;
+  max-width: 22ch;
 }
 
 h3 {
-  font-size: 1.15rem;
-  line-height: 1.1;
+  font-size: 1.18rem;
+  line-height: 1.12;
   color: var(--text-h);
 }
 
 @media (max-width: 960px) {
   h1 {
-    max-width: 12ch;
+    max-width: 13ch;
   }
 
   h2 {
-    max-width: 16ch;
+    max-width: 22ch;
   }
 }

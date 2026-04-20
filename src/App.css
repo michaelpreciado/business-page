@@ -30,23 +30,19 @@
   animation: matrix-fall 18s linear infinite;
 }
 
-.matrix-rain span:nth-child(even) {
-  animation-duration: 23s;
-  opacity: 0.6;
-}
-
-.matrix-rain span:nth-child(3n) {
-  animation-duration: 27s;
-  opacity: 0.45;
-}
+.matrix-rain span:nth-child(2) { animation-delay: -5s;  animation-duration: 22s; opacity: 0.55; }
+.matrix-rain span:nth-child(3) { animation-delay: -10s; animation-duration: 28s; opacity: 0.40; }
+.matrix-rain span:nth-child(4) { animation-delay: -3s;  animation-duration: 20s; }
+.matrix-rain span:nth-child(5) { animation-delay: -14s; animation-duration: 25s; opacity: 0.50; }
+.matrix-rain span:nth-child(6) { animation-delay: -7s;  animation-duration: 30s; opacity: 0.35; }
+.matrix-rain span:nth-child(7) { animation-delay: -18s; animation-duration: 23s; }
+.matrix-rain span:nth-child(8) { animation-delay: -2s;  animation-duration: 26s; opacity: 0.45; }
 
 @keyframes matrix-fall {
-  from {
-    transform: translateY(-12%);
-  }
-  to {
-    transform: translateY(12%);
-  }
+  0%   { transform: translateY(-25%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(25%); opacity: 0; }
 }
 
 .terminal-shell {
@@ -141,7 +137,6 @@ main {
   gap: 0.35rem;
 }
 
-.brand-mark,
 .section-kicker,
 .eyebrow,
 .panel-label,
@@ -152,14 +147,21 @@ main {
   font-family: var(--font-mono);
 }
 
-.brand-mark,
+.brand-mark {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-h);
+  line-height: 1.2;
+}
+
 .section-kicker,
 .eyebrow,
 .panel-label {
   font-size: 0.78rem;
   line-height: 1.4;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.06em;
   color: var(--accent-strong);
   text-shadow: 0 0 18px rgba(126, 196, 255, 0.16);
 }
@@ -245,7 +247,7 @@ main {
 }
 
 .button:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .button-primary {
@@ -254,10 +256,20 @@ main {
   box-shadow: 0 0 0 1px rgba(160, 217, 255, 0.35), 0 18px 50px rgba(54, 123, 255, 0.2);
 }
 
+.button-primary:hover {
+  background: linear-gradient(135deg, #f0f8ff 0%, #b8dfff 100%);
+  box-shadow: 0 0 0 1px rgba(180, 230, 255, 0.55), 0 22px 60px rgba(54, 123, 255, 0.32);
+}
+
 .button-secondary {
   color: var(--text-h);
   border: 1px solid rgba(126, 196, 255, 0.3);
   background: rgba(255, 255, 255, 0.03);
+}
+
+.button-secondary:hover {
+  border-color: rgba(126, 196, 255, 0.55);
+  background: rgba(126, 196, 255, 0.06);
 }
 
 .micro-proof {

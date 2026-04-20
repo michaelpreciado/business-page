@@ -83,16 +83,15 @@ function ParticleField() {
 function SceneContent() {
   return (
     <>
-      <fog attach="fog" args={["#05070c", 6, 14]} />
-      <ambientLight intensity={0.85} />
-      <directionalLight position={[4, 5, 3]} intensity={1.4} color="#d7e8ff" />
-      <pointLight position={[-4, -2, 2]} intensity={1.6} color="#4fd6ff" />
-      <pointLight position={[3, 2, -2]} intensity={1.1} color="#6d7dff" />
-      <Orb position={[-1.35, 0.35, 0.1]} color="#6ea8ff" scale={1.2} speed={0.9} />
-      <Orb position={[1.15, -0.55, -0.2]} color="#57e1d1" scale={0.8} speed={1.1} />
+      <fog attach="fog" args={["#05070c", 7, 16]} />
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[4, 5, 3]} intensity={1.2} color="#d7e8ff" />
+      <pointLight position={[-4, -2, 2]} intensity={1.4} color="#4fd6ff" />
+      <pointLight position={[3, 2, -2]} intensity={0.9} color="#6d7dff" />
+      <Orb position={[0, 0.1, 0]} color="#6ea8ff" scale={1.1} speed={0.9} />
       <Ring />
       <ParticleField />
-      <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.45} />
+      <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.35} />
     </>
   )
 }
