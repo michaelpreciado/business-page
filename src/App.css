@@ -2,7 +2,7 @@
   position: relative;
   width: min(1180px, calc(100% - 2rem));
   margin: 0 auto;
-  padding: 1.2rem 0 2.5rem;
+  padding: max(1rem, env(safe-area-inset-top)) 0 max(2.75rem, env(safe-area-inset-bottom)) 0;
 }
 
 .topbar {
@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 1.4rem 0.25rem;
+  padding: 1.1rem 0.25rem 1.25rem;
 }
 
 .brand-block {
@@ -702,11 +702,11 @@
 @media (max-width: 640px) {
   .page {
     width: 100%;
-    padding: 0.75rem 1rem 2rem;
+    padding: max(0.5rem, env(safe-area-inset-top)) 1rem calc(2.2rem + env(safe-area-inset-bottom));
   }
 
   .topbar {
-    padding: 0.75rem 0;
+    padding: 0.55rem 0 0.9rem;
   }
 
   .topbar-links {
@@ -714,7 +714,8 @@
   }
 
   .hero-section {
-    padding: 2.8rem 0 2.4rem;
+    padding: 2.1rem 0 2rem;
+    gap: 1.4rem;
   }
 
   .hero-term__body {
@@ -735,7 +736,7 @@
   }
 
   .section-block {
-    padding: 3rem 0;
+    padding: 2.35rem 0;
   }
 
 .visual-frame {
@@ -755,7 +756,7 @@
   }
 
   .cta-section {
-    padding: 3.5rem 0 3rem;
+    padding: 3rem 0 calc(2.75rem + env(safe-area-inset-bottom));
   }
 
   .hero-lead,
@@ -779,5 +780,24 @@
 
   .hero-actions {
     flex-direction: column;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 640px) {
+    .button,
+    .topbar-link {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .visual-card,
+    .hero-panel,
+    .signal-card,
+    .trust-card,
+    .process-card,
+    .principles-card,
+    .credibility-panel {
+      background: linear-gradient(180deg, rgba(13, 18, 32, 0.68), rgba(8, 12, 22, 0.82));
+    }
   }
 }
