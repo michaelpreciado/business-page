@@ -234,18 +234,24 @@ function App() {
           </div>
 
           <div className="visual-grid">
-            {visuals.map((item) => (
-              <article key={item.title} className="visual-card">
-                <div className={`visual-frame ${item.label === 'founder' ? 'portrait-frame' : ''}`}>
-                  <img src={item.src} alt={item.alt} loading="lazy" />
-                </div>
-                <div className="visual-copy">
-                  <span className="panel-label">{item.label}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-              </article>
-            ))}
+            {visuals.map((item) => {
+              const isFounder = item.label === 'founder'
+
+              return (
+                <article key={item.title} className={`visual-card ${isFounder ? 'founder-card' : ''}`}>
+                  <div className="visual-copy visual-copy-top">
+                    <span className="panel-label">{item.label}</span>
+                    <h3>{item.title}</h3>
+                  </div>
+                  <div className={`visual-frame ${isFounder ? 'portrait-frame' : ''}`}>
+                    <img src={item.src} alt={item.alt} loading="lazy" />
+                  </div>
+                  <div className="visual-copy visual-copy-bottom">
+                    <p>{item.description}</p>
+                  </div>
+                </article>
+              )
+            })}
           </div>
         </section>
 

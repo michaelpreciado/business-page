@@ -572,12 +572,13 @@
 }
 
 .portrait-frame {
-  aspect-ratio: 4 / 3.55;
-  max-width: 78%;
+  aspect-ratio: 4 / 3.08;
+  max-width: 82%;
 }
 
 .portrait-frame img {
-  object-position: center 18%;
+  object-position: center 16%;
+  transform: scale(1.34);
 }
 
 .visual-frame img {
@@ -585,12 +586,28 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: saturate(0.88) contrast(1.02) brightness(0.94);
-  opacity: 0.9;
+  filter: saturate(0.96) contrast(1.05) brightness(0.9);
+  opacity: 0.92;
 }
 
 .visual-copy {
   padding: 1rem 1.25rem 1.35rem;
+}
+
+.visual-copy-top {
+  padding-bottom: 0.65rem;
+}
+
+.visual-copy-top .panel-label {
+  margin-bottom: 0.55rem;
+}
+
+.visual-copy-top h3 {
+  margin-bottom: 0;
+}
+
+.visual-copy-bottom {
+  padding-top: 0.9rem;
 }
 
 /* ============== CTA ============== */
@@ -717,8 +734,8 @@
   }
 
   .portrait-frame {
-    max-width: 72%;
-    aspect-ratio: 4 / 3.7;
+    max-width: 78%;
+    aspect-ratio: 4 / 3.18;
   }
 
   .brand-note,
