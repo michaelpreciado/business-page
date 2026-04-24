@@ -146,6 +146,14 @@ function App() {
           <div className="hero-aura" aria-hidden="true" />
 
           <div className="hero-copy">
+            <div className="hero-avatar">
+              <img
+                src="/images/michael-outdoors-cropped.jpg"
+                alt="Michael Preciado"
+                width="72"
+                height="72"
+              />
+            </div>
             <p className="eyebrow">AI consultant &amp; builder · @preciado.tech</p>
             <h1>
               Sharpen the systems that feel{' '}
