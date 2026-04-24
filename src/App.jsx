@@ -146,20 +146,21 @@ function App() {
           <div className="hero-aura" aria-hidden="true" />
 
           <div className="hero-copy">
-            <div className="hero-avatar">
-              <img
-                src="/images/michael-outdoors-cropped.jpg"
-                alt="Michael Preciado"
-                width="72"
-                height="72"
-              />
-            </div>
             <p className="eyebrow">AI consultant &amp; builder · @preciado.tech</p>
-            <h1>
-              Sharpen the systems that feel{' '}
-              <span className="gradient-text">slower, messier,</span>{' '}
-              and heavier than they should.
-            </h1>
+            <div className="hero-headline-row">
+              <h1>
+                Build real AI systems. Automate the friction.{' '}
+                <span className="gradient-text">Create leverage.</span>
+              </h1>
+              <div className="hero-avatar">
+                <img
+                  src="/images/michael-outdoors-cropped.jpg"
+                  alt="Michael Preciado"
+                  width="96"
+                  height="96"
+                />
+              </div>
+            </div>
             <p className="hero-text hero-lead">
               Preciado Tech helps founders, creators, and small teams clean up workflows,
               automate repetitive work, and build sharper digital experiences that earn trust faster.
