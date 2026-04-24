@@ -1,5 +1,9 @@
 import './App.css'
 import { lazy, Suspense } from 'react'
+import GrainOverlay from './components/GrainOverlay'
+import SpotlightCard from './components/SpotlightCard'
+import Marquee from './components/Marquee'
+import AnimatedSection from './components/AnimatedSection'
 
 const HeroTerminal = lazy(() => import('./components/HeroTerminal'))
 
@@ -76,26 +80,46 @@ const proofItems = [
   },
 ]
 
-const visuals = [
+const builds = [
   {
-    src: '/images/michael-outdoors-cropped.jpg',
-    alt: 'Michael Preciado outdoors at dusk in a mountain setting.',
-    label: 'founder',
-    title: 'Operator taste with technical follow-through',
-    description: 'The value is not just tools. It is judgment, restraint, and the ability to turn messy ideas into usable systems that hold up.',
+    id: 'openclaw',
+    label: 'robotics',
+    icon: '🦾',
+    title: 'OpenClaw',
+    description:
+      'Open-source cable-driven robotic gripper. Custom PCB design, servo control, and 3D-printable parts — built for makers and researchers.',
   },
   {
-    src: '/images/create-graphic.jpg',
-    alt: 'Minimal black graphic with two hands reaching toward a folder labeled create.',
-    label: 'studio',
-    title: 'Creative direction tied to real output',
-    description: 'Visual polish matters most when it supports trust, clarity, and the next decision a customer needs to make.',
+    id: 'friday',
+    label: 'local AI',
+    icon: '🤖',
+    title: 'F.R.I.D.A.Y.',
+    description:
+      'On-device AI assistant stack. Privacy-first, runs fully offline on consumer hardware with local LLMs.',
+  },
+  {
+    id: 'robotarm',
+    label: 'hardware',
+    icon: '⚙️',
+    title: 'Robot Arm',
+    description:
+      '6-DOF arm with custom kinematics, ROS2 integration, and a Python control interface. Built to learn, iterate, and ship.',
+  },
+  {
+    id: 'aiflows',
+    label: 'ai.systems',
+    icon: '⚡',
+    title: 'AI workflows in production',
+    description:
+      'Real automation systems running for founders and creators — not demos. Built to stay useful without babysitting.',
   },
 ]
 
 function App() {
   return (
     <div className="page">
+      <GrainOverlay />
+
       <header className="topbar">
         <div className="brand-block">
           <span className="brand-mark">Preciado Tech</span>
@@ -112,17 +136,28 @@ function App() {
       </header>
 
       <main>
+        {/* ——— Hero ——— */}
         <section className="hero-section">
+          <div className="hero-blobs" aria-hidden="true">
+            <div className="hero-blob hero-blob-1" />
+            <div className="hero-blob hero-blob-2" />
+            <div className="hero-blob hero-blob-3" />
+          </div>
           <div className="hero-aura" aria-hidden="true" />
+
           <div className="hero-copy">
-            <p className="eyebrow">Remote studio · Practical AI &amp; automation</p>
-            <h1>Sharpen the business systems that feel slower, messier, and heavier than they should.</h1>
+            <p className="eyebrow">AI consultant &amp; builder · @preciado.tech</p>
+            <h1>
+              Sharpen the systems that feel{' '}
+              <span className="gradient-text">slower, messier,</span>{' '}
+              and heavier than they should.
+            </h1>
             <p className="hero-text hero-lead">
               Preciado Tech helps founders, creators, and small teams clean up workflows,
               automate repetitive work, and build sharper digital experiences that earn trust faster.
             </p>
             <p className="hero-text hero-support">
-              The work is simple in spirit, reduce drag, create leverage, and make the business feel more composed.
+              The work is simple in spirit — reduce drag, create leverage, and make the business feel more composed.
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="mailto:michael@preciadotech.com?subject=Preciado%20Tech%20Inquiry">
@@ -170,35 +205,61 @@ function App() {
           </aside>
         </section>
 
-        <section className="section-block trust-strip">
-          <div className="trust-card">
+        {/* ——— Marquee ——— */}
+        <Marquee />
+
+        {/* ——— Trust strip ——— */}
+        <AnimatedSection className="section-block trust-strip">
+          <SpotlightCard as="div" className="trust-card">
             <p className="section-kicker">What we do</p>
             <h2>Business systems work with a strong bias toward clarity, utility, and real adoption.</h2>
             <p className="section-text narrow-left">
               This is not a hype-first AI shop. The work is about making useful systems, cleaner operations,
               and stronger digital presentation so the business becomes easier to run and easier to trust.
             </p>
-          </div>
-        </section>
+          </SpotlightCard>
+        </AnimatedSection>
 
-        <section className="section-block proof-section">
+        {/* ——— What I'm building ——— */}
+        <AnimatedSection className="section-block">
+          <div className="section-heading wide">
+            <p className="section-kicker">What I'm building</p>
+            <h2>Hardware, AI systems, and open tools — built in public.</h2>
+          </div>
+          <div className="bento-grid">
+            {builds.map((build) => (
+              <SpotlightCard
+                key={build.id}
+                className={`bento-card bento-${build.id}`}
+              >
+                <div className="bento-icon" aria-hidden="true">{build.icon}</div>
+                <span className="bento-tag">{build.label}</span>
+                <h3>{build.title}</h3>
+                <p>{build.description}</p>
+              </SpotlightCard>
+            ))}
+          </div>
+        </AnimatedSection>
+
+        {/* ——— Proof ——— */}
+        <AnimatedSection className="section-block proof-section">
           <div className="section-heading wide proof-heading">
             <p className="section-kicker">Proof</p>
             <h2>The work sits where speed, clarity, and business trust overlap.</h2>
           </div>
-
           <div className="proof-grid">
             {proofItems.map((item) => (
-              <article key={item.title} className="proof-card">
+              <SpotlightCard key={item.title} className="proof-card">
                 <span className="panel-label">{item.label}</span>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-              </article>
+              </SpotlightCard>
             ))}
           </div>
-        </section>
+        </AnimatedSection>
 
-        <section className="section-block section-intro-split">
+        {/* ——— Services ——— */}
+        <AnimatedSection className="section-block section-intro-split">
           <div className="section-heading wide">
             <p className="section-kicker">Services</p>
             <h2>Focused help where operational friction and digital trust overlap.</h2>
@@ -207,22 +268,23 @@ function App() {
             The strongest work usually sits at the intersection of workflow, automation, and presentation,
             where a small system fix can improve speed internally and credibility externally at the same time.
           </p>
-        </section>
+        </AnimatedSection>
 
-        <section className="service-grid">
+        <AnimatedSection className="service-grid" delay={0.05}>
           {services.map((service) => (
-            <article key={service.title} className="service-card">
+            <SpotlightCard key={service.title} className="service-card">
               <div className="service-topline">
                 <span className="service-index">{service.index}</span>
                 <span className="service-rule" />
               </div>
               <h3>{service.title}</h3>
               <p>{service.description}</p>
-            </article>
+            </SpotlightCard>
           ))}
-        </section>
+        </AnimatedSection>
 
-        <section className="section-block process-layout">
+        {/* ——— Process ——— */}
+        <AnimatedSection className="section-block process-layout">
           <div className="process-copy">
             <p className="section-kicker">Process</p>
             <h2>Start with the friction, then build the right fix.</h2>
@@ -234,16 +296,17 @@ function App() {
 
           <div className="process-list">
             {process.map((item) => (
-              <article key={item.step} className="process-card">
+              <SpotlightCard key={item.step} className="process-card">
                 <h3>{item.step}</h3>
                 <p>{item.detail}</p>
-              </article>
+              </SpotlightCard>
             ))}
           </div>
-        </section>
+        </AnimatedSection>
 
-        <section className="section-block principles-layout">
-          <div className="principles-card">
+        {/* ——— Principles ——— */}
+        <AnimatedSection className="section-block principles-layout">
+          <SpotlightCard as="div" className="principles-card">
             <p className="section-kicker">Why it works</p>
             <h2>Useful first, cleanly designed, and built to hold up in real business use.</h2>
             <ul className="prompt-list">
@@ -251,46 +314,76 @@ function App() {
                 <li key={point}>{point}</li>
               ))}
             </ul>
-          </div>
+          </SpotlightCard>
 
-          <div className="credibility-panel">
+          <SpotlightCard as="div" className="credibility-panel">
             <p className="panel-label">Studio posture</p>
             <p>
               Small by choice, remote by default, and focused on thoughtful systems work that creates leverage
               without turning the business into a science experiment.
             </p>
+          </SpotlightCard>
+        </AnimatedSection>
+
+        {/* ——— Content / TikTok ——— */}
+        <AnimatedSection className="section-block">
+          <div className="content-card">
+            <div className="content-copy">
+              <p className="section-kicker">Content</p>
+              <h2>AI, robotics, and maker builds — documented on TikTok.</h2>
+              <p className="section-text">
+                Short-form content about real projects: what works, what breaks, and what it actually takes to
+                ship AI systems and hardware builds in the open.
+              </p>
+              <a
+                className="button button-secondary"
+                href="https://www.tiktok.com/@preciado.tech"
+                target="_blank"
+                rel="noreferrer"
+              >
+                @preciado.tech on TikTok →
+              </a>
+            </div>
+            <div className="content-visual" aria-hidden="true">
+              <div className="tiktok-frame">
+                <div className="tiktok-dot">▶</div>
+                <span className="tiktok-handle">@preciado.tech</span>
+              </div>
+            </div>
           </div>
-        </section>
+        </AnimatedSection>
 
-        <section className="section-block visuals-section">
-          <div className="section-heading wide visuals-heading">
-            <p className="section-kicker">Founder and studio</p>
-            <h2>Trust comes from taste, execution, and the ability to make complex work feel clear.</h2>
+        {/* ——— Photography ——— */}
+        <AnimatedSection className="section-block">
+          <div className="photography-card">
+            <div className="photography-img-wrap">
+              <img
+                src="/images/michael-outdoors.jpg"
+                alt="Michael Preciado outdoors in a mountain setting at dusk."
+                loading="lazy"
+              />
+            </div>
+            <div className="photography-copy">
+              <p className="section-kicker">Photography</p>
+              <h2>Portraits, landscapes, and editorial work.</h2>
+              <p className="section-text">
+                Visual storytelling alongside the technical work — landscapes, portraits, and editorial imagery
+                under the Mario Preciado Photography brand.
+              </p>
+              <a
+                className="button button-secondary"
+                href="https://www.michael-preciado.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                View photography →
+              </a>
+            </div>
           </div>
+        </AnimatedSection>
 
-          <div className="visual-grid">
-            {visuals.map((item) => {
-              const isFounder = item.label === 'founder'
-
-              return (
-                <article key={item.title} className={`visual-card ${isFounder ? 'founder-card' : ''}`}>
-                  <div className="visual-copy visual-copy-top">
-                    <span className="panel-label">{item.label}</span>
-                    <h3>{item.title}</h3>
-                  </div>
-                  <div className={`visual-frame ${isFounder ? 'portrait-frame' : ''}`}>
-                    <img src={item.src} alt={item.alt} loading="lazy" />
-                  </div>
-                  <div className="visual-copy visual-copy-bottom">
-                    <p>{item.description}</p>
-                  </div>
-                </article>
-              )
-            })}
-          </div>
-        </section>
-
-        <section className="section-block cta-section">
+        {/* ——— CTA ——— */}
+        <AnimatedSection className="section-block cta-section">
           <p className="section-kicker">Start here</p>
           <h2>If the business feels scattered, slow, or harder to manage than it should, that is the work.</h2>
           <p className="section-text narrow">
@@ -302,8 +395,24 @@ function App() {
               Start the conversation
             </a>
           </div>
-        </section>
+        </AnimatedSection>
       </main>
+
+      {/* ——— Footer ——— */}
+      <footer className="site-footer">
+        <span className="footer-mark">© 2025 Preciado Tech</span>
+        <nav className="footer-socials" aria-label="Social links">
+          <a href="https://www.tiktok.com/@preciado.tech" target="_blank" rel="noreferrer">
+            TikTok
+          </a>
+          <a href="https://www.michael-preciado.com" target="_blank" rel="noreferrer">
+            Photography
+          </a>
+          <a href="mailto:michael@preciadotech.com">
+            Email
+          </a>
+        </nav>
+      </footer>
     </div>
   )
 }
