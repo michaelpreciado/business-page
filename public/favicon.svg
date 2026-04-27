@@ -1,13 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="16" fill="#0B1020"/>
-  <rect x="8.5" y="8.5" width="47" height="47" rx="11.5" stroke="url(#paint0_linear)" stroke-opacity="0.28"/>
-  <path d="M20 19H36.5C42.8513 19 48 24.1487 48 30.5C48 36.8513 42.8513 42 36.5 42H28V50H20V19Z" fill="#F4F7FF"/>
-  <path d="M28 27H36C38.4853 27 40.5 29.0147 40.5 31.5C40.5 33.9853 38.4853 36 36 36H28V27Z" fill="#0B1020" fill-opacity="0.92"/>
-  <path d="M40.5 20L47 26.5" stroke="#82C1FF" stroke-width="3" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <defs>
-    <linearGradient id="paint0_linear" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A9CCFF"/>
-      <stop offset="1" stop-color="#4ED9CB"/>
-    </linearGradient>
+    <radialGradient id="sF" cx="30%" cy="30%" r="65%">
+      <stop offset="0%" style="stop-color:#9fe8ff"/>
+      <stop offset="40%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#006688"/>
+    </radialGradient>
   </defs>
+  <rect width="32" height="32" rx="6" fill="#030408"/>
+  <circle cx="16" cy="14" r="5" fill="url(#sF)"/>
+  <circle cx="10" cy="22" r="3.5" fill="#1e90ff"/>
+  <circle cx="22" cy="22" r="3.5" fill="#1e90ff"/>
+  <line x1="14" y1="17" x2="11" y2="20" stroke="#00d4ff" stroke-width="1" opacity="0.7"/>
+  <line x1="18" y1="17" x2="21" y2="20" stroke="#00d4ff" stroke-width="1" opacity="0.7"/>
+  <line x1="15" y1="18" x2="15" y2="20" stroke="#00d4ff" stroke-width="1" opacity="0.7"/>
 </svg>
