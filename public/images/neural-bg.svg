@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#030408"/>
+      <stop offset="50%" style="stop-color:#0a0d14"/>
+      <stop offset="100%" style="stop-color:#050608"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:0"/>
+    </radialGradient>
+    <filter id="blur-glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <g stroke="#00d4ff" stroke-width="1" opacity="0.4">
+    <line x1="100" y1="150" x2="300" y2="200"/>
+    <line x1="300" y1="200" x2="500" y2="150"/>
+    <line x1="500" y1="150" x2="700" y2="200"/>
+    <line x1="300" y1="200" x2="400" y2="350"/>
+    <line x1="400" y1="350" x2="500" y2="150"/>
+    <line x1="400" y1="350" x2="600" y2="400"/>
+    <line x1="600" y1="400" x2="700" y2="200"/>
+    <line x1="100" y1="400" x2="300" y2="350"/>
+    <line x1="300" y1="350" x2="400" y2="350"/>
+    <line x1="500" y1="450" x2="700" y2="400"/>
+    <line x1="400" y1="350" x2="500" y2="450"/>
+    <line x1="100" y1="150" x2="100" y2="400"/>
+    <line x1="700" y1="200" x2="700" y2="400"/>
+  </g>
+  <g fill="#00d4ff" filter="url(#blur-glow)">
+    <circle cx="100" cy="150" r="6"/>
+    <circle cx="300" cy="200" r="8"/>
+    <circle cx="500" cy="150" r="6"/>
+    <circle cx="700" cy="200" r="6"/>
+    <circle cx="400" cy="350" r="10"/>
+    <circle cx="600" cy="400" r="6"/>
+    <circle cx="100" cy="400" r="6"/>
+    <circle cx="500" cy="450" r="6"/>
+  </g>
+  <g fill="#a855f7" opacity="0.6">
+    <circle cx="250" cy="280" r="4"/>
+    <circle cx="450" cy="280" r="4"/>
+    <circle cx="350" cy="420" r="4"/>
+    <circle cx="550" cy="320" r="4"/>
+  </g>
+</svg>

@@ -23,6 +23,37 @@
   mix-blend-mode: overlay;
 }
 
+
+/* ── Hero Particles ──────────────────────────────────────── */
+.hero-particles {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+}
+.hero-particles span {
+  position: absolute; width: 4px; height: 4px;
+  background: radial-gradient(circle, #00d4ff 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  animation: float-particle 8s ease-in-out infinite;
+}
+.hero-particles span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+.hero-particles span:nth-child(2) { left: 20%; top: 60%; animation-delay: 1s; }
+.hero-particles span:nth-child(3) { left: 35%; top: 30%; animation-delay: 2s; }
+.hero-particles span:nth-child(4) { left: 50%; top: 70%; animation-delay: 0.5s; }
+.hero-particles span:nth-child(5) { left: 65%; top: 25%; animation-delay: 1.5s; }
+.hero-particles span:nth-child(6) { left: 75%; top: 55%; animation-delay: 2.5s; }
+.hero-particles span:nth-child(7) { left: 85%; top: 35%; animation-delay: 3s; }
+.hero-particles span:nth-child(8) { left: 90%; top: 75%; animation-delay: 0.8s; }
+.hero-particles span:nth-child(9) { left: 15%; top: 80%; animation-delay: 1.8s; }
+.hero-particles span:nth-child(10) { left: 60%; top: 85%; animation-delay: 2.2s; }
+.hero-particles span:nth-child(11) { left: 45%; top: 15%; animation-delay: 3.5s; }
+.hero-particles span:nth-child(12) { left: 78%; top: 90%; animation-delay: 4s; }
+
+@keyframes float-particle {
+  0% { opacity: 0; transform: translateY(20px) scale(0.5); }
+  50% { opacity: 0.8; transform: translateY(-30px) scale(1); }
+  100% { opacity: 0; transform: translateY(-60px) scale(0.3); }
+}
+
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); position: relative; z-index: 1; }
 
 /* ── TOPBAR ───────────────────────────────────────────── */
@@ -134,7 +165,17 @@ section { position: relative; z-index: 1; }
 }
 
 /* ── HERO ────────────────────────────────────────────── */
-.hero { padding: 100px 0 120px; position: relative; }
+.hero { padding: 100px 0 120px; position: relative; overflow: hidden; }
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: url('/images/neural-bg.svg') center/cover no-repeat;
+  opacity: 0.35;
+}
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.08) 0%, transparent 60%);
+}
+.hero .wrap { position: relative; z-index: 1; }
 .hero-grid {
   display: flex;
   flex-direction: column;
@@ -219,6 +260,27 @@ section { position: relative; z-index: 1; }
   display: inline-flex; align-items: center; gap: 12px;
   margin-bottom: 36px;
 }
+
+.kicker-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid oklch(0.82 0.09 255 / 0.3);
+  border-radius: 999px;
+  background: oklch(0.82 0.09 255 / 0.05);
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent);
+}
+.kicker-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: pulse-green 2s ease-in-out infinite;
+}
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 6px #22c55e; }
+  50% { box-shadow: 0 0 14px #22c55e, 0 0 24px #22c55e / 0.4; }
+}
+
 .hero-kicker .bar { width: 28px; height: 1px; background: var(--accent); opacity: 0.6; }
 
 .hero h1 .line { display: block; overflow: hidden; }
@@ -464,13 +526,15 @@ section { position: relative; z-index: 1; }
   margin-bottom: 64px;
 }
 .service-glyph {
-  width: 36px; height: 36px;
+  width: 56px; height: 56px;
   border: 1px solid var(--line-2);
-  border-radius: 10px;
+  border-radius: 14px;
   display: grid; place-items: center;
   color: var(--accent);
   transition: border-color 280ms ease, background 280ms ease;
+  overflow: hidden;
 }
+.service-glyph svg { width: 100%; height: 100%; }
 .service:hover .service-glyph {
   border-color: oklch(0.82 0.09 255 / 0.6);
   background: oklch(0.82 0.09 255 / 0.06);
@@ -1118,6 +1182,18 @@ footer::before {
   border: 1px solid oklch(0.82 0.09 255 / 0.6);
   display: grid; place-items: center; color: var(--accent);
   box-shadow: 0 0 32px oklch(0.78 0.18 260 / 0.3);
+}
+
+
+/* ── Gradient accent borders ─────────────────────────────── */
+.gradient-accent {
+  position: relative;
+}
+.gradient-accent::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(to right, transparent, #00d4ff, #a855f7, transparent);
+  opacity: 0.5;
 }
 
 /* ── Reveal on scroll ────────────────────────────────── */

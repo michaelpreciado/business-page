@@ -14,22 +14,44 @@ const Close = (p) => <Icon {...p} d={<><path d="M6 6l12 12"/><path d="M18 6 6 18
 const Check = (p) => <Icon {...p} d={<path d="M5 12l4 4 10-10"/>} />
 
 const GlyphWorkflow = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-    <circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="12" r="2"/>
-    <path d="M7 6c5 0 8 3 10 6"/><path d="M7 18c5 0 8-3 10-6"/>
+  <svg width="48" height="48" viewBox="0 0 64 64" fill="none">
+    <circle cx="32" cy="32" r="30" fill="#0a0d14" stroke="#00d4ff" strokeWidth="2"/>
+    <circle cx="20" cy="24" r="6" fill="#00d4ff"/>
+    <circle cx="44" cy="24" r="6" fill="#00d4ff"/>
+    <circle cx="32" cy="44" r="6" fill="#a855f7"/>
+    <line x1="20" y1="24" x2="32" y2="44" stroke="#00d4ff" strokeWidth="2"/>
+    <line x1="44" y1="24" x2="32" y2="44" stroke="#00d4ff" strokeWidth="2"/>
+    <line x1="20" y1="24" x2="44" y2="24" stroke="#00d4ff" strokeWidth="2"/>
   </svg>
 )
 const GlyphAutomation = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-    <rect x="4" y="4" width="7" height="7" rx="1.5"/>
-    <rect x="13" y="13" width="7" height="7" rx="1.5"/>
-    <path d="M11 7h4a2 2 0 0 1 2 2v4"/>
+  <svg width="48" height="48" viewBox="0 0 64 64" fill="none">
+    <circle cx="32" cy="32" r="30" fill="#0a0d14" stroke="#00d4ff" strokeWidth="2"/>
+    <rect x="16" y="20" width="32" height="24" rx="4" fill="none" stroke="#00d4ff" strokeWidth="2"/>
+    <circle cx="24" cy="32" r="4" fill="#00d4ff"/>
+    <circle cx="40" cy="32" r="4" fill="#a855f7"/>
+    <path d="M28 20 L28 16 L36 16 L36 20" stroke="#00d4ff" strokeWidth="2" fill="none"/>
+    <line x1="24" y1="32" x2="40" y2="32" stroke="#00d4ff" strokeWidth="2" strokeDasharray="4 2"/>
   </svg>
 )
+const HeroParticles = () => (
+  <div className="hero-particles" aria-hidden="true">
+    {[...Array(12)].map((_, i) => (
+      <span key={i} style={{ '--i': i }} />
+    ))}
+  </div>
+)
 const GlyphPresence = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-    <rect x="3" y="4" width="18" height="14" rx="2"/>
-    <path d="M3 9h18"/><path d="M8 14h4"/>
+  <svg width="48" height="48" viewBox="0 0 64 64" fill="none">
+    <circle cx="32" cy="32" r="30" fill="#0a0d14" stroke="#00d4ff" strokeWidth="2"/>
+    <rect x="12" y="18" width="40" height="28" rx="2" fill="none" stroke="#00d4ff" strokeWidth="2"/>
+    <line x1="12" y1="26" x2="52" y2="26" stroke="#00d4ff" strokeWidth="2"/>
+    <circle cx="18" cy="22" r="2" fill="#00d4ff"/>
+    <circle cx="24" cy="22" r="2" fill="#00d4ff"/>
+    <circle cx="30" cy="22" r="2" fill="#00d4ff"/>
+    <rect x="18" y="32" width="20" height="3" fill="#a855f7"/>
+    <rect x="18" y="38" width="28" height="3" fill="#00d4ff" opacity="0.6"/>
+    <rect x="18" y="44" width="16" height="3" fill="#00d4ff" opacity="0.4"/>
   </svg>
 )
 
@@ -65,12 +87,16 @@ const Hero = ({ onContact }) => {
 
   return (
     <section className="hero" id="top">
+      <div className="hero-bg" />
+      <HeroParticles />
       <div className="wrap">
         <div className="hero-grid">
           <div className="hero-text">
             <div className="hero-kicker reveal in">
-              <span className="bar" />
-              <span>AI engineering · workflows · automation</span>
+              <span className="kicker-badge">
+                <span className="kicker-dot" />
+                Now serving early customers
+              </span>
             </div>
 
             <div className="hero-headline-row">
@@ -238,7 +264,7 @@ const ServiceCard = ({ s }) => {
 }
 
 const Services = () => (
-  <section className="services" id="services">
+  <section className="services gradient-accent" id="services">
     <div className="wrap">
       <div className="services-intro reveal">
         <div>
@@ -317,7 +343,7 @@ const FITS = [
 ]
 
 const Offers = () => (
-  <section className="offers" id="offers">
+  <section className="offers gradient-accent" id="offers">
     <div className="wrap">
       <div className="offers-head reveal">
         <div>
