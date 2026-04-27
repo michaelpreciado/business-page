@@ -72,11 +72,25 @@ const Hero = ({ onContact }) => {
               <span>AI engineering · workflows · automation</span>
             </div>
 
-            <h1 ref={h1Ref}>
-              <span className="line"><span>Build smarter</span></span>
-              <span className="line"><span>systems that create</span></span>
-              <span className="line"><span><em>leverage.</em></span></span>
-            </h1>
+            <div className="hero-headline-row">
+              <h1 ref={h1Ref}>
+                <span className="line"><span>Build smarter</span></span>
+                <span className="line"><span>systems that create</span></span>
+                <span className="line"><span><em>leverage.</em></span></span>
+              </h1>
+
+              <div className="portrait-frame portrait-inline reveal">
+                <img
+                  src="/images/michael-outdoors-cropped.jpg"
+                  alt="Michael Preciado"
+                  className="portrait-img"
+                />
+                <div className="portrait-meta">
+                  <span className="portrait-tag">Preciado Tech</span>
+                  <span className="portrait-name">AI Engineering Practice</span>
+                </div>
+              </div>
+            </div>
 
             <p className="hero-lede">
               <strong>Preciado Tech</strong> is an AI engineering practice for individuals and
@@ -93,20 +107,6 @@ const Hero = ({ onContact }) => {
               </a>
             </div>
           </div>
-
-          <aside className="hero-portrait reveal">
-            <div className="portrait-frame">
-              <img
-                src="/images/michael-outdoors-cropped.jpg"
-                alt="Michael Preciado"
-                className="portrait-img"
-              />
-              <div className="portrait-meta">
-                <span className="portrait-tag">Preciado Tech</span>
-                <span className="portrait-name">AI Engineering Practice</span>
-              </div>
-            </div>
-          </aside>
 
           <div className="hero-meta reveal">
             <div className="cell"><div className="k">Founded</div><div className="v">2024</div></div>

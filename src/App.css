@@ -124,19 +124,27 @@ section { position: relative; z-index: 1; }
 /* ── HERO ────────────────────────────────────────────── */
 .hero { padding: 80px 0 120px; position: relative; }
 .hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
-  gap: 80px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
-.hero-text { max-width: 540px; }
+.hero-text { max-width: 900px; }
+
+/* h1 + portrait side by side */
+.hero-headline-row {
+  display: flex;
+  align-items: stretch;
+  gap: 40px;
+  margin-bottom: 0;
+}
+.hero-headline-row h1 {
+  flex: 1;
+}
+
 @media (max-width: 760px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-  .hero-text { max-width: none; }
+  .hero-headline-row { gap: 24px; }
 }
 
 /* Brand portrait */
-.hero-portrait { position: relative; }
 .portrait-frame {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -144,6 +152,20 @@ section { position: relative; z-index: 1; }
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--panel);
+}
+
+/* Inline portrait — same height as the h1, fixed width */
+.portrait-inline {
+  aspect-ratio: unset;
+  width: 180px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+@media (max-width: 760px) {
+  .portrait-inline { width: 120px; }
+}
+@media (max-width: 480px) {
+  .portrait-inline { display: none; }
 }
 .portrait-img {
   position: absolute; inset: 0;
@@ -227,7 +249,6 @@ section { position: relative; z-index: 1; }
 
 /* Hero metrics strip */
 .hero-meta {
-  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
