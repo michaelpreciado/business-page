@@ -49,14 +49,16 @@
   text-decoration: none; color: var(--ink);
 }
 .brand-logo {
-  width: 44px; height: 44px;
+  width: 48px; height: 48px;
   flex-shrink: 0;
   opacity: 0.95;
   transition: opacity 220ms ease, transform 220ms ease;
+  filter: drop-shadow(0 0 8px rgba(30, 144, 255, 0.3));
 }
 .brand:hover .brand-logo {
   opacity: 1;
   transform: scale(1.05);
+  filter: drop-shadow(0 0 12px rgba(30, 144, 255, 0.5));
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1.05; }
 .brand-name {
