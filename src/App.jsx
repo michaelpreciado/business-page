@@ -777,6 +777,7 @@ function App() {
   return (
     <>
       <div className="ambient" aria-hidden="true" />
+      <div className="matrix-grid" aria-hidden="true" />
       <div className="scroll-progress" style={{ transform: `scaleX(${scrollPct / 100})` }} />
       <MatrixCanvas />
       <Topbar onContact={() => setModal(true)} />
