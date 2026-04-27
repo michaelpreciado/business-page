@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import './App.css'
 
 /* ─── Icon primitives ─── */
@@ -41,7 +41,7 @@ const Topbar = ({ onContact }) => (
         <img src="/preciado-logo.svg" alt="Preciado Tech" className="brand-logo" />
         <span className="brand-text">
           <span className="brand-name">Preciado Tech</span>
-          <span className="brand-tag">Practical AI workflows, automation &amp; digital tools</span>
+          <span className="brand-tag">Practical AI systems for real work</span>
         </span>
       </a>
       <nav className="topbar-right">
@@ -74,9 +74,9 @@ const Hero = ({ onContact }) => {
 
             <div className="hero-headline-row">
               <h1 ref={h1Ref}>
-                <span className="line"><span>Build smarter</span></span>
-                <span className="line"><span>systems that create</span></span>
-                <span className="line"><span><em>leverage.</em></span></span>
+                <span className="line"><span>Practical AI systems</span></span>
+                <span className="line"><span>for teams that want</span></span>
+                <span className="line"><span>less <em>manual work.</em></span></span>
               </h1>
 
               <div className="portrait-frame portrait-inline reveal">
@@ -93,26 +93,26 @@ const Hero = ({ onContact }) => {
             </div>
 
             <p className="hero-lede">
-              <strong>Preciado Tech</strong> is an AI engineering practice for individuals and
-              small teams. Custom assistants, automations, and the digital tools around them —
-              built to reduce friction and create durable leverage.
+              <strong>Preciado Tech</strong> helps creators, operators, and small teams turn
+              repetitive work into clear workflows, lightweight automations, custom assistants,
+              and digital tools that are actually usable after the demo.
             </p>
 
             <div className="hero-ctas">
               <button className="btn btn-primary" onClick={onContact}>
-                Start a project <ArrowRight size={15} className="arrow" />
+                Send me the task you hate doing <ArrowRight size={15} className="arrow" />
               </button>
-              <a className="btn btn-ghost" href="#services">
-                What I build
+              <a className="btn btn-ghost" href="#offers">
+                See practical offers
               </a>
             </div>
           </div>
 
           <div className="hero-meta reveal">
             <div className="cell"><div className="k">Founded</div><div className="v">2024</div></div>
-            <div className="cell"><div className="k">Discipline</div><div className="v">AI · Ops · Web</div></div>
-            <div className="cell"><div className="k">Team size</div><div className="v">Small, sharp</div></div>
-            <div className="cell"><div className="k">Mode</div><div className="v">Fully remote</div></div>
+            <div className="cell"><div className="k">Focus</div><div className="v">AI · Ops · Web</div></div>
+            <div className="cell"><div className="k">Best fit</div><div className="v">Small teams</div></div>
+            <div className="cell"><div className="k">Mode</div><div className="v">Remote-first</div></div>
           </div>
         </div>
       </div>
@@ -195,12 +195,206 @@ const Services = () => (
   </section>
 )
 
+/* ─── Offers ─── */
+const OFFERS = [
+  {
+    name: 'AI Workflow Audit',
+    promise: 'Map the repetitive work, identify realistic AI leverage, and leave with a practical automation plan.',
+    bestFor: 'Teams that know work is leaking time but are not sure what to automate first.',
+    includes: ['workflow walkthrough', 'tooling recommendations', 'implementation roadmap'],
+  },
+  {
+    name: 'Automation Sprint',
+    promise: 'Turn one annoying recurring process into a lightweight tool, script, or connected workflow.',
+    bestFor: 'Small teams, creators, and operators with manual handoffs, spreadsheet glue, or follow-up debt.',
+    includes: ['scoped build', 'API/tool integration', 'handoff notes'],
+  },
+  {
+    name: 'Custom Assistant Build',
+    promise: 'Design an AI assistant around your notes, project context, research flow, or internal process.',
+    bestFor: 'People who want AI to work with their real context instead of another blank chat box.',
+    includes: ['prompt/system design', 'knowledge workflow', 'safe operating boundaries'],
+  },
+  {
+    name: 'Digital Presence Polish',
+    promise: 'Upgrade a website, portfolio, or landing page so the offer is clearer and the execution feels credible.',
+    bestFor: 'Builders and small businesses whose work is better than their current web presence suggests.',
+    includes: ['copy + hierarchy', 'responsive UI polish', 'deployment cleanup'],
+  },
+]
+
+const FITS = [
+  'small teams with repetitive operations',
+  'solo founders and creators building real projects',
+  'local businesses that need practical automation',
+  'professionals trying to make AI useful at work',
+  'builders who want their digital presence to match their capability',
+]
+
+const Offers = () => (
+  <section className="offers" id="offers">
+    <div className="wrap">
+      <div className="offers-head reveal">
+        <div>
+          <div className="section-head">
+            <span className="eyebrow">Ways to work</span>
+            <span className="eyebrow-num">§ 02</span>
+            <span className="divider" />
+          </div>
+          <h2>Clear scopes for useful<br />AI and automation work.</h2>
+        </div>
+        <p>
+          The best engagements start small: find the friction, ship something useful,
+          and improve it after it touches real work.
+        </p>
+      </div>
+
+      <div className="offers-layout">
+        <div className="offer-list">
+          {OFFERS.map((offer, index) => (
+            <article className="offer reveal" key={offer.name}>
+              <div className="offer-num">0{index + 1}</div>
+              <div>
+                <h3>{offer.name}</h3>
+                <p>{offer.promise}</p>
+                <div className="offer-best">Best for: {offer.bestFor}</div>
+                <div className="offer-includes">
+                  {offer.includes.map((item) => <span key={item}>{item}</span>)}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <aside className="fit-card reveal">
+          <div className="card-label">Who this fits</div>
+          <p>
+            Preciado Tech is strongest where software, operations, AI tooling, and presentation meet.
+          </p>
+          <ul>
+            {FITS.map((fit) => <li key={fit}>{fit}</li>)}
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+)
+
+/* ─── Selected builds ─── */
+const BUILDS = [
+  {
+    name: 'Planter',
+    type: 'Local-first product',
+    summary: 'A botanical journal prototype with offline-minded plant records, care notes, progress photos, and AI-ready product thinking.',
+    outcome: 'Shows product judgment, mobile polish, and practical AI app direction.',
+    stack: ['React', 'TypeScript', 'Vercel'],
+    href: 'https://github.com/michaelpreciado/Planter',
+  },
+  {
+    name: 'Photography Portfolio',
+    type: 'Digital presence',
+    summary: 'A production-ready portfolio focused on visual clarity, optimized assets, and a polished public presentation layer.',
+    outcome: 'Connects technical execution with taste, brand feel, and fast static deployment.',
+    stack: ['React', 'Vite', 'Design systems'],
+    href: 'https://github.com/michaelpreciado/photography-portfolio',
+  },
+  {
+    name: 'Interactive Solar System',
+    type: 'Immersive interface',
+    summary: 'A 3D educational experience built around spatial interaction, motion, and approachable technical storytelling.',
+    outcome: 'Demonstrates front-end range beyond standard marketing pages.',
+    stack: ['TypeScript', 'Three.js', 'React'],
+    href: 'https://github.com/michaelpreciado/Interactive_Solar_System',
+  },
+]
+
+const BuildCard = ({ build, index }) => (
+  <a className="build-card reveal" href={build.href} target="_blank" rel="noreferrer">
+    <div className="build-index">0{index + 1}</div>
+    <div className="build-content">
+      <div className="build-type">{build.type}</div>
+      <h3>{build.name}</h3>
+      <p>{build.summary}</p>
+      <div className="build-outcome">{build.outcome}</div>
+      <div className="build-stack">
+        {build.stack.map((item) => <span key={item}>{item}</span>)}
+      </div>
+    </div>
+    <div className="build-arrow"><ArrowUpRight size={16} /></div>
+  </a>
+)
+
+const Builds = () => (
+  <section className="builds" id="work">
+    <div className="wrap">
+      <div className="builds-grid">
+        <div className="builds-copy reveal">
+          <div className="section-head">
+            <span className="eyebrow">Selected builds</span>
+            <span className="eyebrow-num">§ 03</span>
+            <span className="divider" />
+          </div>
+          <h2>Proof that the work<br />can leave the slide deck.</h2>
+          <p>
+            Preciado Tech is grounded in shipped interfaces, prototypes, and polished digital
+            systems — the same mix of clarity, usefulness, and presentation that client work needs.
+          </p>
+        </div>
+        <div className="builds-list">
+          {BUILDS.map((build, index) => <BuildCard key={build.name} build={build} index={index} />)}
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
+/* ─── Case study ─── */
+const CaseStudy = () => (
+  <section className="case-study" id="case-study">
+    <div className="wrap">
+      <div className="case-card reveal">
+        <div className="case-kicker">Internal case study · Planter</div>
+        <div className="case-grid">
+          <div>
+            <h2>A local-first plant journal built like a real product.</h2>
+            <p className="case-lede">
+              Planter started as a personal botanical app and became a useful signal for how
+              Preciado Tech thinks: simple data models, mobile-first flows, offline-minded UX,
+              and room for AI assistance without making the product feel gimmicky.
+            </p>
+            <div className="case-actions">
+              <a className="btn btn-primary" href="https://github.com/michaelpreciado/Planter" target="_blank" rel="noreferrer">
+                View the build <ArrowUpRight size={15} className="arrow" />
+              </a>
+              <a className="btn btn-ghost" href="#contact">Start something similar</a>
+            </div>
+          </div>
+          <div className="case-notes">
+            <div>
+              <span>Problem</span>
+              <p>Plant care notes, photos, and progress tracking usually live in scattered apps and camera rolls.</p>
+            </div>
+            <div>
+              <span>Build</span>
+              <p>A responsive journal experience for plant records, care activity, progress photos, and local-first product polish.</p>
+            </div>
+            <div>
+              <span>Transferable value</span>
+              <p>The same thinking applies to client tools: organize messy inputs, reduce friction, and make the system pleasant to use.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
 /* ─── How it works ─── */
 const STEPS = [
-  { n: '01', title: 'Find the friction', body: 'Walk through how you currently work and isolate what is repetitive, unclear, or held together by too much manual effort.' },
-  { n: '02', title: 'Design the system', body: 'Specify the workflow end-to-end — inputs, decisions, handoffs, outputs — before touching a single line of code.' },
-  { n: '03', title: 'Make it real', body: 'Ship tools, interfaces, and automations that plug into your existing stack and behave the way they were designed to.' },
-  { n: '04', title: 'Refine with use', body: 'Small, deliberate iterations once the system is in your hands. The work gets sharper the longer it runs.' },
+  { n: '01', title: '20-minute workflow call', body: 'Talk through the process that feels slow, brittle, repetitive, or unclear. No pitch deck required — just the real workflow.' },
+  { n: '02', title: 'Scope one painful process', body: 'Choose a focused problem with a clear output: a tool, assistant, automation, landing page, or internal workflow improvement.' },
+  { n: '03', title: 'Prototype the useful version', body: 'Build the smallest serious version that proves the system can help in the real world, not only in a demo.' },
+  { n: '04', title: 'Handoff and refine', body: 'Document how it works, clean up the rough edges, and iterate once it has touched real use.' },
 ]
 
 const How = () => (
@@ -210,14 +404,14 @@ const How = () => (
         <div>
           <div className="section-head reveal">
             <span className="eyebrow">How it works</span>
-            <span className="eyebrow-num">§ 02</span>
+            <span className="eyebrow-num">§ 04</span>
             <span className="divider" />
           </div>
-          <h2 className="reveal">Find the friction.<br />Design the system.<br /><em>Make it real.</em></h2>
+          <h2 className="reveal">One painful process.<br />One useful system.<br /><em>Then refine.</em></h2>
           <p className="how-lede reveal">
-            The work starts by identifying what is repetitive, unclear, or held together by too
-            much manual effort. From there, Preciado Tech designs workflows, tools, and
-            interfaces that quietly do the job — and then gets out of the way.
+            Engagements stay intentionally scoped. The goal is not to “AI transform” everything;
+            it is to find a concrete drag on the work, ship a practical improvement, and make it
+            easy to keep using.
           </p>
           <div className="steps">
             {STEPS.map((s) => (
@@ -253,14 +447,14 @@ const CTA = ({ onContact }) => (
     <div className="wrap">
       <div className="cta-card reveal">
         <div className="cta-eyebrow"><span className="bar" /> Start a conversation</div>
-        <h2>Describe the drag.<br />Leave with a <em>system</em>.</h2>
+        <h2>Send the task you hate doing.<br />Leave with an <em>automation plan</em>.</h2>
         <p className="cta-sub">
-          Tell Preciado Tech about the work that takes too long, breaks too often, or just
-          never feels finished. First reply usually lands inside a business day.
+          Tell Preciado Tech about one workflow that takes too long, breaks too often, or
+          keeps falling through the cracks. First reply usually lands inside a business day.
         </p>
         <div className="cta-actions">
           <button className="btn btn-primary" onClick={onContact}>
-            Book an intro call <ArrowRight size={15} className="arrow" />
+            Get an automation plan <ArrowRight size={15} className="arrow" />
           </button>
           <a className="btn btn-ghost" href="mailto:michael@preciadotech.com">
             michael@preciadotech.com
@@ -291,15 +485,17 @@ const ContactModal = ({ open, onClose }) => {
   const [errs, setErrs] = useState({})
   const [sent, setSent] = useState(false)
 
-  useEffect(() => {
-    const esc = (e) => e.key === 'Escape' && onClose()
-    if (open) window.addEventListener('keydown', esc)
-    return () => window.removeEventListener('keydown', esc)
-  }, [open, onClose])
+  const closeModal = useCallback(() => {
+    setSent(false)
+    setErrs({})
+    onClose()
+  }, [onClose])
 
   useEffect(() => {
-    if (!open) { setSent(false); setErrs({}) }
-  }, [open])
+    const esc = (e) => e.key === 'Escape' && closeModal()
+    if (open) window.addEventListener('keydown', esc)
+    return () => window.removeEventListener('keydown', esc)
+  }, [open, closeModal])
 
   const submit = (e) => {
     e.preventDefault()
@@ -314,9 +510,9 @@ const ContactModal = ({ open, onClose }) => {
   }
 
   return (
-    <div className={`modal-backdrop ${open ? 'open' : ''}`} onClick={onClose}>
+    <div className={`modal-backdrop ${open ? 'open' : ''}`} onClick={closeModal}>
       <div className="modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
-        <button className="modal-close" onClick={onClose} aria-label="Close"><Close size={14} /></button>
+        <button className="modal-close" onClick={closeModal} aria-label="Close"><Close size={14} /></button>
 
         {sent ? (
           <div className="success">
@@ -324,7 +520,7 @@ const ContactModal = ({ open, onClose }) => {
             <div className="modal-eyebrow">Message queued</div>
             <h3>Thanks — message received.</h3>
             <p>You'll get a reply from Preciado Tech within one business day.</p>
-            <button className="btn btn-ghost" onClick={onClose}>Close</button>
+            <button className="btn btn-ghost" onClick={closeModal}>Close</button>
           </div>
         ) : (
           <form onSubmit={submit} noValidate>
@@ -356,7 +552,7 @@ const ContactModal = ({ open, onClose }) => {
 
             <div className="modal-actions">
               <div className="spacer" />
-              <button type="button" className="btn btn-ghost" onClick={onClose}>Cancel</button>
+              <button type="button" className="btn btn-ghost" onClick={closeModal}>Cancel</button>
               <button type="submit" className="btn btn-primary">Send <ArrowRight size={14} className="arrow" /></button>
             </div>
           </form>
@@ -453,6 +649,9 @@ function App() {
       <main>
         <Hero onContact={() => setModal(true)} />
         <Services />
+        <Offers />
+        <Builds />
+        <CaseStudy />
         <How />
         <CTA onContact={() => setModal(true)} />
       </main>

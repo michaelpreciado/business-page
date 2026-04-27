@@ -1,0 +1,32 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="g1" cx="20%" cy="12%" r="70%">
+      <stop offset="0" stop-color="#375dff" stop-opacity="0.38"/>
+      <stop offset="0.62" stop-color="#07080b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="92%" cy="88%" r="58%">
+      <stop offset="0" stop-color="#7aa2ff" stop-opacity="0.22"/>
+      <stop offset="0.72" stop-color="#07080b" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="54" height="54" patternUnits="userSpaceOnUse">
+      <path d="M54 0H0V54" fill="none" stroke="rgba(255,255,255,0.055)" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="#07080b"/>
+  <rect width="1200" height="630" fill="url(#g1)"/>
+  <rect width="1200" height="630" fill="url(#g2)"/>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.75"/>
+  <circle cx="1010" cy="126" r="106" fill="none" stroke="#8fb0ff" stroke-opacity="0.32" stroke-width="1.5"/>
+  <circle cx="1010" cy="126" r="62" fill="none" stroke="#8fb0ff" stroke-opacity="0.24" stroke-width="1"/>
+  <g filter="url(#glow)">
+    <text x="84" y="116" fill="#8fb0ff" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="22" letter-spacing="5">PRECIADO TECH</text>
+    <text x="84" y="270" fill="#eef0f3" font-family="Georgia, 'Times New Roman', serif" font-size="82" letter-spacing="-2">Practical AI systems</text>
+    <text x="84" y="362" fill="#eef0f3" font-family="Georgia, 'Times New Roman', serif" font-size="82" letter-spacing="-2">for real work.</text>
+    <text x="88" y="438" fill="#b4bac4" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="30">Automation sprints · Custom assistants · Digital tools</text>
+    <text x="88" y="524" fill="#7a8290" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" letter-spacing="2">LESS MANUAL WORK / CLEARER SYSTEMS / BETTER HANDOFFS</text>
+  </g>
+</svg>
