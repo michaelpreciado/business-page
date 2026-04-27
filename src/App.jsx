@@ -1,428 +1,464 @@
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
-import { lazy, Suspense } from 'react'
-import GrainOverlay from './components/GrainOverlay'
-import SpotlightCard from './components/SpotlightCard'
-import Marquee from './components/Marquee'
-import AnimatedSection from './components/AnimatedSection'
 
-const HeroTerminal = lazy(() => import('./components/HeroTerminal'))
+/* ─── Icon primitives ─── */
+const Icon = ({ d, size = 18, stroke = 1.5 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">
+    {d}
+  </svg>
+)
+const ArrowUpRight = (p) => <Icon {...p} d={<><path d="M7 17 17 7"/><path d="M8 7h9v9"/></>} />
+const ArrowRight = (p) => <Icon {...p} d={<><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></>} />
+const Close = (p) => <Icon {...p} d={<><path d="M6 6l12 12"/><path d="M18 6 6 18"/></>} />
+const Check = (p) => <Icon {...p} d={<path d="M5 12l4 4 10-10"/>} />
 
-const services = [
-  {
-    index: '01',
-    title: 'AI workflow design',
-    description:
-      'Design assistants, research flows, and working systems that fit how you actually operate, not a generic template.',
-  },
-  {
-    index: '02',
-    title: 'Automation systems',
-    description:
-      'Remove repetitive admin, patch messy handoffs, and build lightweight tools that keep work moving without extra overhead.',
-  },
-  {
-    index: '03',
-    title: 'Websites that convert',
-    description:
-      'Create clear, sharp business pages and digital experiences that explain the offer fast and make the next step obvious.',
-  },
-]
+const GlyphWorkflow = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+    <circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="12" r="2"/>
+    <path d="M7 6c5 0 8 3 10 6"/><path d="M7 18c5 0 8-3 10-6"/>
+  </svg>
+)
+const GlyphAutomation = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+    <rect x="4" y="4" width="7" height="7" rx="1.5"/>
+    <rect x="13" y="13" width="7" height="7" rx="1.5"/>
+    <path d="M11 7h4a2 2 0 0 1 2 2v4"/>
+  </svg>
+)
+const GlyphPresence = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+    <rect x="3" y="4" width="18" height="14" rx="2"/>
+    <path d="M3 9h18"/><path d="M8 14h4"/>
+  </svg>
+)
 
-const outcomes = [
-  'Less manual follow-up and duplicated work',
-  'Clearer workflows your team can actually keep using',
-  'A more credible online presence that earns trust faster',
-]
+/* ─── Topbar ─── */
+const Topbar = ({ onContact }) => (
+  <header className="topbar">
+    <div className="wrap row">
+      <a className="brand" href="#top">
+        <span className="brand-mark" aria-hidden="true" />
+        <span className="brand-text">
+          <span className="brand-name">Preciado Tech</span>
+          <span className="brand-tag">Practical AI workflows, automation &amp; digital tools</span>
+        </span>
+      </a>
+      <nav className="topbar-right">
+        <span className="status"><span className="dot" />Taking Q2 projects</span>
+        <a className="top-cta" href="#contact" onClick={(e) => { e.preventDefault(); onContact() }}>
+          Start a conversation <ArrowUpRight size={14} className="arrow" />
+        </a>
+      </nav>
+    </div>
+  </header>
+)
 
-const process = [
-  {
-    step: 'Audit what feels heavy',
-    detail: 'Identify where the business is losing time, clarity, or credibility across workflow, tooling, and presentation.',
-  },
-  {
-    step: 'Design the better system',
-    detail: 'Turn the problem into a practical workflow, automation, or landing page with a clear purpose and clean scope.',
-  },
-  {
-    step: 'Build and refine',
-    detail: 'Ship something real, test it against the actual use case, and tighten it until it feels solid enough to keep.',
-  },
-]
+/* ─── Hero ─── */
+const Hero = ({ onContact }) => {
+  const h1Ref = useRef(null)
+  useEffect(() => {
+    const id = requestAnimationFrame(() => h1Ref.current?.classList.add('in'))
+    return () => cancelAnimationFrame(id)
+  }, [])
 
-const fit = [
-  'solo founders who need leverage without hiring a full team',
-  'creators and freelancers tired of scattered systems',
-  'small teams with operational drag and messy internal handoffs',
-  'businesses that want practical AI, not hype demos',
-]
-
-const proofPoints = [
-  'Operational systems designed around real working habits',
-  'Automation and internal tools with a strong bias toward simplicity',
-  'Clean visual presentation without sacrificing utility',
-]
-
-const proofItems = [
-  {
-    label: 'web.systems',
-    title: 'Business pages with sharper positioning',
-    description: 'Landing pages and brand surfaces designed to explain the offer faster and turn attention into action.',
-  },
-  {
-    label: 'ops.automation',
-    title: 'Internal systems that reduce repeated work',
-    description: 'Practical automation and lightweight tools that remove drag without making the workflow more fragile.',
-  },
-  {
-    label: 'ai.workflows',
-    title: 'AI setups built around real working habits',
-    description: 'Assistants, research flows, and operating systems designed for actual use, not demo theater.',
-  },
-]
-
-const builds = [
-  {
-    id: 'openclaw',
-    label: 'robotics',
-    icon: '🦾',
-    title: 'OpenClaw',
-    description:
-      'Open-source cable-driven robotic gripper. Custom PCB design, servo control, and 3D-printable parts — built for makers and researchers.',
-  },
-  {
-    id: 'friday',
-    label: 'local AI',
-    icon: '🤖',
-    title: 'F.R.I.D.A.Y.',
-    description:
-      'On-device AI assistant stack. Privacy-first, runs fully offline on consumer hardware with local LLMs.',
-  },
-  {
-    id: 'robotarm',
-    label: 'hardware',
-    icon: '⚙️',
-    title: 'Robot Arm',
-    description:
-      '6-DOF arm with custom kinematics, ROS2 integration, and a Python control interface. Built to learn, iterate, and ship.',
-  },
-  {
-    id: 'aiflows',
-    label: 'ai.systems',
-    icon: '⚡',
-    title: 'AI workflows in production',
-    description:
-      'Real automation systems running for founders and creators — not demos. Built to stay useful without babysitting.',
-  },
-]
-
-function App() {
   return (
-    <div className="page">
-      <GrainOverlay />
+    <section className="hero" id="top">
+      <div className="wrap">
+        <div className="hero-grid">
+          <div className="hero-text">
+            <div className="hero-kicker reveal in">
+              <span className="bar" />
+              <span>AI engineering · workflows · automation</span>
+            </div>
 
-      <header className="topbar">
-        <div className="brand-block">
-          <span className="brand-mark">Preciado Tech</span>
-          <span className="brand-note">Practical AI workflows, automation, and digital systems</span>
-        </div>
-        <div className="topbar-links">
-          <a className="topbar-link muted" href="https://www.michael-preciado.com/projects" target="_blank" rel="noreferrer">
-            Projects
-          </a>
-          <a className="topbar-link primary" href="mailto:michael@preciadotech.com?subject=Preciado%20Tech%20Inquiry">
-            Contact
-          </a>
-        </div>
-      </header>
+            <h1 ref={h1Ref}>
+              <span className="line"><span>Build smarter</span></span>
+              <span className="line"><span>systems that create</span></span>
+              <span className="line"><span><em>leverage.</em></span></span>
+            </h1>
 
-      <main>
-        {/* ——— Hero ——— */}
-        <section className="hero-section">
-          <div className="hero-blobs" aria-hidden="true">
-            <div className="hero-blob hero-blob-1" />
-            <div className="hero-blob hero-blob-2" />
-            <div className="hero-blob hero-blob-3" />
+            <p className="hero-lede">
+              <strong>Preciado Tech</strong> is an AI engineering practice for individuals and
+              small teams. Custom assistants, automations, and the digital tools around them —
+              built to reduce friction and create durable leverage.
+            </p>
+
+            <div className="hero-ctas">
+              <button className="btn btn-primary" onClick={onContact}>
+                Start a project <ArrowRight size={15} className="arrow" />
+              </button>
+              <a className="btn btn-ghost" href="#services">
+                What I build
+              </a>
+            </div>
           </div>
-          <div className="hero-aura" aria-hidden="true" />
 
-          <div className="hero-copy">
-            <p className="eyebrow">AI consultant &amp; builder · @preciado.tech</p>
-            <div className="hero-headline-row">
-              <h1>
-                Build real AI systems. Automate the friction.{' '}
-                <span className="gradient-text">Create leverage.</span>
-              </h1>
-              <div className="hero-avatar">
-                <img
-                  src="/images/michael-outdoors-cropped.jpg"
-                  alt="Michael Preciado"
-                  width="96"
-                  height="96"
-                />
+          <aside className="hero-portrait reveal">
+            <div className="portrait-frame">
+              <img
+                src="/images/michael-outdoors-cropped.jpg"
+                alt="Michael Preciado"
+                className="portrait-img"
+              />
+              <div className="portrait-meta">
+                <span className="portrait-tag">Preciado Tech</span>
+                <span className="portrait-name">AI Engineering Practice</span>
               </div>
-            </div>
-            <p className="hero-text hero-lead">
-              Preciado Tech helps founders, creators, and small teams clean up workflows,
-              automate repetitive work, and build sharper digital experiences that earn trust faster.
-            </p>
-            <p className="hero-text hero-support">
-              The work is simple in spirit — reduce drag, create leverage, and make the business feel more composed.
-            </p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="mailto:michael@preciadotech.com?subject=Preciado%20Tech%20Inquiry">
-                Talk through your workflow
-              </a>
-              <a
-                className="button button-secondary"
-                href="https://www.michael-preciado.com/projects"
-                target="_blank"
-                rel="noreferrer"
-              >
-                See project proof
-              </a>
-            </div>
-            <div className="micro-proof">
-              <span>AI workflows</span>
-              <span>Automation systems</span>
-              <span>Business websites</span>
-            </div>
-          </div>
-
-          <aside className="hero-rail">
-            <Suspense fallback={<div className="hero-term hero-term--fallback" aria-hidden="true" />}>
-              <HeroTerminal />
-            </Suspense>
-
-            <div className="hero-panel hero-panel-primary">
-              <span className="panel-label">Best fit for</span>
-              <ul className="prompt-list">
-                {fit.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="signal-card">
-              <div className="signal-line" />
-              <p className="signal-heading">What improves</p>
-              <ul className="signal-list prompt-list">
-                {outcomes.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
             </div>
           </aside>
-        </section>
 
-        {/* ——— Marquee ——— */}
-        <Marquee />
-
-        {/* ——— Trust strip ——— */}
-        <AnimatedSection className="section-block trust-strip">
-          <SpotlightCard as="div" className="trust-card">
-            <p className="section-kicker">What we do</p>
-            <h2>Business systems work with a strong bias toward clarity, utility, and real adoption.</h2>
-            <p className="section-text narrow-left">
-              This is not a hype-first AI shop. The work is about making useful systems, cleaner operations,
-              and stronger digital presentation so the business becomes easier to run and easier to trust.
-            </p>
-          </SpotlightCard>
-        </AnimatedSection>
-
-        {/* ——— What I'm building ——— */}
-        <AnimatedSection className="section-block">
-          <div className="section-heading wide">
-            <p className="section-kicker">What I'm building</p>
-            <h2>Hardware, AI systems, and open tools — built in public.</h2>
+          <div className="hero-meta reveal">
+            <div className="cell"><div className="k">Founded</div><div className="v">2024</div></div>
+            <div className="cell"><div className="k">Discipline</div><div className="v">AI · Ops · Web</div></div>
+            <div className="cell"><div className="k">Team size</div><div className="v">Small, sharp</div></div>
+            <div className="cell"><div className="k">Mode</div><div className="v">Fully remote</div></div>
           </div>
-          <div className="bento-grid">
-            {builds.map((build) => (
-              <SpotlightCard
-                key={build.id}
-                className={`bento-card bento-${build.id}`}
-              >
-                <div className="bento-icon" aria-hidden="true">{build.icon}</div>
-                <span className="bento-tag">{build.label}</span>
-                <h3>{build.title}</h3>
-                <p>{build.description}</p>
-              </SpotlightCard>
-            ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── Services ─── */
+const SERVICES = [
+  {
+    num: '01',
+    Glyph: GlyphWorkflow,
+    title: 'AI Workflows',
+    body: 'Custom AI assistants, research flows, content systems, and practical automations designed around how you already work.',
+    tags: ['assistants', 'research', 'content ops', 'drafting'],
+  },
+  {
+    num: '02',
+    Glyph: GlyphAutomation,
+    title: 'Automation Systems',
+    body: 'Internal tools, recurring-task cleanup, follow-up systems, and lightweight operations software that reduces friction.',
+    tags: ['internal tools', 'crm glue', 'workflow logic'],
+  },
+  {
+    num: '03',
+    Glyph: GlyphPresence,
+    title: 'Digital Presence',
+    body: 'Polished websites, portfolio experiences, and showcase pages that make your work clearer, sharper, and easier to trust.',
+    tags: ['marketing sites', 'portfolios', 'microsites'],
+  },
+]
+
+const ServiceCard = ({ s }) => {
+  const ref = useRef(null)
+  const onMove = (e) => {
+    const r = ref.current.getBoundingClientRect()
+    ref.current.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`)
+    ref.current.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`)
+  }
+  return (
+    <article className="service" ref={ref} onMouseMove={onMove}>
+      <div className="service-num">
+        <span>{s.num} / 03</span>
+        <span className="service-glyph"><s.Glyph /></span>
+      </div>
+      <h3>{s.title}</h3>
+      <p>{s.body}</p>
+      <div className="service-tags">
+        {s.tags.map((t) => <span key={t} className="tag">{t}</span>)}
+      </div>
+      <span className="service-link">
+        Discuss scope <ArrowUpRight size={12} />
+      </span>
+    </article>
+  )
+}
+
+const Services = () => (
+  <section className="services" id="services">
+    <div className="wrap">
+      <div className="services-intro reveal">
+        <div>
+          <div className="section-head">
+            <span className="eyebrow">Services</span>
+            <span className="eyebrow-num">§ 01</span>
+            <span className="divider" />
           </div>
-        </AnimatedSection>
-
-        {/* ——— Proof ——— */}
-        <AnimatedSection className="section-block proof-section">
-          <div className="section-heading wide proof-heading">
-            <p className="section-kicker">Proof</p>
-            <h2>The work sits where speed, clarity, and business trust overlap.</h2>
-          </div>
-          <div className="proof-grid">
-            {proofItems.map((item) => (
-              <SpotlightCard key={item.title} className="proof-card">
-                <span className="panel-label">{item.label}</span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </SpotlightCard>
-            ))}
-          </div>
-        </AnimatedSection>
-
-        {/* ——— Services ——— */}
-        <AnimatedSection className="section-block section-intro-split">
-          <div className="section-heading wide">
-            <p className="section-kicker">Services</p>
-            <h2>Focused help where operational friction and digital trust overlap.</h2>
-          </div>
-          <p className="section-text intro-text">
-            The strongest work usually sits at the intersection of workflow, automation, and presentation,
-            where a small system fix can improve speed internally and credibility externally at the same time.
-          </p>
-        </AnimatedSection>
-
-        <AnimatedSection className="service-grid" delay={0.05}>
-          {services.map((service) => (
-            <SpotlightCard key={service.title} className="service-card">
-              <div className="service-topline">
-                <span className="service-index">{service.index}</span>
-                <span className="service-rule" />
-              </div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-            </SpotlightCard>
-          ))}
-        </AnimatedSection>
-
-        {/* ——— Process ——— */}
-        <AnimatedSection className="section-block process-layout">
-          <div className="process-copy">
-            <p className="section-kicker">Process</p>
-            <h2>Start with the friction, then build the right fix.</h2>
-            <p className="section-text">
-              Good systems work usually starts by spotting what feels heavier than it should.
-              Once that is clear, the build gets simpler, sharper, and much more useful.
-            </p>
-          </div>
-
-          <div className="process-list">
-            {process.map((item) => (
-              <SpotlightCard key={item.step} className="process-card">
-                <h3>{item.step}</h3>
-                <p>{item.detail}</p>
-              </SpotlightCard>
-            ))}
-          </div>
-        </AnimatedSection>
-
-        {/* ——— Principles ——— */}
-        <AnimatedSection className="section-block principles-layout">
-          <SpotlightCard as="div" className="principles-card">
-            <p className="section-kicker">Why it works</p>
-            <h2>Useful first, cleanly designed, and built to hold up in real business use.</h2>
-            <ul className="prompt-list">
-              {proofPoints.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
-          </SpotlightCard>
-
-          <SpotlightCard as="div" className="credibility-panel">
-            <p className="panel-label">Studio posture</p>
-            <p>
-              Small by choice, remote by default, and focused on thoughtful systems work that creates leverage
-              without turning the business into a science experiment.
-            </p>
-          </SpotlightCard>
-        </AnimatedSection>
-
-        {/* ——— Content / TikTok ——— */}
-        <AnimatedSection className="section-block">
-          <div className="content-card">
-            <div className="content-copy">
-              <p className="section-kicker">Content</p>
-              <h2>AI, robotics, and maker builds — documented on TikTok.</h2>
-              <p className="section-text">
-                Short-form content about real projects: what works, what breaks, and what it actually takes to
-                ship AI systems and hardware builds in the open.
-              </p>
-              <a
-                className="button button-secondary"
-                href="https://www.tiktok.com/@preciado.tech"
-                target="_blank"
-                rel="noreferrer"
-              >
-                @preciado.tech on TikTok →
-              </a>
-            </div>
-            <div className="content-visual" aria-hidden="true">
-              <div className="tiktok-frame">
-                <div className="tiktok-dot">▶</div>
-                <span className="tiktok-handle">@preciado.tech</span>
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
-
-        {/* ——— Photography ——— */}
-        <AnimatedSection className="section-block">
-          <div className="photography-card">
-            <div className="photography-img-wrap">
-              <img
-                src="/images/michael-outdoors.jpg"
-                alt="Michael Preciado outdoors in a mountain setting at dusk."
-                loading="lazy"
-              />
-            </div>
-            <div className="photography-copy">
-              <p className="section-kicker">Photography</p>
-              <h2>Portraits, landscapes, and editorial work.</h2>
-              <p className="section-text">
-                Visual storytelling alongside the technical work — landscapes, portraits, and editorial imagery
-                under the Mario Preciado Photography brand.
-              </p>
-              <a
-                className="button button-secondary"
-                href="https://www.michael-preciado.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                View photography →
-              </a>
-            </div>
-          </div>
-        </AnimatedSection>
-
-        {/* ——— CTA ——— */}
-        <AnimatedSection className="section-block cta-section">
-          <p className="section-kicker">Start here</p>
-          <h2>If the business feels scattered, slow, or harder to manage than it should, that is the work.</h2>
-          <p className="section-text narrow">
-            Reach out if you want help cleaning up operations, building a practical AI workflow,
-            or making your business page explain the value more clearly.
-          </p>
-          <div className="hero-actions centered">
-            <a className="button button-primary" href="mailto:michael@preciadotech.com?subject=Preciado%20Tech%20Inquiry">
-              Start the conversation
-            </a>
-          </div>
-        </AnimatedSection>
-      </main>
-
-      {/* ——— Footer ——— */}
-      <footer className="site-footer">
-        <span className="footer-mark">© 2025 Preciado Tech</span>
-        <nav className="footer-socials" aria-label="Social links">
-          <a href="https://www.tiktok.com/@preciado.tech" target="_blank" rel="noreferrer">
-            TikTok
-          </a>
-          <a href="https://www.michael-preciado.com" target="_blank" rel="noreferrer">
-            Photography
-          </a>
-          <a href="mailto:michael@preciadotech.com">
-            Email
-          </a>
-        </nav>
-      </footer>
+          <h2>What Preciado Tech<br />helps with.</h2>
+        </div>
+        <p>
+          Three overlapping practices — each rooted in the same idea: sharp,
+          durable systems built around the way you already work, not around
+          whatever tool is trending this month.
+        </p>
+      </div>
+      <div className="services-list">
+        {SERVICES.map((s) => <ServiceCard key={s.num} s={s} />)}
+      </div>
     </div>
+  </section>
+)
+
+/* ─── How it works ─── */
+const STEPS = [
+  { n: '01', title: 'Find the friction', body: 'Walk through how you currently work and isolate what is repetitive, unclear, or held together by too much manual effort.' },
+  { n: '02', title: 'Design the system', body: 'Specify the workflow end-to-end — inputs, decisions, handoffs, outputs — before touching a single line of code.' },
+  { n: '03', title: 'Make it real', body: 'Ship tools, interfaces, and automations that plug into your existing stack and behave the way they were designed to.' },
+  { n: '04', title: 'Refine with use', body: 'Small, deliberate iterations once the system is in your hands. The work gets sharper the longer it runs.' },
+]
+
+const How = () => (
+  <section className="how" id="process">
+    <div className="wrap">
+      <div className="how-grid">
+        <div>
+          <div className="section-head reveal">
+            <span className="eyebrow">How it works</span>
+            <span className="eyebrow-num">§ 02</span>
+            <span className="divider" />
+          </div>
+          <h2 className="reveal">Find the friction.<br />Design the system.<br /><em>Make it real.</em></h2>
+          <p className="how-lede reveal">
+            The work starts by identifying what is repetitive, unclear, or held together by too
+            much manual effort. From there, Preciado Tech designs workflows, tools, and
+            interfaces that quietly do the job — and then gets out of the way.
+          </p>
+          <div className="steps">
+            {STEPS.map((s) => (
+              <div className="step" key={s.n}>
+                <div className="step-idx">STEP / {s.n}</div>
+                <div className="step-body">
+                  <h4>{s.title}</h4>
+                  <p>{s.body}</p>
+                </div>
+                <div className="step-arrow"><ArrowRight size={18} /></div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <aside className="principles reveal">
+          <div className="card-label">Principles</div>
+          <ul className="principles-list">
+            <li><span className="mark">I.</span><span>Small, sharp, and remote by design.</span></li>
+            <li><span className="mark">II.</span><span>Built for real use, not AI theater.</span></li>
+            <li><span className="mark">III.</span><span>Equal care for utility, clarity, and presentation.</span></li>
+            <li><span className="mark">IV.</span><span>Fewer moving parts. Systems you can still reason about in a year.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+)
+
+/* ─── CTA ─── */
+const CTA = ({ onContact }) => (
+  <section className="cta" id="contact">
+    <div className="wrap">
+      <div className="cta-card reveal">
+        <div className="cta-eyebrow"><span className="bar" /> Start a conversation</div>
+        <h2>Describe the drag.<br />Leave with a <em>system</em>.</h2>
+        <p className="cta-sub">
+          Tell Preciado Tech about the work that takes too long, breaks too often, or just
+          never feels finished. First reply usually lands inside a business day.
+        </p>
+        <div className="cta-actions">
+          <button className="btn btn-primary" onClick={onContact}>
+            Book an intro call <ArrowRight size={15} className="arrow" />
+          </button>
+          <a className="btn btn-ghost" href="mailto:michael@preciadotech.com">
+            michael@preciadotech.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
+/* ─── Footer ─── */
+const Footer = () => (
+  <footer>
+    <div className="wrap foot-row">
+      <div className="foot-meta">© {new Date().getFullYear()} · Preciado Tech · Remote studio</div>
+      <nav className="foot-socials" aria-label="Social links">
+        <a href="https://www.tiktok.com/@preciado.tech" target="_blank" rel="noreferrer">TikTok</a>
+        <a href="https://www.michael-preciado.com" target="_blank" rel="noreferrer">Photography</a>
+        <a href="mailto:michael@preciadotech.com">Email</a>
+      </nav>
+    </div>
+  </footer>
+)
+
+/* ─── Contact modal ─── */
+const ContactModal = ({ open, onClose }) => {
+  const [form, setForm] = useState({ name: '', email: '', focus: 'ai', details: '' })
+  const [errs, setErrs] = useState({})
+  const [sent, setSent] = useState(false)
+
+  useEffect(() => {
+    const esc = (e) => e.key === 'Escape' && onClose()
+    if (open) window.addEventListener('keydown', esc)
+    return () => window.removeEventListener('keydown', esc)
+  }, [open, onClose])
+
+  useEffect(() => {
+    if (!open) { setSent(false); setErrs({}) }
+  }, [open])
+
+  const submit = (e) => {
+    e.preventDefault()
+    const ne = {}
+    if (!form.name.trim()) ne.name = 'Required'
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) ne.email = 'Valid email required'
+    if (form.details.trim().length < 10) ne.details = 'A sentence or two, please'
+    setErrs(ne)
+    if (Object.keys(ne).length) return
+    window.location.href = `mailto:michael@preciadotech.com?subject=${encodeURIComponent('Preciado Tech Inquiry')}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nFocus: ${form.focus}\n\n${form.details}`)}`
+    setSent(true)
+  }
+
+  return (
+    <div className={`modal-backdrop ${open ? 'open' : ''}`} onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
+        <button className="modal-close" onClick={onClose} aria-label="Close"><Close size={14} /></button>
+
+        {sent ? (
+          <div className="success">
+            <div className="check"><Check size={22} /></div>
+            <div className="modal-eyebrow">Message queued</div>
+            <h3>Thanks — message received.</h3>
+            <p>You'll get a reply from Preciado Tech within one business day.</p>
+            <button className="btn btn-ghost" onClick={onClose}>Close</button>
+          </div>
+        ) : (
+          <form onSubmit={submit} noValidate>
+            <div className="modal-eyebrow">New project inquiry</div>
+            <h3>Tell Preciado Tech<br />about the work.</h3>
+            <p>A short note is enough to start. Replies usually land inside a business day.</p>
+
+            <div className="field">
+              <label>Name {errs.name && <span className="err">· {errs.name}</span>}</label>
+              <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your name" />
+            </div>
+            <div className="field">
+              <label>Email {errs.email && <span className="err">· {errs.email}</span>}</label>
+              <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="you@domain.com" />
+            </div>
+            <div className="field">
+              <label>Area of focus</label>
+              <select value={form.focus} onChange={(e) => setForm({ ...form, focus: e.target.value })}>
+                <option value="ai">AI workflows</option>
+                <option value="auto">Automation systems</option>
+                <option value="web">Digital presence</option>
+                <option value="mix">Not sure yet</option>
+              </select>
+            </div>
+            <div className="field">
+              <label>What's the friction? {errs.details && <span className="err">· {errs.details}</span>}</label>
+              <textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} placeholder="A couple sentences on what takes too long, breaks, or just never feels finished." />
+            </div>
+
+            <div className="modal-actions">
+              <div className="spacer" />
+              <button type="button" className="btn btn-ghost" onClick={onClose}>Cancel</button>
+              <button type="submit" className="btn btn-primary">Send <ArrowRight size={14} className="arrow" /></button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  )
+}
+
+/* ─── Matrix rain canvas ─── */
+const MatrixCanvas = () => {
+  const canvasRef = useRef(null)
+  useEffect(() => {
+    const c = canvasRef.current
+    if (!c) return
+    const ctx = c.getContext('2d', { alpha: true })
+    let W = 0, H = 0, cols = 0, drops = [], speeds = [], chars = []
+    const GLYPHS = '01│┤├─┼╌╎ABCDEF<>/{}[]()=+*·•∙'
+    const FONT_SIZE = 14
+    const DPR = Math.min(window.devicePixelRatio || 1, 2)
+
+    function resize() {
+      W = window.innerWidth; H = window.innerHeight
+      c.width = W * DPR; c.height = H * DPR
+      c.style.width = W + 'px'; c.style.height = H + 'px'
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0)
+      cols = Math.floor(W / FONT_SIZE)
+      drops = Array.from({ length: cols }, () => Math.random() * -H)
+      speeds = Array.from({ length: cols }, () => 0.3 + Math.random() * 0.9)
+      chars = Array.from({ length: cols }, () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)])
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    let last = 0, raf
+    function frame(t) {
+      if (t - last < 55) { raf = requestAnimationFrame(frame); return }
+      last = t
+      ctx.fillStyle = 'rgba(7,8,11,0.08)'
+      ctx.fillRect(0, 0, W, H)
+      ctx.font = `${FONT_SIZE}px "JetBrains Mono", monospace`
+      ctx.textBaseline = 'top'
+      for (let i = 0; i < cols; i++) {
+        if (Math.random() < 0.02) chars[i] = GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
+        const x = i * FONT_SIZE, y = drops[i]
+        ctx.fillStyle = 'oklch(0.88 0.11 260 / 0.9)'
+        ctx.fillText(chars[i], x, y)
+        ctx.fillStyle = 'oklch(0.68 0.08 260 / 0.45)'
+        ctx.fillText(chars[i], x, y - FONT_SIZE)
+        drops[i] += FONT_SIZE * speeds[i]
+        if (drops[i] > H + Math.random() * 200) drops[i] = -FONT_SIZE * (Math.random() * 40)
+      }
+      raf = requestAnimationFrame(frame)
+    }
+    raf = requestAnimationFrame(frame)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      style={{
+        position: 'fixed', inset: 0,
+        width: '100%', height: '100%',
+        pointerEvents: 'none', zIndex: 0,
+        opacity: 0.18, mixBlendMode: 'screen',
+      }}
+    />
+  )
+}
+
+/* ─── App root ─── */
+function App() {
+  const [modal, setModal] = useState(false)
+
+  useEffect(() => {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => e.isIntersecting && e.target.classList.add('in'))
+    }, { threshold: 0.12 })
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+
+  return (
+    <>
+      <div className="ambient" aria-hidden="true" />
+      <MatrixCanvas />
+      <Topbar onContact={() => setModal(true)} />
+      <main>
+        <Hero onContact={() => setModal(true)} />
+        <Services />
+        <How />
+        <CTA onContact={() => setModal(true)} />
+      </main>
+      <Footer />
+      <ContactModal open={modal} onClose={() => setModal(false)} />
+    </>
   )
 }
 
