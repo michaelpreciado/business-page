@@ -43,7 +43,7 @@
     <circle cx="100" cy="400" r="6"/>
     <circle cx="500" cy="450" r="6"/>
   </g>
-  <g fill="#a855f7" opacity="0.6">
+  <g fill="#1e90ff" opacity="0.6">
     <circle cx="250" cy="280" r="4"/>
     <circle cx="450" cy="280" r="4"/>
     <circle cx="350" cy="420" r="4"/>
