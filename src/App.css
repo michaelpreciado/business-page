@@ -552,7 +552,21 @@ section { position: relative; z-index: 1; }
 .offer h3 {
   color: var(--ink);
   font-size: clamp(28px, 3vw, 40px);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+}
+.offer-price {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 16px;
+  padding: 6px 11px;
+  border: 1px solid oklch(0.82 0.09 255 / 0.22);
+  border-radius: 999px;
+  background: oklch(0.82 0.09 255 / 0.06);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 .offer p {
   margin: 0;

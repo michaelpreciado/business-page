@@ -265,37 +265,55 @@ const Services = () => (
 /* ─── Offers ─── */
 const OFFERS = [
   {
-    name: 'AI Workflow Audit',
-    promise: 'Map the repetitive work, identify realistic AI leverage, and leave with a practical automation plan.',
-    bestFor: 'Teams that know work is leaking time but are not sure what to automate first.',
-    includes: ['workflow walkthrough', 'tooling recommendations', 'implementation roadmap'],
+    name: 'Business Automation Starter Pack',
+    price: 'Intro: $497 · then $997+',
+    promise: 'Pick one painful workflow and turn it into a practical automation that saves time, reduces missed leads, and creates a cleaner operating rhythm.',
+    bestFor: 'Local businesses and solo operators that need one useful win before investing in bigger systems.',
+    includes: ['30-minute consult', 'workflow audit', 'one automation build', 'walkthrough docs', '7 days support'],
   },
   {
-    name: 'Automation Sprint',
-    promise: 'Turn one annoying recurring process into a lightweight tool, script, or connected workflow.',
-    bestFor: 'Small teams, creators, and operators with manual handoffs, spreadsheet glue, or follow-up debt.',
-    includes: ['scoped build', 'API/tool integration', 'handoff notes'],
+    name: 'Website + AI Chatbot Package',
+    price: 'Starting at $750',
+    promise: 'Launch a clean landing page with lead capture, booking, review CTAs, and an AI FAQ/chat layer that helps visitors take action.',
+    bestFor: 'Service businesses that need a credible web presence and faster customer response.',
+    includes: ['responsive landing page', 'contact or booking flow', 'AI FAQ widget', 'basic SEO', 'analytics'],
   },
   {
-    name: 'Custom Assistant Build',
-    promise: 'Design an AI assistant around your notes, project context, research flow, or internal process.',
-    bestFor: 'People who want AI to work with their real context instead of another blank chat box.',
-    includes: ['prompt/system design', 'knowledge workflow', 'safe operating boundaries'],
+    name: 'Tech Cleanup Session',
+    price: 'Starting at $250',
+    promise: 'Untangle messy accounts, files, tools, email/domain setup, and basic security so the business tech feels manageable again.',
+    bestFor: 'Owners who know their tech stack is chaotic but do not know where to start.',
+    includes: ['tool review', 'email/domain check', 'file organization plan', 'security checklist', 'next-step roadmap'],
   },
   {
-    name: 'Digital Presence Polish',
-    promise: 'Upgrade a website, portfolio, or landing page so the offer is clearer and the execution feels credible.',
-    bestFor: 'Builders and small businesses whose work is better than their current web presence suggests.',
-    includes: ['copy + hierarchy', 'responsive UI polish', 'deployment cleanup'],
+    name: 'Custom Dashboard Build',
+    price: 'Starting at $500',
+    promise: 'Turn spreadsheets and scattered information into a lightweight dashboard for leads, jobs, inventory, clients, sales, or expenses.',
+    bestFor: 'Businesses tracking important work manually across spreadsheets, notes, and messages.',
+    includes: ['dashboard design', 'data source setup', 'status views', 'automation hooks', 'owner handoff'],
+  },
+  {
+    name: 'Monthly AI Content Engine',
+    price: 'Starting at $200/mo',
+    promise: 'Create a repeatable content system for posts, captions, newsletters, campaign ideas, and lightweight brand voice support.',
+    bestFor: 'Businesses that need to stay visible but do not have time to plan and draft content every week.',
+    includes: ['weekly ideas', 'captions', 'promo copy', 'newsletter drafts', 'content calendar'],
+  },
+  {
+    name: 'Fractional Tech Support Retainer',
+    price: 'Starting at $150/mo',
+    promise: 'Keep a practical tech partner on call for website updates, automation fixes, tooling questions, and monthly system improvements.',
+    bestFor: 'Small teams that need reliable tech help without hiring a full-time developer.',
+    includes: ['monthly support block', 'small fixes', 'website updates', 'automation monitoring', 'priority recommendations'],
   },
 ]
 
 const FITS = [
-  'small teams with repetitive operations',
-  'solo founders and creators building real projects',
-  'local businesses that need practical automation',
-  'professionals trying to make AI useful at work',
-  'builders who want their digital presence to match their capability',
+  'local service businesses that need more leads and less admin',
+  'solo operators with repetitive follow-up work',
+  'creators and small teams that need content systems',
+  'business owners running too much through spreadsheets and DMs',
+  'professionals who want practical AI help without enterprise pricing',
 ]
 
 const Offers = () => (
@@ -323,6 +341,7 @@ const Offers = () => (
               <div className="offer-num">0{index + 1}</div>
               <div>
                 <h3>{offer.name}</h3>
+                <div className="offer-price">{offer.price}</div>
                 <p>{offer.promise}</p>
                 <div className="offer-best">Best for: {offer.bestFor}</div>
                 <div className="offer-includes">
