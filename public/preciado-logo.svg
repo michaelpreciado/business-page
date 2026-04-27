@@ -1,0 +1,63 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <path id="topArc" d="M 60 200 A 140 140 0 0 1 340 200" />
+    <path id="bottomArc" d="M 70 200 A 130 130 0 0 0 330 200" />
+  </defs>
+
+  <g filter="url(#glow)" stroke="#1e90ff" fill="none">
+    <!-- Outer circle -->
+    <circle cx="200" cy="200" r="190" stroke-width="3"/>
+
+    <!-- Inner decorative arcs (left and right) -->
+    <path d="M 30 200 A 170 170 0 0 1 80 95" stroke-width="1.5" opacity="0.7"/>
+    <path d="M 30 200 A 170 170 0 0 0 80 305" stroke-width="1.5" opacity="0.7"/>
+    <path d="M 370 200 A 170 170 0 0 0 320 95" stroke-width="1.5" opacity="0.7"/>
+    <path d="M 370 200 A 170 170 0 0 1 320 305" stroke-width="1.5" opacity="0.7"/>
+
+    <!-- Decorative dots on the left -->
+    <circle cx="55" cy="195" r="3" fill="#1e90ff"/>
+    <circle cx="55" cy="210" r="3" fill="#1e90ff"/>
+    <circle cx="55" cy="225" r="3" fill="#1e90ff"/>
+
+    <!-- Decorative dots on the right -->
+    <circle cx="345" cy="195" r="3" fill="#1e90ff"/>
+    <circle cx="345" cy="210" r="3" fill="#1e90ff"/>
+
+    <!-- P letter (left side) - made of dashed segments -->
+    <!-- Vertical bar -->
+    <line x1="135" y1="135" x2="135" y2="290" stroke-width="6" stroke-dasharray="10,6"/>
+    <!-- Top horizontal -->
+    <line x1="135" y1="135" x2="195" y2="135" stroke-width="6" stroke-dasharray="10,6"/>
+    <!-- Right vertical (top half) -->
+    <line x1="200" y1="140" x2="200" y2="195" stroke-width="6" stroke-dasharray="10,6"/>
+    <!-- Middle horizontal -->
+    <line x1="135" y1="200" x2="195" y2="200" stroke-width="6" stroke-dasharray="10,6"/>
+
+    <!-- T letter (right side) - made of dashed segments -->
+    <!-- Top horizontal -->
+    <line x1="220" y1="200" x2="295" y2="200" stroke-width="6" stroke-dasharray="10,6"/>
+    <!-- Vertical bar -->
+    <line x1="258" y1="200" x2="258" y2="290" stroke-width="6" stroke-dasharray="10,6"/>
+  </g>
+
+  <!-- Top curved text: prompt -->
+  <text fill="#1e90ff" font-family="ui-monospace, 'Courier New', monospace" font-size="20" letter-spacing="1.5" filter="url(#glow)">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">
+      &gt;_ root@preciado-tech:~# ▮
+    </textPath>
+  </text>
+
+  <!-- Bottom curved text: brand -->
+  <text fill="#1e90ff" font-family="ui-monospace, 'Courier New', monospace" font-size="18" letter-spacing="3" filter="url(#glow)">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
+      &lt;/   PRECIADO TECH   &gt;
+    </textPath>
+  </text>
+</svg>
