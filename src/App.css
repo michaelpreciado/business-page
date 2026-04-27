@@ -202,7 +202,7 @@ section { position: relative; z-index: 1; }
   position: absolute; inset: 0; z-index: 0;
   background: 
     radial-gradient(ellipse 800px 600px at 20% 20%, rgba(0,212,255,0.06) 0%, transparent 50%),
-    radial-gradient(ellipse 600px 400px at 80% 80%, rgba(168,85,247,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 600px 400px at 80% 80%, rgba(30,144,255,0.05) 0%, transparent 50%),
     radial-gradient(ellipse 500px 500px at 50% 50%, rgba(0,212,255,0.03) 0%, transparent 60%),
     url('/images/neural-bg.svg') center/cover no-repeat;
   opacity: 1;
@@ -215,7 +215,7 @@ section { position: relative; z-index: 1; }
 .hero-bg::after {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(circle at 80% 20%, rgba(168,85,247,0.08) 0%, transparent 30%);
+  background: radial-gradient(circle at 80% 20%, rgba(30,144,255,0.08) 0%, transparent 30%);
   animation: orb-float 8s ease-in-out infinite;
 }
 @keyframes orb-float {
@@ -1172,7 +1172,7 @@ footer::before {
 /* ── Scroll Progress ────────────────────────────────────── */
 .scroll-progress {
   position: fixed; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(to right, #00d4ff, #a855f7);
+  background: linear-gradient(to right, #00d4ff, #1e90ff);
   transform-origin: left;
   z-index: 1000;
   opacity: 0;
@@ -1323,7 +1323,7 @@ a:focus-visible, button:focus-visible {
 .gradient-accent::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(to right, transparent, #00d4ff, #a855f7, transparent);
+  background: linear-gradient(to right, transparent, #00d4ff, #1e90ff, transparent);
   opacity: 0.5;
 }
 
