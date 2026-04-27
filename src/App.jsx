@@ -195,6 +195,91 @@ const Services = () => (
   </section>
 )
 
+/* ─── Offers ─── */
+const OFFERS = [
+  {
+    name: 'AI Workflow Audit',
+    promise: 'Map the repetitive work, identify realistic AI leverage, and leave with a practical automation plan.',
+    bestFor: 'Teams that know work is leaking time but are not sure what to automate first.',
+    includes: ['workflow walkthrough', 'tooling recommendations', 'implementation roadmap'],
+  },
+  {
+    name: 'Automation Sprint',
+    promise: 'Turn one annoying recurring process into a lightweight tool, script, or connected workflow.',
+    bestFor: 'Small teams, creators, and operators with manual handoffs, spreadsheet glue, or follow-up debt.',
+    includes: ['scoped build', 'API/tool integration', 'handoff notes'],
+  },
+  {
+    name: 'Custom Assistant Build',
+    promise: 'Design an AI assistant around your notes, project context, research flow, or internal process.',
+    bestFor: 'People who want AI to work with their real context instead of another blank chat box.',
+    includes: ['prompt/system design', 'knowledge workflow', 'safe operating boundaries'],
+  },
+  {
+    name: 'Digital Presence Polish',
+    promise: 'Upgrade a website, portfolio, or landing page so the offer is clearer and the execution feels credible.',
+    bestFor: 'Builders and small businesses whose work is better than their current web presence suggests.',
+    includes: ['copy + hierarchy', 'responsive UI polish', 'deployment cleanup'],
+  },
+]
+
+const FITS = [
+  'small teams with repetitive operations',
+  'solo founders and creators building real projects',
+  'local businesses that need practical automation',
+  'professionals trying to make AI useful at work',
+  'builders who want their digital presence to match their capability',
+]
+
+const Offers = () => (
+  <section className="offers" id="offers">
+    <div className="wrap">
+      <div className="offers-head reveal">
+        <div>
+          <div className="section-head">
+            <span className="eyebrow">Ways to work</span>
+            <span className="eyebrow-num">§ 02</span>
+            <span className="divider" />
+          </div>
+          <h2>Clear scopes for useful<br />AI and automation work.</h2>
+        </div>
+        <p>
+          The best engagements start small: find the friction, ship something useful,
+          and improve it after it touches real work.
+        </p>
+      </div>
+
+      <div className="offers-layout">
+        <div className="offer-list">
+          {OFFERS.map((offer, index) => (
+            <article className="offer reveal" key={offer.name}>
+              <div className="offer-num">0{index + 1}</div>
+              <div>
+                <h3>{offer.name}</h3>
+                <p>{offer.promise}</p>
+                <div className="offer-best">Best for: {offer.bestFor}</div>
+                <div className="offer-includes">
+                  {offer.includes.map((item) => <span key={item}>{item}</span>)}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <aside className="fit-card reveal">
+          <div className="card-label">Who this fits</div>
+          <p>
+            Preciado Tech is strongest where software, operations, AI tooling, and presentation meet.
+          </p>
+          <ul>
+            {FITS.map((fit) => <li key={fit}>{fit}</li>)}
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+)
+
 /* ─── Selected builds ─── */
 const BUILDS = [
   {
@@ -246,7 +331,7 @@ const Builds = () => (
         <div className="builds-copy reveal">
           <div className="section-head">
             <span className="eyebrow">Selected builds</span>
-            <span className="eyebrow-num">§ 02</span>
+            <span className="eyebrow-num">§ 03</span>
             <span className="divider" />
           </div>
           <h2>Proof that the work<br />can leave the slide deck.</h2>
@@ -278,7 +363,7 @@ const How = () => (
         <div>
           <div className="section-head reveal">
             <span className="eyebrow">How it works</span>
-            <span className="eyebrow-num">§ 03</span>
+            <span className="eyebrow-num">§ 04</span>
             <span className="divider" />
           </div>
           <h2 className="reveal">Find the friction.<br />Design the system.<br /><em>Make it real.</em></h2>
@@ -523,6 +608,7 @@ function App() {
       <main>
         <Hero onContact={() => setModal(true)} />
         <Services />
+        <Offers />
         <Builds />
         <How />
         <CTA onContact={() => setModal(true)} />
