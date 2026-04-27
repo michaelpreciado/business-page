@@ -778,6 +778,11 @@ function App() {
     <>
       <div className="ambient" aria-hidden="true" />
       <div className="matrix-grid" aria-hidden="true" />
+      <div className="floating-orbs" aria-hidden="true">
+        <div className="floating-orb" />
+        <div className="floating-orb" />
+        <div className="floating-orb" />
+      </div>
       <div className="scroll-progress" style={{ transform: `scaleX(${scrollPct / 100})` }} />
       <MatrixCanvas />
       <Topbar onContact={() => setModal(true)} />
