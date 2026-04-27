@@ -266,42 +266,42 @@ const Services = () => (
 const OFFERS = [
   {
     name: 'Business Automation Starter Pack',
-    price: 'Intro: $497 · then $997+',
+    price: 'Beta: $199 · then $497+',
     promise: 'Pick one painful workflow and turn it into a practical automation that saves time, reduces missed leads, and creates a cleaner operating rhythm.',
     bestFor: 'Local businesses and solo operators that need one useful win before investing in bigger systems.',
     includes: ['30-minute consult', 'workflow audit', 'one automation build', 'walkthrough docs', '7 days support'],
   },
   {
     name: 'Website + AI Chatbot Package',
-    price: 'Starting at $750',
+    price: 'Beta: $399+',
     promise: 'Launch a clean landing page with lead capture, booking, review CTAs, and an AI FAQ/chat layer that helps visitors take action.',
     bestFor: 'Service businesses that need a credible web presence and faster customer response.',
     includes: ['responsive landing page', 'contact or booking flow', 'AI FAQ widget', 'basic SEO', 'analytics'],
   },
   {
     name: 'Tech Cleanup Session',
-    price: 'Starting at $250',
+    price: 'Beta: $99+',
     promise: 'Untangle messy accounts, files, tools, email/domain setup, and basic security so the business tech feels manageable again.',
     bestFor: 'Owners who know their tech stack is chaotic but do not know where to start.',
     includes: ['tool review', 'email/domain check', 'file organization plan', 'security checklist', 'next-step roadmap'],
   },
   {
     name: 'Custom Dashboard Build',
-    price: 'Starting at $500',
+    price: 'Beta: $249+',
     promise: 'Turn spreadsheets and scattered information into a lightweight dashboard for leads, jobs, inventory, clients, sales, or expenses.',
     bestFor: 'Businesses tracking important work manually across spreadsheets, notes, and messages.',
     includes: ['dashboard design', 'data source setup', 'status views', 'automation hooks', 'owner handoff'],
   },
   {
     name: 'Monthly AI Content Engine',
-    price: 'Starting at $200/mo',
+    price: 'Beta: $99/mo+',
     promise: 'Create a repeatable content system for posts, captions, newsletters, campaign ideas, and lightweight brand voice support.',
     bestFor: 'Businesses that need to stay visible but do not have time to plan and draft content every week.',
     includes: ['weekly ideas', 'captions', 'promo copy', 'newsletter drafts', 'content calendar'],
   },
   {
     name: 'Fractional Tech Support Retainer',
-    price: 'Starting at $150/mo',
+    price: 'Beta: $75/mo+',
     promise: 'Keep a practical tech partner on call for website updates, automation fixes, tooling questions, and monthly system improvements.',
     bestFor: 'Small teams that need reliable tech help without hiring a full-time developer.',
     includes: ['monthly support block', 'small fixes', 'website updates', 'automation monitoring', 'priority recommendations'],
@@ -329,8 +329,8 @@ const Offers = () => (
           <h2>Clear scopes for useful<br />AI and automation work.</h2>
         </div>
         <p>
-          The best engagements start small: find the friction, ship something useful,
-          and improve it after it touches real work.
+          Early Preciado Tech pricing is intentionally low while we build traction: find the friction,
+          ship something useful, collect proof, and improve it after it touches real work.
         </p>
       </div>
 
