@@ -1,0 +1,76 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <defs>
+    <style>
+      .logo-circle { stroke: #0088ff; stroke-width: 3; filter: drop-shadow(0 0 8px #0088ff); }
+      .logo-inner { stroke: #0088ff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+      .logo-text { fill: #0088ff; font-family: monospace; font-size: 10px; text-anchor: middle; filter: drop-shadow(0 0 4px #0088ff); }
+      .logo-dot { fill: #0088ff; filter: drop-shadow(0 0 4px #0088ff); }
+    </style>
+  </defs>
+
+  <!-- Outer circle -->
+  <circle cx="100" cy="100" r="95" class="logo-circle"/>
+
+  <!-- Top text: root@preciado-tech:~# -->
+  <text x="100" y="28" class="logo-text" font-size="8" letter-spacing="1">root@preciado-tech:~#</text>
+
+  <!-- Left decorative brackets -->
+  <text x="18" y="42" class="logo-text" font-size="12">/</text>
+  <text x="18" y="162" class="logo-text" font-size="12">&lt;/</text>
+
+  <!-- Right decorative brackets -->
+  <text x="182" y="162" class="logo-text" font-size="12">&gt;</text>
+
+  <!-- Left dots -->
+  <circle cx="25" cy="75" r="2.5" class="logo-dot"/>
+  <circle cx="25" cy="95" r="2.5" class="logo-dot"/>
+  <circle cx="25" cy="115" r="2.5" class="logo-dot"/>
+
+  <!-- Right dots -->
+  <circle cx="175" cy="75" r="2.5" class="logo-dot"/>
+  <circle cx="175" cy="95" r="2.5" class="logo-dot"/>
+
+  <!-- P character (geometric/dashed style) -->
+  <!-- P left vertical -->
+  <line x1="70" y1="65" x2="70" y2="125" class="logo-inner" stroke-dasharray="4,4"/>
+
+  <!-- P top horizontal -->
+  <line x1="70" y1="65" x2="95" y2="65" class="logo-inner" stroke-dasharray="4,4"/>
+
+  <!-- P top right diagonal -->
+  <line x1="95" y1="65" x2="105" y2="75" class="logo-inner"/>
+
+  <!-- P right vertical -->
+  <line x1="105" y1="75" x2="105" y2="95" class="logo-inner" stroke-dasharray="4,4"/>
+
+  <!-- P bottom right diagonal -->
+  <line x1="105" y1="95" x2="95" y2="105" class="logo-inner"/>
+
+  <!-- P middle horizontal -->
+  <line x1="70" y1="95" x2="95" y2="95" class="logo-inner"/>
+
+  <!-- R character part (right side) -->
+  <!-- R vertical -->
+  <line x1="125" y1="65" x2="125" y2="125" class="logo-inner" stroke-dasharray="4,4"/>
+
+  <!-- R top -->
+  <line x1="125" y1="65" x2="150" y2="65" class="logo-inner" stroke-dasharray="4,4"/>
+
+  <!-- R curve top right -->
+  <line x1="150" y1="65" x2="160" y2="75" class="logo-inner"/>
+
+  <!-- R right vertical top -->
+  <line x1="160" y1="75" x2="160" y2="95" class="logo-inner" stroke-dasharray="4,4"/>
+
+  <!-- R curve bottom right -->
+  <line x1="160" y1="95" x2="150" y2="105" class="logo-inner"/>
+
+  <!-- R middle -->
+  <line x1="125" y1="95" x2="150" y2="95" class="logo-inner"/>
+
+  <!-- R leg diagonal -->
+  <line x1="150" y1="95" x2="160" y2="125" class="logo-inner"/>
+
+  <!-- Bottom text: PRECIADO TECH -->
+  <text x="100" y="175" class="logo-text" font-size="9" letter-spacing="2">PRECIADO TECH</text>
+</svg>
