@@ -134,7 +134,7 @@ const Hero = ({ onContact }) => {
             </p>
 
             <div className="hero-ctas">
-              <button className="btn btn-primary" onClick={onContact}>
+              <button className="btn btn-primary btn-shine" onClick={onContact}>
                 Send me the task you hate doing <ArrowRight size={15} className="arrow" />
               </button>
               <a className="btn btn-ghost" href="#offers">
@@ -753,6 +753,7 @@ const MatrixCanvas = () => {
 
 /* ─── App root ─── */
 function App() {
+  const progressStyle = { transform: 'scaleX(' + scrollProgress / 100 + ')' }
   const [modal, setModal] = useState(false)
 
   useEffect(() => {
