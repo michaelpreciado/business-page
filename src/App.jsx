@@ -41,7 +41,7 @@ const Topbar = ({ onContact }) => (
         <img src="/preciado-logo.svg" alt="Preciado Tech" className="brand-logo" />
         <span className="brand-text">
           <span className="brand-name">Preciado Tech</span>
-          <span className="brand-tag">Practical AI workflows, automation &amp; digital tools</span>
+          <span className="brand-tag">Practical AI systems for real work</span>
         </span>
       </a>
       <nav className="topbar-right">
@@ -74,9 +74,9 @@ const Hero = ({ onContact }) => {
 
             <div className="hero-headline-row">
               <h1 ref={h1Ref}>
-                <span className="line"><span>Build smarter</span></span>
-                <span className="line"><span>systems that create</span></span>
-                <span className="line"><span><em>leverage.</em></span></span>
+                <span className="line"><span>Practical AI systems</span></span>
+                <span className="line"><span>for teams that want</span></span>
+                <span className="line"><span>less <em>manual work.</em></span></span>
               </h1>
 
               <div className="portrait-frame portrait-inline reveal">
@@ -93,26 +93,26 @@ const Hero = ({ onContact }) => {
             </div>
 
             <p className="hero-lede">
-              <strong>Preciado Tech</strong> is an AI engineering practice for individuals and
-              small teams. Custom assistants, automations, and the digital tools around them —
-              built to reduce friction and create durable leverage.
+              <strong>Preciado Tech</strong> helps creators, operators, and small teams turn
+              repetitive work into clear workflows, lightweight automations, custom assistants,
+              and digital tools that are actually usable after the demo.
             </p>
 
             <div className="hero-ctas">
               <button className="btn btn-primary" onClick={onContact}>
-                Start a project <ArrowRight size={15} className="arrow" />
+                Send me the task you hate doing <ArrowRight size={15} className="arrow" />
               </button>
-              <a className="btn btn-ghost" href="#services">
-                What I build
+              <a className="btn btn-ghost" href="#offers">
+                See practical offers
               </a>
             </div>
           </div>
 
           <div className="hero-meta reveal">
             <div className="cell"><div className="k">Founded</div><div className="v">2024</div></div>
-            <div className="cell"><div className="k">Discipline</div><div className="v">AI · Ops · Web</div></div>
-            <div className="cell"><div className="k">Team size</div><div className="v">Small, sharp</div></div>
-            <div className="cell"><div className="k">Mode</div><div className="v">Fully remote</div></div>
+            <div className="cell"><div className="k">Focus</div><div className="v">AI · Ops · Web</div></div>
+            <div className="cell"><div className="k">Best fit</div><div className="v">Small teams</div></div>
+            <div className="cell"><div className="k">Mode</div><div className="v">Remote-first</div></div>
           </div>
         </div>
       </div>
@@ -348,12 +348,53 @@ const Builds = () => (
   </section>
 )
 
+/* ─── Case study ─── */
+const CaseStudy = () => (
+  <section className="case-study" id="case-study">
+    <div className="wrap">
+      <div className="case-card reveal">
+        <div className="case-kicker">Internal case study · Planter</div>
+        <div className="case-grid">
+          <div>
+            <h2>A local-first plant journal built like a real product.</h2>
+            <p className="case-lede">
+              Planter started as a personal botanical app and became a useful signal for how
+              Preciado Tech thinks: simple data models, mobile-first flows, offline-minded UX,
+              and room for AI assistance without making the product feel gimmicky.
+            </p>
+            <div className="case-actions">
+              <a className="btn btn-primary" href="https://github.com/michaelpreciado/Planter" target="_blank" rel="noreferrer">
+                View the build <ArrowUpRight size={15} className="arrow" />
+              </a>
+              <a className="btn btn-ghost" href="#contact">Start something similar</a>
+            </div>
+          </div>
+          <div className="case-notes">
+            <div>
+              <span>Problem</span>
+              <p>Plant care notes, photos, and progress tracking usually live in scattered apps and camera rolls.</p>
+            </div>
+            <div>
+              <span>Build</span>
+              <p>A responsive journal experience for plant records, care activity, progress photos, and local-first product polish.</p>
+            </div>
+            <div>
+              <span>Transferable value</span>
+              <p>The same thinking applies to client tools: organize messy inputs, reduce friction, and make the system pleasant to use.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
 /* ─── How it works ─── */
 const STEPS = [
-  { n: '01', title: 'Find the friction', body: 'Walk through how you currently work and isolate what is repetitive, unclear, or held together by too much manual effort.' },
-  { n: '02', title: 'Design the system', body: 'Specify the workflow end-to-end — inputs, decisions, handoffs, outputs — before touching a single line of code.' },
-  { n: '03', title: 'Make it real', body: 'Ship tools, interfaces, and automations that plug into your existing stack and behave the way they were designed to.' },
-  { n: '04', title: 'Refine with use', body: 'Small, deliberate iterations once the system is in your hands. The work gets sharper the longer it runs.' },
+  { n: '01', title: '20-minute workflow call', body: 'Talk through the process that feels slow, brittle, repetitive, or unclear. No pitch deck required — just the real workflow.' },
+  { n: '02', title: 'Scope one painful process', body: 'Choose a focused problem with a clear output: a tool, assistant, automation, landing page, or internal workflow improvement.' },
+  { n: '03', title: 'Prototype the useful version', body: 'Build the smallest serious version that proves the system can help in the real world, not only in a demo.' },
+  { n: '04', title: 'Handoff and refine', body: 'Document how it works, clean up the rough edges, and iterate once it has touched real use.' },
 ]
 
 const How = () => (
@@ -366,11 +407,11 @@ const How = () => (
             <span className="eyebrow-num">§ 04</span>
             <span className="divider" />
           </div>
-          <h2 className="reveal">Find the friction.<br />Design the system.<br /><em>Make it real.</em></h2>
+          <h2 className="reveal">One painful process.<br />One useful system.<br /><em>Then refine.</em></h2>
           <p className="how-lede reveal">
-            The work starts by identifying what is repetitive, unclear, or held together by too
-            much manual effort. From there, Preciado Tech designs workflows, tools, and
-            interfaces that quietly do the job — and then gets out of the way.
+            Engagements stay intentionally scoped. The goal is not to “AI transform” everything;
+            it is to find a concrete drag on the work, ship a practical improvement, and make it
+            easy to keep using.
           </p>
           <div className="steps">
             {STEPS.map((s) => (
@@ -406,14 +447,14 @@ const CTA = ({ onContact }) => (
     <div className="wrap">
       <div className="cta-card reveal">
         <div className="cta-eyebrow"><span className="bar" /> Start a conversation</div>
-        <h2>Describe the drag.<br />Leave with a <em>system</em>.</h2>
+        <h2>Send the task you hate doing.<br />Leave with an <em>automation plan</em>.</h2>
         <p className="cta-sub">
-          Tell Preciado Tech about the work that takes too long, breaks too often, or just
-          never feels finished. First reply usually lands inside a business day.
+          Tell Preciado Tech about one workflow that takes too long, breaks too often, or
+          keeps falling through the cracks. First reply usually lands inside a business day.
         </p>
         <div className="cta-actions">
           <button className="btn btn-primary" onClick={onContact}>
-            Book an intro call <ArrowRight size={15} className="arrow" />
+            Get an automation plan <ArrowRight size={15} className="arrow" />
           </button>
           <a className="btn btn-ghost" href="mailto:michael@preciadotech.com">
             michael@preciadotech.com
@@ -610,6 +651,7 @@ function App() {
         <Services />
         <Offers />
         <Builds />
+        <CaseStudy />
         <How />
         <CTA onContact={() => setModal(true)} />
       </main>
