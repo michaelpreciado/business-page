@@ -79,6 +79,22 @@
   display: flex; align-items: center; gap: 12px;
   text-decoration: none; color: var(--ink);
 }
+
+.logo-glow {
+  position: absolute; left: 14px; top: 50%;
+  width: 36px; height: 36px;
+  background: radial-gradient(circle, oklch(0.82 0.09 255 / 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  filter: blur(8px);
+  animation: logo-pulse 3s ease-in-out infinite;
+}
+@keyframes logo-pulse {
+  0%, 100% { opacity: 0.4; transform: translateY(-50%) scale(1); }
+  50% { opacity: 0.8; transform: translateY(-50%) scale(1.2); }
+}
+.brand { position: relative; }
+
 .brand-logo {
   width: 48px; height: 48px;
   flex-shrink: 0;
@@ -86,7 +102,23 @@
   transition: opacity 220ms ease, transform 220ms ease;
   filter: drop-shadow(0 0 8px rgba(30, 144, 255, 0.3));
 }
-.brand:hover .brand-logo {
+.brand:hover 
+.logo-glow {
+  position: absolute; left: 14px; top: 50%;
+  width: 36px; height: 36px;
+  background: radial-gradient(circle, oklch(0.82 0.09 255 / 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  filter: blur(8px);
+  animation: logo-pulse 3s ease-in-out infinite;
+}
+@keyframes logo-pulse {
+  0%, 100% { opacity: 0.4; transform: translateY(-50%) scale(1); }
+  50% { opacity: 0.8; transform: translateY(-50%) scale(1.2); }
+}
+.brand { position: relative; }
+
+.brand-logo {
   opacity: 1;
   transform: scale(1.05);
   filter: drop-shadow(0 0 12px rgba(30, 144, 255, 0.5));
@@ -168,12 +200,27 @@ section { position: relative; z-index: 1; }
 .hero { padding: 100px 0 120px; position: relative; overflow: hidden; }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
-  background: url('/images/neural-bg.svg') center/cover no-repeat;
-  opacity: 0.35;
+  background: 
+    radial-gradient(ellipse 800px 600px at 20% 20%, rgba(0,212,255,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 600px 400px at 80% 80%, rgba(168,85,247,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 500px 500px at 50% 50%, rgba(0,212,255,0.03) 0%, transparent 60%),
+    url('/images/neural-bg.svg') center/cover no-repeat;
+  opacity: 1;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.12) 0%, transparent 50%);
 }
 .hero-bg::after {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.08) 0%, transparent 60%);
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(168,85,247,0.08) 0%, transparent 30%);
+  animation: orb-float 8s ease-in-out infinite;
+}
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-20px, 20px); }
 }
 .hero .wrap { position: relative; z-index: 1; }
 .hero-grid {
@@ -401,6 +448,36 @@ section { position: relative; z-index: 1; }
   pointer-events: none;
 }
 .hire-panel > * { position: relative; }
+.hire-panel::after {
+  content: '';
+  position: absolute; bottom: -50%; left: 50%;
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(0,212,255,0.08) 0%, transparent 70%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* ── Skills cloud improvements ──────────────────────────── */
+.skill-cloud {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 24px;
+}
+.skill-cloud span {
+  padding: 8px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: 0.08em; color: var(--ink-mute);
+  background: rgba(255,255,255,0.02);
+  transition: all 220ms ease;
+}
+.skill-cloud span:hover {
+  border-color: oklch(0.82 0.09 255 / 0.4);
+  color: var(--accent);
+  background: oklch(0.82 0.09 255 / 0.06);
+}
+
+
 .hire-copy h2 { max-width: 720px; }
 .hire-copy p {
   max-width: 640px;
@@ -1189,6 +1266,25 @@ footer::before {
 .gradient-accent {
   position: relative;
 }
+
+/* ── Section Dividers ───────────────────────────────────── */
+.section-divider {
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 var(--gutter);
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+.section-divider .divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--line), transparent);
+}
+.section-divider .divider-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
 .gradient-accent::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0; height: 1px;

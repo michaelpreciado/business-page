@@ -12,6 +12,13 @@ const ArrowUpRight = (p) => <Icon {...p} d={<><path d="M7 17 17 7"/><path d="M8 
 const ArrowRight = (p) => <Icon {...p} d={<><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></>} />
 const Close = (p) => <Icon {...p} d={<><path d="M6 6l12 12"/><path d="M18 6 6 18"/></>} />
 const Check = (p) => <Icon {...p} d={<path d="M5 12l4 4 10-10"/>} />
+const SectionDivider = () => (
+  <div className="section-divider">
+    <span className="divider-line" />
+    <span className="divider-dot" />
+    <span className="divider-line" />
+  </div>
+)
 
 const GlyphWorkflow = () => (
   <svg width="48" height="48" viewBox="0 0 64 64" fill="none">
@@ -60,7 +67,8 @@ const Topbar = ({ onContact }) => (
   <header className="topbar">
     <div className="wrap row">
       <a className="brand" href="#top">
-        <img src="/preciado-logo.svg" alt="Preciado Tech" className="brand-logo" />
+        <img src="/preciado-tech-logo.svg" alt="Preciado Tech" className="brand-logo" />
+        <span className="logo-glow" />
         <span className="brand-text">
           <span className="brand-name">Preciado Tech</span>
           <span className="brand-tag">Practical AI systems for real work</span>
@@ -364,10 +372,12 @@ const Offers = () => (
         <div className="offer-list">
           {OFFERS.map((offer, index) => (
             <article className="offer reveal" key={offer.name}>
-              <div className="offer-num">0{index + 1}</div>
               <div>
+                <div className="offer-header">
+                  <span className="offer-num">0{index + 1}</span>
+                  <div className="offer-price">{offer.price}</div>
+                </div>
                 <h3>{offer.name}</h3>
-                <div className="offer-price">{offer.price}</div>
                 <p>{offer.promise}</p>
                 <div className="offer-best">Best for: {offer.bestFor}</div>
                 <div className="offer-includes">
