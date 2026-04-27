@@ -45,7 +45,8 @@ const Topbar = ({ onContact }) => (
         </span>
       </a>
       <nav className="topbar-right">
-        <span className="status"><span className="dot" />Taking Q2 projects</span>
+        <a className="nav-link" href="#hire">Hire Michael</a>
+        <span className="status"><span className="dot" />Open to AI / software roles</span>
         <a className="top-cta" href="#contact" onClick={(e) => { e.preventDefault(); onContact() }}>
           Start a conversation <ArrowUpRight size={14} className="arrow" />
         </a>
@@ -119,6 +120,72 @@ const Hero = ({ onContact }) => {
     </section>
   )
 }
+
+/* ─── Hiring signal ─── */
+const HIRING_PROOFS = [
+  {
+    label: 'Real systems background',
+    text: 'IT application support in manufacturing environments: troubleshooting, uptime, printers, controls/process support, and fast practical fixes.',
+  },
+  {
+    label: 'Builder momentum',
+    text: 'Shipping React/Vite/TypeScript projects, polishing deployments, improving CI, and using GitHub as a visible record of work.',
+  },
+  {
+    label: 'AI direction',
+    text: 'Hands-on with local models, prompt design, workflow automation, knowledge tools, and AI systems that connect to real context.',
+  },
+]
+
+const SKILLS = ['React', 'Vite', 'TypeScript', 'JavaScript', 'Python', 'Linux', 'Docker', 'GitHub', 'Ollama', 'OpenAI workflows', 'Notion', 'HubSpot', 'Figma', '3D printing']
+
+const HireMichael = () => (
+  <section className="hire" id="hire">
+    <div className="wrap">
+      <div className="hire-panel reveal">
+        <div className="hire-copy">
+          <div className="section-head">
+            <span className="eyebrow">Hire Michael</span>
+            <span className="eyebrow-num">Career signal</span>
+            <span className="divider" />
+          </div>
+          <h2>AI-focused software builder with real operations instincts.</h2>
+          <p>
+            I’m Michael Preciado — an IT professional and AI student building toward software,
+            automation, and intelligent systems work. My edge is that I’ve supported real production
+            environments, so I care about tools that are stable, understandable, and useful after launch.
+          </p>
+          <div className="hire-actions">
+            <a className="btn btn-primary" href="mailto:michael@preciadotech.com?subject=Role%20opportunity%20for%20Michael%20Preciado">
+              Discuss a role <ArrowRight size={15} className="arrow" />
+            </a>
+            <a className="btn btn-ghost" href="https://github.com/michaelpreciado" target="_blank" rel="noreferrer">
+              GitHub profile <ArrowUpRight size={15} />
+            </a>
+            <a className="btn btn-ghost" href="https://www.michael-preciado.com" target="_blank" rel="noreferrer">
+              Personal portfolio <ArrowUpRight size={15} />
+            </a>
+          </div>
+        </div>
+
+        <div className="hire-card">
+          <div className="card-label">Why give me a chance</div>
+          <div className="proof-list">
+            {HIRING_PROOFS.map((proof) => (
+              <div className="proof" key={proof.label}>
+                <h3>{proof.label}</h3>
+                <p>{proof.text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="skill-cloud" aria-label="Skills and tools">
+            {SKILLS.map((skill) => <span key={skill}>{skill}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)
 
 /* ─── Services ─── */
 const SERVICES = [
@@ -648,6 +715,7 @@ function App() {
       <Topbar onContact={() => setModal(true)} />
       <main>
         <Hero onContact={() => setModal(true)} />
+        <HireMichael />
         <Services />
         <Offers />
         <Builds />

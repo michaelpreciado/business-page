@@ -67,6 +67,16 @@
 }
 .brand-tag { font-size: 12.5px; color: var(--ink-mute); margin-top: 2px; }
 .topbar-right { display: flex; align-items: center; gap: 22px; }
+.nav-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+.nav-link:hover { color: var(--accent); }
 .status {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
@@ -99,6 +109,7 @@
 @media (max-width: 720px) {
   .status { display: none; }
   .brand-tag { display: none; }
+  .nav-link { display: none; }
 }
 
 /* ── Section scaffolding ─────────────────────────────── */
@@ -296,6 +307,102 @@ section { position: relative; z-index: 1; }
 }
 @media (max-width: 720px) {
   .hero-meta { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── HIRE MICHAEL ───────────────────────────────────── */
+.hire { padding: 40px 0 100px; }
+.hire-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: start;
+  border: 1px solid oklch(0.82 0.09 255 / 0.18);
+  border-radius: var(--radius-lg);
+  padding: 54px;
+  background:
+    radial-gradient(720px 420px at 0% 0%, oklch(0.82 0.09 255 / 0.13), transparent 64%),
+    linear-gradient(155deg, rgba(255,255,255,0.04), rgba(255,255,255,0.012)),
+    var(--bg-2);
+  box-shadow: 0 34px 90px -38px rgba(0,0,0,0.72);
+  overflow: hidden;
+}
+.hire-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.026) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.026) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse at 20% 10%, black 15%, transparent 72%);
+  pointer-events: none;
+}
+.hire-panel > * { position: relative; }
+.hire-copy h2 { max-width: 720px; }
+.hire-copy p {
+  max-width: 640px;
+  margin: 28px 0 0;
+  font-size: 17px;
+  line-height: 1.66;
+}
+.hire-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 38px;
+}
+.hire-card {
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  background: rgba(7,8,11,0.46);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
+}
+.proof-list {
+  display: grid;
+  gap: 1px;
+  margin-top: 22px;
+  background: var(--line);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.proof {
+  padding: 18px 0;
+  background: rgba(7,8,11,0.5);
+}
+.proof h3 {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 7px;
+}
+.proof p {
+  margin: 0;
+  color: var(--ink-mute);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.skill-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 24px;
+}
+.skill-cloud span {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ink-dim);
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(255,255,255,0.02);
+}
+@media (max-width: 980px) {
+  .hire-panel { grid-template-columns: 1fr; padding: 40px 30px; }
 }
 
 /* ── SERVICES ────────────────────────────────────────── */
