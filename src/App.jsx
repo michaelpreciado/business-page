@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import './App.css'
 
 /* ─── Icon primitives ─── */
@@ -195,6 +195,74 @@ const Services = () => (
   </section>
 )
 
+/* ─── Selected builds ─── */
+const BUILDS = [
+  {
+    name: 'Planter',
+    type: 'Local-first product',
+    summary: 'A botanical journal prototype with offline-minded plant records, care notes, progress photos, and AI-ready product thinking.',
+    outcome: 'Shows product judgment, mobile polish, and practical AI app direction.',
+    stack: ['React', 'TypeScript', 'Vercel'],
+    href: 'https://github.com/michaelpreciado/Planter',
+  },
+  {
+    name: 'Photography Portfolio',
+    type: 'Digital presence',
+    summary: 'A production-ready portfolio focused on visual clarity, optimized assets, and a polished public presentation layer.',
+    outcome: 'Connects technical execution with taste, brand feel, and fast static deployment.',
+    stack: ['React', 'Vite', 'Design systems'],
+    href: 'https://github.com/michaelpreciado/photography-portfolio',
+  },
+  {
+    name: 'Interactive Solar System',
+    type: 'Immersive interface',
+    summary: 'A 3D educational experience built around spatial interaction, motion, and approachable technical storytelling.',
+    outcome: 'Demonstrates front-end range beyond standard marketing pages.',
+    stack: ['TypeScript', 'Three.js', 'React'],
+    href: 'https://github.com/michaelpreciado/Interactive_Solar_System',
+  },
+]
+
+const BuildCard = ({ build, index }) => (
+  <a className="build-card reveal" href={build.href} target="_blank" rel="noreferrer">
+    <div className="build-index">0{index + 1}</div>
+    <div className="build-content">
+      <div className="build-type">{build.type}</div>
+      <h3>{build.name}</h3>
+      <p>{build.summary}</p>
+      <div className="build-outcome">{build.outcome}</div>
+      <div className="build-stack">
+        {build.stack.map((item) => <span key={item}>{item}</span>)}
+      </div>
+    </div>
+    <div className="build-arrow"><ArrowUpRight size={16} /></div>
+  </a>
+)
+
+const Builds = () => (
+  <section className="builds" id="work">
+    <div className="wrap">
+      <div className="builds-grid">
+        <div className="builds-copy reveal">
+          <div className="section-head">
+            <span className="eyebrow">Selected builds</span>
+            <span className="eyebrow-num">§ 02</span>
+            <span className="divider" />
+          </div>
+          <h2>Proof that the work<br />can leave the slide deck.</h2>
+          <p>
+            Preciado Tech is grounded in shipped interfaces, prototypes, and polished digital
+            systems — the same mix of clarity, usefulness, and presentation that client work needs.
+          </p>
+        </div>
+        <div className="builds-list">
+          {BUILDS.map((build, index) => <BuildCard key={build.name} build={build} index={index} />)}
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
 /* ─── How it works ─── */
 const STEPS = [
   { n: '01', title: 'Find the friction', body: 'Walk through how you currently work and isolate what is repetitive, unclear, or held together by too much manual effort.' },
@@ -210,7 +278,7 @@ const How = () => (
         <div>
           <div className="section-head reveal">
             <span className="eyebrow">How it works</span>
-            <span className="eyebrow-num">§ 02</span>
+            <span className="eyebrow-num">§ 03</span>
             <span className="divider" />
           </div>
           <h2 className="reveal">Find the friction.<br />Design the system.<br /><em>Make it real.</em></h2>
@@ -291,15 +359,17 @@ const ContactModal = ({ open, onClose }) => {
   const [errs, setErrs] = useState({})
   const [sent, setSent] = useState(false)
 
-  useEffect(() => {
-    const esc = (e) => e.key === 'Escape' && onClose()
-    if (open) window.addEventListener('keydown', esc)
-    return () => window.removeEventListener('keydown', esc)
-  }, [open, onClose])
+  const closeModal = useCallback(() => {
+    setSent(false)
+    setErrs({})
+    onClose()
+  }, [onClose])
 
   useEffect(() => {
-    if (!open) { setSent(false); setErrs({}) }
-  }, [open])
+    const esc = (e) => e.key === 'Escape' && closeModal()
+    if (open) window.addEventListener('keydown', esc)
+    return () => window.removeEventListener('keydown', esc)
+  }, [open, closeModal])
 
   const submit = (e) => {
     e.preventDefault()
@@ -314,9 +384,9 @@ const ContactModal = ({ open, onClose }) => {
   }
 
   return (
-    <div className={`modal-backdrop ${open ? 'open' : ''}`} onClick={onClose}>
+    <div className={`modal-backdrop ${open ? 'open' : ''}`} onClick={closeModal}>
       <div className="modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
-        <button className="modal-close" onClick={onClose} aria-label="Close"><Close size={14} /></button>
+        <button className="modal-close" onClick={closeModal} aria-label="Close"><Close size={14} /></button>
 
         {sent ? (
           <div className="success">
@@ -324,7 +394,7 @@ const ContactModal = ({ open, onClose }) => {
             <div className="modal-eyebrow">Message queued</div>
             <h3>Thanks — message received.</h3>
             <p>You'll get a reply from Preciado Tech within one business day.</p>
-            <button className="btn btn-ghost" onClick={onClose}>Close</button>
+            <button className="btn btn-ghost" onClick={closeModal}>Close</button>
           </div>
         ) : (
           <form onSubmit={submit} noValidate>
@@ -356,7 +426,7 @@ const ContactModal = ({ open, onClose }) => {
 
             <div className="modal-actions">
               <div className="spacer" />
-              <button type="button" className="btn btn-ghost" onClick={onClose}>Cancel</button>
+              <button type="button" className="btn btn-ghost" onClick={closeModal}>Cancel</button>
               <button type="submit" className="btn btn-primary">Send <ArrowRight size={14} className="arrow" /></button>
             </div>
           </form>
@@ -453,6 +523,7 @@ function App() {
       <main>
         <Hero onContact={() => setModal(true)} />
         <Services />
+        <Builds />
         <How />
         <CTA onContact={() => setModal(true)} />
       </main>
