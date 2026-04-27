@@ -753,8 +753,18 @@ const MatrixCanvas = () => {
 
 /* ─── App root ─── */
 function App() {
-  const progressStyle = { transform: 'scaleX(' + scrollProgress / 100 + ')' }
   const [modal, setModal] = useState(false)
+  const [scrollPct, setScrollPct] = useState(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const scrolled = document.documentElement.scrollTop
+      const max = document.documentElement.scrollHeight - document.documentElement.clientHeight
+      setScrollPct(max > 0 ? (scrolled / max) * 100 : 0)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     const io = new IntersectionObserver((entries) => {
@@ -767,6 +777,7 @@ function App() {
   return (
     <>
       <div className="ambient" aria-hidden="true" />
+      <div className="scroll-progress" style={{ transform: `scaleX(${scrollPct / 100})` }} />
       <MatrixCanvas />
       <Topbar onContact={() => setModal(true)} />
       <main>
