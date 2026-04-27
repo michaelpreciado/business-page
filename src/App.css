@@ -1273,10 +1273,11 @@ a:focus-visible, button:focus-visible {
   transition: border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
   outline: none;
 }
+
 .field input:focus, .field textarea:focus, .field select:focus {
   border-color: oklch(0.82 0.09 255 / 0.6);
   background: rgba(255,255,255,0.04);
-  box-shadow: 0 0 0 3px oklch(0.82 0.09 255 / 0.08);
+  box-shadow: 0 0 0 3px oklch(0.82 0.09 255 / 0.08), 0 0 20px oklch(0.82 0.09 255 / 0.05);
 }
 .field textarea { min-height: 96px; resize: vertical; }
 .field .err {
