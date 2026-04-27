@@ -206,6 +206,7 @@ section { position: relative; z-index: 1; }
     radial-gradient(ellipse 500px 500px at 50% 50%, rgba(0,212,255,0.03) 0%, transparent 60%),
     url('/images/neural-bg.svg') center/cover no-repeat;
   opacity: 1;
+  animation: neural-drift 60s ease-in-out infinite;
 }
 .hero-bg::before {
   content: '';
@@ -218,9 +219,11 @@ section { position: relative; z-index: 1; }
   background: radial-gradient(circle at 80% 20%, rgba(30,144,255,0.08) 0%, transparent 30%);
   animation: orb-float 8s ease-in-out infinite;
 }
-@keyframes orb-float {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-20px, 20px); }
+
+@keyframes neural-drift {
+  0% { background-position: center 0%, center 0%, center 0%, center 0%; }
+  50% { background-position: center 20px, center 10px, center 15px, center 30%; }
+  100% { background-position: center 0%, center 0%, center 0%, center 0%; }
 }
 .hero .wrap { position: relative; z-index: 1; }
 .hero-grid {
