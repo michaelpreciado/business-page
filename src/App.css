@@ -169,6 +169,90 @@
 .top-cta .arrow { transition: transform 220ms ease; }
 .top-cta:hover .arrow { transform: translate(2px,-2px); }
 
+
+
+/* ── Tablet Optimizations ────────────────────────────── */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .hero h1 { font-size: 2.8rem; }
+  
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .services-list { grid-template-columns: repeat(2, 1fr); }
+  
+  .offers-list { grid-template-columns: 1fr; }
+  
+  .builds-list { grid-template-columns: 1fr; }
+}
+
+/* ── Mobile Optimizations ─────────────────────────────── */
+@media (max-width: 640px) {
+  :root {
+    --gutter: 20px;
+  }
+  
+  html { font-size: 15px; }
+  
+  .hero { padding: 80px 0 80px; }
+  
+  .hero-headline-row {
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .hero h1 { font-size: 2.2rem; }
+  
+  .hero h1 .line { display: block; }
+  
+  .portrait-frame { 
+    width: 100%; 
+    max-width: 280px;
+    margin: 20px auto 0;
+  }
+  
+  .hero-ctas { flex-direction: column; gap: 12px; }
+  .hero-ctas .btn { width: 100%; text-align: center; }
+  
+  .hero-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  
+  .topbar { padding: 14px 0; }
+  .topbar .row { flex-direction: column; gap: 12px; }
+  .topbar-right { flex-wrap: wrap; justify-content: center; }
+  
+  .service { padding: 24px 20px; }
+  .service h3 { font-size: 22px; }
+  .service-glyph { width: 44px; height: 44px; }
+  
+  .offer { padding: 24px 20px; }
+  .offer-header { flex-direction: column; gap: 8px; align-items: flex-start; }
+  
+  .build-card { padding: 20px 16px; grid-template-columns: 1fr; gap: 16px; }
+  .build-card .build-arrow { display: none; }
+  
+  .section-divider { display: none; }
+  
+  .hire-panel { padding: 32px 24px; }
+  .hire-copy h2 { font-size: 1.8rem; }
+  
+  .offers-list { grid-template-columns: 1fr; gap: 20px; }
+  
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+  .footer-grid .brand { justify-content: center; }
+  
+  .hero-particles { display: none; }
+  
+  .scroll-progress { height: 2px; }
+}
+
+
 @media (max-width: 720px) {
   .status { display: none; }
   .brand-tag { display: none; }
@@ -417,6 +501,90 @@ section { position: relative; z-index: 1; }
   font-family: var(--serif); font-size: 30px; color: var(--ink);
   margin-top: 8px; line-height: 1;
 }
+
+
+/* ── Tablet Optimizations ────────────────────────────── */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .hero h1 { font-size: 2.8rem; }
+  
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .services-list { grid-template-columns: repeat(2, 1fr); }
+  
+  .offers-list { grid-template-columns: 1fr; }
+  
+  .builds-list { grid-template-columns: 1fr; }
+}
+
+/* ── Mobile Optimizations ─────────────────────────────── */
+@media (max-width: 640px) {
+  :root {
+    --gutter: 20px;
+  }
+  
+  html { font-size: 15px; }
+  
+  .hero { padding: 80px 0 80px; }
+  
+  .hero-headline-row {
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .hero h1 { font-size: 2.2rem; }
+  
+  .hero h1 .line { display: block; }
+  
+  .portrait-frame { 
+    width: 100%; 
+    max-width: 280px;
+    margin: 20px auto 0;
+  }
+  
+  .hero-ctas { flex-direction: column; gap: 12px; }
+  .hero-ctas .btn { width: 100%; text-align: center; }
+  
+  .hero-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  
+  .topbar { padding: 14px 0; }
+  .topbar .row { flex-direction: column; gap: 12px; }
+  .topbar-right { flex-wrap: wrap; justify-content: center; }
+  
+  .service { padding: 24px 20px; }
+  .service h3 { font-size: 22px; }
+  .service-glyph { width: 44px; height: 44px; }
+  
+  .offer { padding: 24px 20px; }
+  .offer-header { flex-direction: column; gap: 8px; align-items: flex-start; }
+  
+  .build-card { padding: 20px 16px; grid-template-columns: 1fr; gap: 16px; }
+  .build-card .build-arrow { display: none; }
+  
+  .section-divider { display: none; }
+  
+  .hire-panel { padding: 32px 24px; }
+  .hire-copy h2 { font-size: 1.8rem; }
+  
+  .offers-list { grid-template-columns: 1fr; gap: 20px; }
+  
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+  .footer-grid .brand { justify-content: center; }
+  
+  .hero-particles { display: none; }
+  
+  .scroll-progress { height: 2px; }
+}
+
+
 @media (max-width: 720px) {
   .hero-meta { grid-template-columns: repeat(2, 1fr); }
 }
@@ -1144,6 +1312,90 @@ section { position: relative; z-index: 1; }
   font-size: 17px; color: var(--ink-dim); line-height: 1.6;
 }
 .cta-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+
+/* ── Tablet Optimizations ────────────────────────────── */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .hero h1 { font-size: 2.8rem; }
+  
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .services-list { grid-template-columns: repeat(2, 1fr); }
+  
+  .offers-list { grid-template-columns: 1fr; }
+  
+  .builds-list { grid-template-columns: 1fr; }
+}
+
+/* ── Mobile Optimizations ─────────────────────────────── */
+@media (max-width: 640px) {
+  :root {
+    --gutter: 20px;
+  }
+  
+  html { font-size: 15px; }
+  
+  .hero { padding: 80px 0 80px; }
+  
+  .hero-headline-row {
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .hero h1 { font-size: 2.2rem; }
+  
+  .hero h1 .line { display: block; }
+  
+  .portrait-frame { 
+    width: 100%; 
+    max-width: 280px;
+    margin: 20px auto 0;
+  }
+  
+  .hero-ctas { flex-direction: column; gap: 12px; }
+  .hero-ctas .btn { width: 100%; text-align: center; }
+  
+  .hero-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  
+  .topbar { padding: 14px 0; }
+  .topbar .row { flex-direction: column; gap: 12px; }
+  .topbar-right { flex-wrap: wrap; justify-content: center; }
+  
+  .service { padding: 24px 20px; }
+  .service h3 { font-size: 22px; }
+  .service-glyph { width: 44px; height: 44px; }
+  
+  .offer { padding: 24px 20px; }
+  .offer-header { flex-direction: column; gap: 8px; align-items: flex-start; }
+  
+  .build-card { padding: 20px 16px; grid-template-columns: 1fr; gap: 16px; }
+  .build-card .build-arrow { display: none; }
+  
+  .section-divider { display: none; }
+  
+  .hire-panel { padding: 32px 24px; }
+  .hire-copy h2 { font-size: 1.8rem; }
+  
+  .offers-list { grid-template-columns: 1fr; gap: 20px; }
+  
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+  .footer-grid .brand { justify-content: center; }
+  
+  .hero-particles { display: none; }
+  
+  .scroll-progress { height: 2px; }
+}
+
+
 @media (max-width: 720px) { .cta-card { padding: 52px 32px; } }
 
 /* ── FOOTER ─────────────────────────────────────────── */
