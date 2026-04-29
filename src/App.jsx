@@ -38,7 +38,7 @@ const Topbar = ({ onContact }) => (
   <header className="topbar">
     <div className="wrap row">
       <a className="brand" href="#top">
-        <img src="/preciado-tech-logo-new.png" alt="Preciado Tech" className="brand-logo" />
+        <img src="/images/michael-binary-portrait.jpg" alt="Michael Preciado" className="brand-logo" />
         <span className="brand-text">
           <span className="brand-name">Preciado Tech</span>
           <span className="brand-tag">Automation help for busy small teams</span>
