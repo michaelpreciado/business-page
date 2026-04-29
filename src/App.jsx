@@ -38,17 +38,18 @@ const Topbar = ({ onContact }) => (
   <header className="topbar">
     <div className="wrap row">
       <a className="brand" href="#top">
-        <img src="/preciado-logo.svg" alt="Preciado Tech" className="brand-logo" />
+        <img src="/preciado-tech-logo-new.png" alt="Preciado Tech" className="brand-logo" />
         <span className="brand-text">
           <span className="brand-name">Preciado Tech</span>
-          <span className="brand-tag">Practical AI systems for real work</span>
+          <span className="brand-tag">Automation help for busy small teams</span>
         </span>
       </a>
       <nav className="topbar-right">
-        <a className="nav-link" href="#hire">Hire Michael</a>
-        <span className="status"><span className="dot" />Open to AI / software roles</span>
+        <a className="nav-link" href="#offers">Services</a>
+        <a className="nav-link" href="#hire">Work with Michael</a>
+        <span className="status"><span className="dot" />Available for small business projects</span>
         <a className="top-cta" href="#contact" onClick={(e) => { e.preventDefault(); onContact() }}>
-          Start a conversation <ArrowUpRight size={14} className="arrow" />
+          Fix one repetitive task <ArrowUpRight size={14} className="arrow" />
         </a>
       </nav>
     </div>
@@ -86,50 +87,53 @@ const Hero = ({ onContact }) => {
           <div className="hero-text">
             <div className="hero-kicker reveal in">
               <span className="bar" />
-              <span>AI engineering · workflows · automation</span>
+              <span>save time · clean up busywork · follow up faster</span>
             </div>
 
             <div className="hero-headline-row">
               <h1 ref={h1Ref}>
-                <span className="line"><span>Practical AI systems</span></span>
-                <span className="line"><span>for teams that want</span></span>
-                <span className="line"><span>less <em>manual work.</em></span></span>
+                <span className="line"><span>Less busywork</span></span>
+                <span className="line"><span>for small teams</span></span>
+                <span className="line"><span>that need <em>time back.</em></span></span>
               </h1>
 
-              <div className="portrait-frame portrait-inline reveal">
+              <div className="hero-visual-card reveal">
                 <img
-                  src="/images/michael-outdoors-cropped.jpg"
-                  alt="Michael Preciado"
-                  className="portrait-img"
+                  src="/images/automation-flow.svg"
+                  alt="A simple automation flow connecting a customer form, follow-up email, spreadsheet, and reminder."
+                  className="hero-visual-img"
                 />
-                <div className="portrait-meta">
-                  <span className="portrait-tag">Preciado Tech</span>
-                  <span className="portrait-name">AI Engineering Practice</span>
+                <div className="hero-visual-meta">
+                  <span>form</span>
+                  <span>→</span>
+                  <span>follow-up</span>
+                  <span>→</span>
+                  <span>reminder</span>
                 </div>
               </div>
             </div>
 
             <p className="hero-lede">
-              <strong>Preciado Tech</strong> helps creators, operators, and small teams turn
-              repetitive work into clear workflows, lightweight automations, custom assistants,
-              and digital tools that are actually usable after the demo.
+              <strong>Preciado Tech</strong> helps small businesses clean up repetitive tasks:
+              follow-ups, forms, spreadsheets, reminders, customer messages, and simple tools
+              that make daily work easier.
             </p>
 
             <div className="hero-ctas">
               <button className="btn btn-primary" onClick={onContact}>
-                Send me the task you hate doing <ArrowRight size={15} className="arrow" />
+                Tell me the task you hate <ArrowRight size={15} className="arrow" />
               </button>
               <a className="btn btn-ghost" href="#offers">
-                See practical offers
+                See what can be automated
               </a>
             </div>
           </div>
 
           <div className="hero-meta reveal">
-            <div className="cell"><div className="k">Founded</div><div className="v">2024</div></div>
-            <div className="cell"><div className="k">Focus</div><div className="v">AI · Ops · Web</div></div>
-            <div className="cell"><div className="k">Best fit</div><div className="v">Small teams</div></div>
-            <div className="cell"><div className="k">Mode</div><div className="v">Remote-first</div></div>
+            <div className="cell"><div className="k">Good for</div><div className="v">Busy teams</div></div>
+            <div className="cell"><div className="k">I help with</div><div className="v">Forms · Follow-ups</div></div>
+            <div className="cell"><div className="k">Best first step</div><div className="v">One task</div></div>
+            <div className="cell"><div className="k">Working mode</div><div className="v">Remote-friendly</div></div>
           </div>
         </div>
       </div>
@@ -140,20 +144,20 @@ const Hero = ({ onContact }) => {
 /* ─── Hiring signal ─── */
 const HIRING_PROOFS = [
   {
-    label: 'Real systems background',
-    text: 'IT application support in manufacturing environments: troubleshooting, uptime, printers, controls/process support, and fast practical fixes.',
+    label: 'I understand real workplaces',
+    text: 'My background is in IT support, so I know the difference between a neat demo and something people can actually use during a busy day.',
   },
   {
-    label: 'Builder momentum',
-    text: 'Shipping React/Vite/TypeScript projects, polishing deployments, improving CI, and using GitHub as a visible record of work.',
+    label: 'I explain things plainly',
+    text: 'You do not need to know software terms. Bring the messy process; I will help translate it into a simple plan.',
   },
   {
-    label: 'AI direction',
-    text: 'Hands-on with local models, prompt design, workflow automation, knowledge tools, and AI systems that connect to real context.',
+    label: 'I start small on purpose',
+    text: 'The goal is not to rebuild your whole business. We pick one repetitive task, make it easier, and build trust from there.',
   },
 ]
 
-const SKILLS = ['React', 'Vite', 'TypeScript', 'JavaScript', 'Python', 'Linux', 'Docker', 'GitHub', 'Ollama', 'OpenAI workflows', 'Notion', 'HubSpot', 'Figma', '3D printing']
+const SKILLS = ['customer intake', 'follow-up messages', 'spreadsheets', 'forms', 'email cleanup', 'reminders', 'simple reports', 'website updates', 'AI email drafts', 'HubSpot', 'Notion', 'Google Workspace']
 
 const HireMichael = () => (
   <section className="hire" id="hire">
@@ -161,31 +165,39 @@ const HireMichael = () => (
       <div className="hire-panel reveal">
         <div className="hire-copy">
           <div className="section-head">
-            <span className="eyebrow">Hire Michael</span>
-            <span className="eyebrow-num">Career signal</span>
+            <span className="eyebrow">Work with Michael</span>
+            <span className="eyebrow-num">No tech overwhelm</span>
             <span className="divider" />
           </div>
-          <h2>AI-focused software builder with real operations instincts.</h2>
+          <h2>Automation help without the tech headache.</h2>
           <p>
-            I’m Michael Preciado — an IT professional and AI student building toward software,
-            automation, and intelligent systems work. My edge is that I’ve supported real production
-            environments, so I care about tools that are stable, understandable, and useful after launch.
+            I’m Michael Preciado. I help small businesses turn repeated tasks into clearer,
+            easier systems. If something gets copied, pasted, forgotten, delayed, or handled by
+            hand every week, that is usually a good place to start.
           </p>
           <div className="hire-actions">
             <a className="btn btn-primary" href="mailto:michael@preciadotech.com?subject=Role%20opportunity%20for%20Michael%20Preciado">
-              Discuss a role <ArrowRight size={15} className="arrow" />
+              Talk through a task <ArrowRight size={15} className="arrow" />
             </a>
-            <a className="btn btn-ghost" href="https://github.com/michaelpreciado" target="_blank" rel="noreferrer">
-              GitHub profile <ArrowUpRight size={15} />
+            <a className="btn btn-ghost" href="#examples">
+              See common examples
             </a>
-            <a className="btn btn-ghost" href="https://www.michael-preciado.com" target="_blank" rel="noreferrer">
-              Personal portfolio <ArrowUpRight size={15} />
+            <a className="btn btn-ghost" href="mailto:michael@preciadotech.com">
+              Email Michael
             </a>
           </div>
         </div>
 
         <div className="hire-card">
-          <div className="card-label">Why give me a chance</div>
+          <div className="founder-card">
+            <img src="/images/michael-binary-portrait.jpg" alt="Stylized binary portrait of Michael Preciado" className="founder-binary" loading="lazy" />
+            <img src="/images/michael-profile-mountains.jpg" alt="Michael Preciado" className="founder-photo" loading="lazy" />
+            <div className="founder-copy">
+              <span>Built by Michael Preciado</span>
+              <p>Practical automation help from someone who speaks human first, tech second.</p>
+            </div>
+          </div>
+          <div className="card-label">How I make this easier</div>
           <div className="proof-list">
             {HIRING_PROOFS.map((proof) => (
               <div className="proof" key={proof.label}>
@@ -194,7 +206,7 @@ const HireMichael = () => (
               </div>
             ))}
           </div>
-          <div className="skill-cloud" aria-label="Skills and tools">
+          <div className="skill-cloud" aria-label="Common tools and tasks">
             {SKILLS.map((skill) => <span key={skill}>{skill}</span>)}
           </div>
         </div>
@@ -208,23 +220,23 @@ const SERVICES = [
   {
     num: '01',
     Glyph: GlyphWorkflow,
-    title: 'AI Workflows',
-    body: 'Custom AI assistants, research flows, content systems, and practical automations designed around how you already work.',
-    tags: ['assistants', 'research', 'content ops', 'drafting'],
+    title: 'Find the time-wasters',
+    body: 'We look at the tasks that eat up your week: copying information, chasing replies, updating sheets, writing the same message, or checking too many places.',
+    tags: ['task review', 'plain-English plan', 'quick wins'],
   },
   {
     num: '02',
     Glyph: GlyphAutomation,
-    title: 'Automation Systems',
-    body: 'Internal tools, recurring-task cleanup, follow-up systems, and lightweight operations software that reduces friction.',
-    tags: ['internal tools', 'crm glue', 'workflow logic'],
+    title: 'Make the task easier',
+    body: 'I can help connect forms, email, spreadsheets, reminders, customer notes, and simple tools so fewer things have to be done by hand.',
+    tags: ['forms', 'follow-ups', 'spreadsheets'],
   },
   {
     num: '03',
     Glyph: GlyphPresence,
-    title: 'Digital Presence',
-    body: 'Polished websites, portfolio experiences, and showcase pages that make your work clearer, sharper, and easier to trust.',
-    tags: ['marketing sites', 'portfolios', 'microsites'],
+    title: 'Clean up your web presence',
+    body: 'If customers are confused by your website, I can help make the offer clearer, the page easier to read, and the next step obvious.',
+    tags: ['landing pages', 'clearer copy', 'trust signals'],
   },
 ]
 
@@ -263,12 +275,11 @@ const Services = () => (
             <span className="eyebrow-num">§ 01</span>
             <span className="divider" />
           </div>
-          <h2>What Preciado Tech<br />helps with.</h2>
+          <h2>What Preciado Tech<br />can take off your plate.</h2>
         </div>
         <p>
-          Three overlapping practices — each rooted in the same idea: sharp,
-          durable systems built around the way you already work, not around
-          whatever tool is trending this month.
+          You do not need to know what software you need. You only need to know
+          what feels slow, messy, or repetitive. I help turn that into a simple next step.
         </p>
       </div>
       <div className="services-list">
@@ -281,38 +292,81 @@ const Services = () => (
 /* ─── Offers ─── */
 const OFFERS = [
   {
-    name: 'AI Workflow Audit',
-    promise: 'Map the repetitive work, identify realistic AI leverage, and leave with a practical automation plan.',
-    bestFor: 'Teams that know work is leaking time but are not sure what to automate first.',
-    includes: ['workflow walkthrough', 'tooling recommendations', 'implementation roadmap'],
+    name: 'Task Cleanup Call',
+    promise: 'Show me one messy process and I will help you spot what can be simplified, automated, or ignored.',
+    bestFor: 'Business owners who are curious but not sure where automation would actually help.',
+    includes: ['20-minute walkthrough', 'plain-English notes', 'next-step recommendation'],
   },
   {
     name: 'Automation Sprint',
-    promise: 'Turn one annoying recurring process into a lightweight tool, script, or connected workflow.',
-    bestFor: 'Small teams, creators, and operators with manual handoffs, spreadsheet glue, or follow-up debt.',
-    includes: ['scoped build', 'API/tool integration', 'handoff notes'],
+    promise: 'Turn one repeated task into a smoother process with fewer manual steps.',
+    bestFor: 'Teams dealing with follow-ups, intake forms, spreadsheet updates, reminders, or handoffs.',
+    includes: ['small scoped build', 'setup support', 'simple handoff notes'],
   },
   {
-    name: 'Custom Assistant Build',
-    promise: 'Design an AI assistant around your notes, project context, research flow, or internal process.',
-    bestFor: 'People who want AI to work with their real context instead of another blank chat box.',
-    includes: ['prompt/system design', 'knowledge workflow', 'safe operating boundaries'],
+    name: 'AI Helper Setup',
+    promise: 'Create a helpful assistant for drafting, summarizing, organizing notes, or answering repeat questions.',
+    bestFor: 'People who want AI to save time without needing to learn a pile of new tools.',
+    includes: ['use-case design', 'starter prompts', 'safe do-and-don\'t rules'],
   },
   {
-    name: 'Digital Presence Polish',
-    promise: 'Upgrade a website, portfolio, or landing page so the offer is clearer and the execution feels credible.',
-    bestFor: 'Builders and small businesses whose work is better than their current web presence suggests.',
-    includes: ['copy + hierarchy', 'responsive UI polish', 'deployment cleanup'],
+    name: 'Website Clarity Polish',
+    promise: 'Clean up a website or landing page so visitors quickly understand what you do and how to contact you.',
+    bestFor: 'Small businesses whose work is good but whose website does not explain it clearly yet.',
+    includes: ['copy cleanup', 'layout polish', 'clear call-to-action'],
   },
 ]
 
 const FITS = [
-  'small teams with repetitive operations',
-  'solo founders and creators building real projects',
-  'local businesses that need practical automation',
-  'professionals trying to make AI useful at work',
-  'builders who want their digital presence to match their capability',
+  'local businesses tired of repeated admin work',
+  'solo owners who need follow-ups to stop slipping',
+  'small teams using too many spreadsheets and messages',
+  'creators or service providers who want cleaner intake',
+  'businesses whose website needs to explain the offer faster',
 ]
+
+const COMMON_TASKS = [
+  'Turn website forms into organized lead lists',
+  'Send follow-up emails or reminders automatically',
+  'Clean up spreadsheets and weekly reports',
+  'Draft replies, summaries, or customer updates faster',
+  'Move information between tools without copy-paste',
+  'Create a simple dashboard for what needs attention',
+  'Remind customers or team members before things slip',
+  'Make a confusing website easier for customers to trust',
+]
+
+const TaskExamples = () => (
+  <section className="task-examples" id="examples">
+    <div className="wrap">
+      <div className="task-panel reveal">
+        <div className="section-head">
+          <span className="eyebrow">Examples</span>
+          <span className="eyebrow-num">Plain English</span>
+          <span className="divider" />
+        </div>
+        <div className="task-grid">
+          <div>
+            <h2>Things small businesses ask me to simplify.</h2>
+            <p>
+              If you have ever said “someone has to remember to do this every time,”
+              that is the kind of work we should look at first.
+            </p>
+            <img
+              src="/images/before-after-workflow.svg"
+              alt="Before and after example showing manual busywork becoming an organized workflow."
+              className="task-example-img"
+              loading="lazy"
+            />
+          </div>
+          <ul className="task-list">
+            {COMMON_TASKS.map((task) => <li key={task}>{task}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+)
 
 const Offers = () => (
   <section className="offers" id="offers">
@@ -324,11 +378,11 @@ const Offers = () => (
             <span className="eyebrow-num">§ 02</span>
             <span className="divider" />
           </div>
-          <h2>Clear scopes for useful<br />AI and automation work.</h2>
+          <h2>Simple ways to start<br />without overcommitting.</h2>
         </div>
         <p>
-          The best engagements start small: find the friction, ship something useful,
-          and improve it after it touches real work.
+          Start with one task that wastes time or gets forgotten. I will help you understand
+          what can be improved, what is worth automating, and what should stay human.
         </p>
       </div>
 
@@ -352,7 +406,8 @@ const Offers = () => (
         <aside className="fit-card reveal">
           <div className="card-label">Who this fits</div>
           <p>
-            Preciado Tech is strongest where software, operations, AI tooling, and presentation meet.
+            Preciado Tech is strongest when the problem is practical: too much copying,
+            too many reminders, too many dropped follow-ups, or a website that does not explain the business clearly.
           </p>
           <ul>
             {FITS.map((fit) => <li key={fit}>{fit}</li>)}
@@ -367,32 +422,29 @@ const Offers = () => (
 const BUILDS = [
   {
     name: 'Planter',
-    type: 'Local-first product',
-    summary: 'A botanical journal prototype with offline-minded plant records, care notes, progress photos, and AI-ready product thinking.',
-    outcome: 'Shows product judgment, mobile polish, and practical AI app direction.',
-    stack: ['React', 'TypeScript', 'Vercel'],
-    href: 'https://github.com/michaelpreciado/Planter',
+    type: 'Organized tracking app',
+    summary: 'A plant journal that keeps care notes, photos, and history in one place instead of scattered across apps and camera rolls.',
+    outcome: 'Shows how messy everyday information can become a calmer, easier-to-use tool.',
+    stack: ['mobile-friendly', 'records', 'photos'],
   },
   {
     name: 'Photography Portfolio',
-    type: 'Digital presence',
-    summary: 'A production-ready portfolio focused on visual clarity, optimized assets, and a polished public presentation layer.',
-    outcome: 'Connects technical execution with taste, brand feel, and fast static deployment.',
-    stack: ['React', 'Vite', 'Design systems'],
-    href: 'https://github.com/michaelpreciado/photography-portfolio',
+    type: 'Clear customer-facing website',
+    summary: 'A polished portfolio built to make the work easy to browse, trust, and share.',
+    outcome: 'Shows care for presentation, speed, and helping visitors understand the work quickly.',
+    stack: ['website', 'portfolio', 'presentation'],
   },
   {
     name: 'Interactive Solar System',
-    type: 'Immersive interface',
-    summary: 'A 3D educational experience built around spatial interaction, motion, and approachable technical storytelling.',
-    outcome: 'Demonstrates front-end range beyond standard marketing pages.',
-    stack: ['TypeScript', 'Three.js', 'React'],
-    href: 'https://github.com/michaelpreciado/Interactive_Solar_System',
+    type: 'Interactive learning tool',
+    summary: 'A visual project that turns complex information into something people can explore and understand.',
+    outcome: 'Shows the ability to make digital tools feel approachable instead of overwhelming.',
+    stack: ['interactive', 'visual', 'education'],
   },
 ]
 
 const BuildCard = ({ build, index }) => (
-  <a className="build-card reveal" href={build.href} target="_blank" rel="noreferrer">
+  <article className="build-card reveal">
     <div className="build-index">0{index + 1}</div>
     <div className="build-content">
       <div className="build-type">{build.type}</div>
@@ -403,8 +455,8 @@ const BuildCard = ({ build, index }) => (
         {build.stack.map((item) => <span key={item}>{item}</span>)}
       </div>
     </div>
-    <div className="build-arrow"><ArrowUpRight size={16} /></div>
-  </a>
+    <div className="build-arrow" aria-hidden="true"><Check size={16} /></div>
+  </article>
 )
 
 const Builds = () => (
@@ -417,10 +469,10 @@ const Builds = () => (
             <span className="eyebrow-num">§ 03</span>
             <span className="divider" />
           </div>
-          <h2>Proof that the work<br />can leave the slide deck.</h2>
+          <h2>Proof that I can turn ideas<br />into usable things.</h2>
           <p>
-            Preciado Tech is grounded in shipped interfaces, prototypes, and polished digital
-            systems — the same mix of clarity, usefulness, and presentation that client work needs.
+            These are not client case studies yet. They are examples of how I organize information,
+            polish interfaces, and make digital tools easier to understand.
           </p>
         </div>
         <div className="builds-list">
@@ -436,20 +488,20 @@ const CaseStudy = () => (
   <section className="case-study" id="case-study">
     <div className="wrap">
       <div className="case-card reveal">
-        <div className="case-kicker">Internal case study · Planter</div>
+        <div className="case-kicker">Example project · Planter</div>
         <div className="case-grid">
           <div>
-            <h2>A local-first plant journal built like a real product.</h2>
+            <h2>A simple plant journal for keeping care notes organized.</h2>
             <p className="case-lede">
-              Planter started as a personal botanical app and became a useful signal for how
-              Preciado Tech thinks: simple data models, mobile-first flows, offline-minded UX,
-              and room for AI assistance without making the product feel gimmicky.
+              Planter is a personal app idea that solves a familiar problem: important notes,
+              photos, and reminders getting scattered. The same thinking applies to business work —
+              collect the details, keep them organized, and make the next action easier.
             </p>
             <div className="case-actions">
-              <a className="btn btn-primary" href="https://github.com/michaelpreciado/Planter" target="_blank" rel="noreferrer">
-                View the build <ArrowUpRight size={15} className="arrow" />
+              <a className="btn btn-primary" href="#contact">
+                Start something similar <ArrowRight size={15} className="arrow" />
               </a>
-              <a className="btn btn-ghost" href="#contact">Start something similar</a>
+              <a className="btn btn-ghost" href="#examples">See business examples</a>
             </div>
           </div>
           <div className="case-notes">
@@ -459,11 +511,11 @@ const CaseStudy = () => (
             </div>
             <div>
               <span>Build</span>
-              <p>A responsive journal experience for plant records, care activity, progress photos, and local-first product polish.</p>
+              <p>A clean place to store records, care activity, progress photos, and reminders.</p>
             </div>
             <div>
               <span>Transferable value</span>
-              <p>The same thinking applies to client tools: organize messy inputs, reduce friction, and make the system pleasant to use.</p>
+              <p>The same approach can organize leads, customer notes, follow-ups, reports, or any repeated business process.</p>
             </div>
           </div>
         </div>
@@ -474,10 +526,10 @@ const CaseStudy = () => (
 
 /* ─── How it works ─── */
 const STEPS = [
-  { n: '01', title: '20-minute workflow call', body: 'Talk through the process that feels slow, brittle, repetitive, or unclear. No pitch deck required — just the real workflow.' },
-  { n: '02', title: 'Scope one painful process', body: 'Choose a focused problem with a clear output: a tool, assistant, automation, landing page, or internal workflow improvement.' },
-  { n: '03', title: 'Prototype the useful version', body: 'Build the smallest serious version that proves the system can help in the real world, not only in a demo.' },
-  { n: '04', title: 'Handoff and refine', body: 'Document how it works, clean up the rough edges, and iterate once it has touched real use.' },
+  { n: '01', title: 'Show me the annoying task', body: 'We talk through what happens now, who touches it, where things get delayed, and what result you wish happened automatically.' },
+  { n: '02', title: 'Pick the smallest useful fix', body: 'We choose one focused improvement instead of trying to change everything at once.' },
+  { n: '03', title: 'Build the simple version', body: 'I set up the first useful version: a cleaner form, follow-up flow, spreadsheet helper, reminder, assistant, or small internal tool.' },
+  { n: '04', title: 'Test it with real work', body: 'We make sure it is understandable, adjust the rough edges, and leave you with clear notes on how to use it.' },
 ]
 
 const How = () => (
@@ -490,11 +542,10 @@ const How = () => (
             <span className="eyebrow-num">§ 04</span>
             <span className="divider" />
           </div>
-          <h2 className="reveal">One painful process.<br />One useful system.<br /><em>Then refine.</em></h2>
+          <h2 className="reveal">One annoying task.<br />One easier way to do it.<br /><em>Then improve.</em></h2>
           <p className="how-lede reveal">
-            Engagements stay intentionally scoped. The goal is not to “AI transform” everything;
-            it is to find a concrete drag on the work, ship a practical improvement, and make it
-            easy to keep using.
+            The goal is not to “AI transform” your business. The goal is to remove one real source
+            of drag and make the new process easy enough that your team will actually use it.
           </p>
           <div className="steps">
             {STEPS.map((s) => (
@@ -513,10 +564,10 @@ const How = () => (
         <aside className="principles reveal">
           <div className="card-label">Principles</div>
           <ul className="principles-list">
-            <li><span className="mark">I.</span><span>Small, sharp, and remote by design.</span></li>
-            <li><span className="mark">II.</span><span>Built for real use, not AI theater.</span></li>
-            <li><span className="mark">III.</span><span>Equal care for utility, clarity, and presentation.</span></li>
-            <li><span className="mark">IV.</span><span>Fewer moving parts. Systems you can still reason about in a year.</span></li>
+            <li><span className="mark">I.</span><span>Start small enough to be realistic.</span></li>
+            <li><span className="mark">II.</span><span>Use plain language, not tech theater.</span></li>
+            <li><span className="mark">III.</span><span>Keep the human parts human.</span></li>
+            <li><span className="mark">IV.</span><span>Build things you can still understand later.</span></li>
           </ul>
         </aside>
       </div>
@@ -530,14 +581,14 @@ const CTA = ({ onContact }) => (
     <div className="wrap">
       <div className="cta-card reveal">
         <div className="cta-eyebrow"><span className="bar" /> Start a conversation</div>
-        <h2>Send the task you hate doing.<br />Leave with an <em>automation plan</em>.</h2>
+        <h2>Send the task you hate doing.<br />I’ll tell you what is <em>realistic</em>.</h2>
         <p className="cta-sub">
-          Tell Preciado Tech about one workflow that takes too long, breaks too often, or
-          keeps falling through the cracks. First reply usually lands inside a business day.
+          Tell Preciado Tech about one thing that takes too long, gets forgotten, or has to be
+          copied by hand. I will reply with a plain-English next step.
         </p>
         <div className="cta-actions">
           <button className="btn btn-primary" onClick={onContact}>
-            Get an automation plan <ArrowRight size={15} className="arrow" />
+            Ask what can be automated <ArrowRight size={15} className="arrow" />
           </button>
           <a className="btn btn-ghost" href="mailto:michael@preciadotech.com">
             michael@preciadotech.com
@@ -585,7 +636,7 @@ const ContactModal = ({ open, onClose }) => {
     const ne = {}
     if (!form.name.trim()) ne.name = 'Required'
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) ne.email = 'Valid email required'
-    if (form.details.trim().length < 10) ne.details = 'A sentence or two, please'
+    if (form.details.trim().length < 10) ne.details = 'A sentence or two helps'
     setErrs(ne)
     if (Object.keys(ne).length) return
     window.location.href = `mailto:michael@preciadotech.com?subject=${encodeURIComponent('Preciado Tech Inquiry')}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nFocus: ${form.focus}\n\n${form.details}`)}`
@@ -607,9 +658,9 @@ const ContactModal = ({ open, onClose }) => {
           </div>
         ) : (
           <form onSubmit={submit} noValidate>
-            <div className="modal-eyebrow">New project inquiry</div>
-            <h3>Tell Preciado Tech<br />about the work.</h3>
-            <p>A short note is enough to start. Replies usually land inside a business day.</p>
+            <div className="modal-eyebrow">Quick task review</div>
+            <h3>What task keeps wasting<br />your time?</h3>
+            <p>No technical details needed. A short note about the annoying part is enough.</p>
 
             <div className="field">
               <label>Name {errs.name && <span className="err">· {errs.name}</span>}</label>
@@ -622,15 +673,15 @@ const ContactModal = ({ open, onClose }) => {
             <div className="field">
               <label>Area of focus</label>
               <select value={form.focus} onChange={(e) => setForm({ ...form, focus: e.target.value })}>
-                <option value="ai">AI workflows</option>
-                <option value="auto">Automation systems</option>
-                <option value="web">Digital presence</option>
+                <option value="ai">Writing, summaries, or AI help</option>
+                <option value="auto">Follow-ups, forms, or spreadsheets</option>
+                <option value="web">Website clarity</option>
                 <option value="mix">Not sure yet</option>
               </select>
             </div>
             <div className="field">
-              <label>What's the friction? {errs.details && <span className="err">· {errs.details}</span>}</label>
-              <textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} placeholder="A couple sentences on what takes too long, breaks, or just never feels finished." />
+              <label>What do you want off your plate? {errs.details && <span className="err">· {errs.details}</span>}</label>
+              <textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} placeholder="Example: every week I copy new leads into a spreadsheet and forget to follow up with some of them." />
             </div>
 
             <div className="modal-actions">
@@ -739,6 +790,7 @@ function App() {
         <Hero onContact={() => setModal(true)} />
         <HireMichael />
         <Services />
+        <TaskExamples />
         <Offers />
         <Builds />
         <CaseStudy />
