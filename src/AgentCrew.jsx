@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react'
+import InlineCalendly from './InlineCalendly.jsx'
 
 const Icon = ({ d, size = 18, stroke = 1.5 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -267,9 +268,7 @@ export default function AgentCrew() {
             No tools to manage. No dashboards to check. Just results, delivered to your inbox.
           </p>
           <div className="crew-hero-ctas reveal">
-            <a className="btn btn-primary" href="#crew-pricing">
-              Book a crew call <ArrowRight size={15} className="arrow" />
-            </a>
+            <InlineCalendly label="Book a crew call" variant="primary" />
             <a className="btn btn-ghost" href="#crew-agents">
               Meet the crew
             </a>
@@ -348,9 +347,7 @@ export default function AgentCrew() {
                     <li key={f}><CheckIcon />{f}</li>
                   ))}
                 </ul>
-                <a className={`btn ${tier.highlight ? 'btn-primary' : 'btn-ghost'} crew-tier-cta`} href="#contact">
-                  Book a crew call <ArrowUpRight size={13} />
-                </a>
+                <InlineCalendly label="Book a crew call" variant={tier.highlight ? 'primary' : 'ghost'} className="crew-tier-cta" />
               </div>
             ))}
           </div>

@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react'
+import EmailCapture from './EmailCapture.jsx'
 
 const Icon = ({ d, size = 18, stroke = 1.5 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -237,6 +238,13 @@ export default function TickerSignals() {
                 <a className="btn btn-ghost" href="#ticker-how">
                   See how it works
                 </a>
+              </div>
+              <div className="ticker-email-capture">
+                <EmailCapture
+                  title="Get your first signal free"
+                  subtitle="Join the waitlist. We'll send you a real stock pick this Friday."
+                  cta="Join the waitlist"
+                />
               </div>
             </div>
             <div className="ticker-hero-card">
