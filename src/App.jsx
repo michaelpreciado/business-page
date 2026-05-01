@@ -74,6 +74,8 @@ const MobileMenu = ({ onContact }) => {
       {open && (
         <div className="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
           <nav className="mobile-nav">
+            <a className="mobile-nav-link" href="#signals" onClick={() => setOpen(false)}>Ticker Signals</a>
+            <a className="mobile-nav-link" href="/#services" onClick={() => setOpen(false)}>Services</a>
             <a className="mobile-nav-link" href="#hire" onClick={() => setOpen(false)}>Work with Michael</a>
             <a className="mobile-nav-link" href="#contact" onClick={() => { setOpen(false); onContact() }}>Get in Touch</a>
           </nav>
@@ -98,6 +100,8 @@ const Topbar = ({ onContact }) => (
         </span>
       </a>
       <nav className="topbar-right">
+        <a className="nav-link" href="#signals">Ticker Signals</a>
+        <a className="nav-link" href="/#services">Services</a>
         <a className="nav-link" href="#hire">Work with Michael</a>
         <span className="status"><span className="dot" />Available for small business projects</span>
         <a className="top-cta" href="#contact" onClick={(e) => { e.preventDefault(); onContact() }}>

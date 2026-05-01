@@ -127,7 +127,7 @@ const TIERS = [
     name: 'Pro',
     price: '$5',
     period: '/month',
-    tagline: 'Daily trading setups for $5/month.',
+    tagline: 'Weekly stock picks for $5/month.',
     features: [
       'Weekly email: 1–3 stocks with supporting news',
       'Entry · Stop · Target · Confidence',
@@ -153,16 +153,20 @@ const FAQS = [
     a: 'No. Ticker Signals are informational only -- not financial advice. Always do your own research before making any trade.',
   },
   {
-    q: 'How does Ticker find signals?',
-    a: 'Ticker runs quantitative screening models across momentum, mean-reversion, and trend-following strategies, filtering by volume and technical indicators.',
+    q: 'How does Ticker work?',
+    a: 'Each Monday, Ticker scans the market and selects 1–3 high-confidence setups with supporting news. You receive a clean signal card per pick with entry, stop, target, and confidence score.',
+  },
+  {
+    q: 'When do signals arrive?',
+    a: 'Signals are sent every Monday morning. After subscribing, your first signal arrives the following Monday.',
   },
   {
     q: 'Can I cancel anytime?',
-    a: 'Yes. Monthly plans cancel at the end of your billing period. No contracts, no cancellation fees.',
+    a: 'Yes. Cancel through Stripe at any time — no contracts, no cancellation fees.',
   },
   {
-    q: 'How do I pay for Pro?',
-    a: 'Subscribe via Stripe -- simple, secure, cancel anytime. Your first signal arrives within 24 hours of subscribing.',
+    q: 'How do I pay?',
+    a: 'Click Subscribe — it takes you to a secure Stripe checkout. Cancel anytime from your Stripe portal.',
   },
   {
     q: 'What brokers does this work with?',
@@ -190,102 +194,30 @@ export default function TickerSignals() {
       {/* Hero */}
       <div className="wrap">
         <div className="ticker-hero reveal">
-          <div className="section-head">
-            <span className="eyebrow">New from Preciado Tech</span>
-            <span className="eyebrow-num">Powered by Ticker</span>
-            <span className="divider" />
-          </div>
           <div className="ticker-hero-grid">
             <div className="ticker-hero-copy">
+              <div className="section-head">
+                <span className="eyebrow">New from Preciado Tech</span>
+                <span className="eyebrow-num">Powered by Ticker</span>
+                <span className="divider" />
+              </div>
               <h2 className="ticker-hero-headline">
-                Your AI stock scout.<br />
-                <span>1–3 stocks. Supporting news. Every Monday.</span>
+                1–3 stock picks.<br />
+                <span>Supporting news. Every Monday.</span>
               </h2>
               <p className="ticker-hero-sub">
-                Ticker scans the market every week and sends you actionable setups with entry,
-                stop, target, confidence score, and the latest news backing each pick.
-                No noise. Just 1–3 ready-to-research stock picks in your inbox every Monday.
+                Ticker scans the market every week and sends you actionable setups —
+                entry, stop, target, confidence, and the latest news backing each pick.
+                No noise. Just 1–3 ready-to-research picks in your inbox Monday morning.
               </p>
               <div className="ticker-hero-ctas">
                 <a className="btn btn-primary" href="#ticker-pricing">
                   Get started <ArrowRight size={15} className="arrow" />
                 </a>
-                <a className="btn btn-ghost" href="#ticker-how">
-                  See how it works
-                </a>
               </div>
             </div>
             <div className="ticker-hero-card">
               <SignalCard signal={SIGNAL_MOCK} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* How it works */}
-      <div className="wrap">
-        <div className="ticker-how" id="ticker-how">
-          <div className="section-head reveal">
-            <span className="eyebrow">How Ticker works</span>
-            <span className="eyebrow-num">§ 01</span>
-            <span className="divider" />
-          </div>
-          <div className="ticker-steps">
-            {HOW_STEPS.map((step) => (
-              <div className="ticker-step reveal" key={step.n}>
-                <div className="step-icon-wrap">{step.icon}</div>
-                <div className="step-num">STEP / {step.n}</div>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Signal preview */}
-      <div className="wrap">
-        <div className="ticker-signal-demo reveal">
-          <div className="section-head">
-            <span className="eyebrow">Signal format</span>
-            <span className="eyebrow-num">What you get</span>
-            <span className="divider" />
-          </div>
-          <h2>Every alert is a complete trade setup.</h2>
-          <p>No vague tips. No "I think this might go up." Every signal comes with a full setup: entry zone, stop loss, price target, confidence score, and the reason.</p>
-          <div className="ticker-demo-grid">
-            <SignalCard signal={SIGNAL_MOCK} />
-            <div className="ticker-signal-legend">
-              <div className="legend-item">
-                <div className="legend-dot" style={{ background: 'oklch(0.78 0.18 145)' }} />
-                <div>
-                  <strong>Green dot</strong> -- Signal type (Long, Short, Momentum, Reversal)
-                </div>
-              </div>
-              <div className="legend-item">
-                <div className="legend-dot" style={{ background: 'oklch(0.82 0.09 255)' }} />
-                <div>
-                  <strong>Price + change</strong> -- Current price and intraday movement
-                </div>
-              </div>
-              <div className="legend-item">
-                <div className="legend-dot" style={{ background: 'oklch(0.72 0.15 265)' }} />
-                <div>
-                  <strong>Confidence bar</strong> -- 0-100% score based on technicals + volume
-                </div>
-              </div>
-              <div className="legend-item">
-                <div className="legend-dot" style={{ background: 'oklch(0.62 0.2 30)' }} />
-                <div>
-                  <strong>Levels</strong> -- Entry zone, hard stop, and price target
-                </div>
-              </div>
-              <div className="legend-item">
-                <div className="legend-dot" style={{ background: 'oklch(0.60 0.12 50)' }} />
-                <div>
-                  <strong>Horizon</strong> -- Expected time window (scalp, swing, position)
-                </div>
-              </div>
             </div>
           </div>
         </div>
