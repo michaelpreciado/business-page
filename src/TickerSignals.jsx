@@ -13,16 +13,16 @@ const ArrowUpRight = (p) => <Icon {...p} d={<><path d="M7 17 17 7"/><path d="M8 
 /* ─── Signal card mock ─── */
 const SIGNAL_MOCK = {
   ticker: 'NVDA',
-  price: 118.50,
-  change: 2.34,
-  changePct: 2.01,
-  signal: 'MOMENTUM',
-  description: '5-day streak, RSI 62, above 20dma with volume confirmation',
-  entry: '$117.80 - $118.50',
-  stop: '$115.20',
-  target: '$122.00',
-  confidence: 78,
-  horizon: '1-3 days',
+  price: 198.94,
+  change: -0.65,
+  changePct: -0.32,
+  signal: 'MOMENTUM PULLBACK',
+  description: 'Pulling back to 20-day MA support ($197.25), RSI 58.6 gives room to run. Above both MAs, trend intact.',
+  entry: '$198.50 - $199.50',
+  stop: '$195.00',
+  target: '$210.00',
+  confidence: 72,
+  horizon: '3-7 days',
   badge: 'Long',
 }
 
