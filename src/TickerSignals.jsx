@@ -214,15 +214,6 @@ export default function TickerSignals() {
                   See how it works
                 </a>
               </div>
-              <div className="ticker-email-capture">
-                <EmailCapture
-                  title="Get Ticker Signals in your inbox"
-                  subtitle="1–3 stock picks with supporting news, every Monday morning."
-                  cta="Subscribe for $5/mo"
-                  ctaHref="https://buy.stripe.com/aFacMX7q03C20uS7AX4Ni00"
-                  mode="payment"
-                />
-              </div>
             </div>
             <div className="ticker-hero-card">
               <SignalCard signal={SIGNAL_MOCK} />
