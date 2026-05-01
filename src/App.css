@@ -2314,3 +2314,24 @@ footer::before {
   .topbar-right .status,
   .topbar-right .top-cta { display: none !important; }
 }
+
+/*** Ticker tier badge + polish ***/
+.ticker-tier { position: relative; }
+.tier-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.tier-cta { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Tighten hero layout — remove double CTA confusion */
+.ticker-hero-ctas { margin-bottom: 0; }
+.ticker-email-capture { margin-top: 24px; }

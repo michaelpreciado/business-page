@@ -135,26 +135,28 @@ const TIERS = [
       'Plain-English format',
     ],
     cta: 'Join the list',
+    ctaHref: null,
     highlight: false,
   },
   {
     name: 'Pro',
-    price: '$15',
+    price: '$10',
     period: '/month',
     tagline: 'Daily signals for active traders who want more.',
     features: [
-      'Daily stock signals (Monday-Friday)',
+      'Daily stock signals (Mon–Fri)',
       'Entry · Stop · Target · Confidence',
       'Weekly performance recap',
       'Sector rotation alerts',
       'Email + Telegram delivery',
     ],
-    cta: 'Start free trial',
+    cta: 'Get Pro access',
+    ctaHref: 'https://link.com/agents',
     highlight: true,
   },
   {
     name: 'Elite',
-    price: '$49',
+    price: '$15',
     period: '/month',
     tagline: 'Full trading intelligence for serious investors.',
     features: [
@@ -165,6 +167,7 @@ const TIERS = [
       'Priority support',
     ],
     cta: 'Get Elite access',
+    ctaHref: 'https://link.com/agents',
     highlight: false,
   },
 ]
@@ -188,6 +191,10 @@ const FAQS = [
   {
     q: 'Can I cancel anytime?',
     a: 'Yes. Monthly plans cancel at the end of your billing period. No contracts, no cancellation fees.',
+  },
+  {
+    q: 'How do I pay for Pro or Elite?',
+    a: 'Links to paid plans are coming soon. Subscribe via Stripe -- simple, secure, cancel anytime.',
   },
   {
     q: 'What brokers does this work with?',
@@ -344,7 +351,7 @@ export default function TickerSignals() {
                     <li key={f}><CheckIcon />{f}</li>
                   ))}
                 </ul>
-                <a className={`btn ${tier.highlight ? 'btn-primary' : 'btn-ghost'} tier-cta`} href="#contact">
+                <a className={`btn ${tier.highlight ? 'btn-primary' : 'btn-ghost'} tier-cta`} href={tier.ctaHref || '#contact'} target={tier.ctaHref ? '_blank' : undefined} rel={tier.ctaHref ? 'noopener noreferrer' : undefined}>
                   {tier.cta} <ArrowUpRight size={13} />
                 </a>
               </div>
