@@ -151,7 +151,7 @@ const TIERS = [
       'Email + Telegram delivery',
     ],
     cta: 'Get Pro access',
-    ctaHref: 'https://link.com/agents',
+    ctaHref: 'https://buy.stripe.com/aFacMX7q03C20uS7AX4Ni00',
     highlight: true,
   },
   {
@@ -167,7 +167,7 @@ const TIERS = [
       'Priority support',
     ],
     cta: 'Get Elite access',
-    ctaHref: 'https://link.com/agents',
+    ctaHref: 'https://buy.stripe.com/00w00baCc0pQb9w8F14Ni01',
     highlight: false,
   },
 ]
