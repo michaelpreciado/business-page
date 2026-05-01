@@ -697,9 +697,9 @@ const Footer = () => (
     <div className="wrap foot-row">
       <div className="foot-meta">© {new Date().getFullYear()} · Preciado Tech · Remote studio</div>
       <nav className="foot-socials" aria-label="Social links">
+        <a href="mailto:michael@preciadotech.com">Email</a>
         <a href="https://www.tiktok.com/@preciado.tech" target="_blank" rel="noreferrer">TikTok</a>
         <a href="https://www.michael-preciado.com" target="_blank" rel="noreferrer">Photography</a>
-        <a href="mailto:michael@preciadotech.com">Email</a>
       </nav>
     </div>
   </footer>
@@ -892,7 +892,6 @@ function App() {
         <HireMichael />
         <TaskExamples />
         <TickerSignals />
-        <Offers />
         <TrustClarity />
         <CTA onContact={() => setModal(true)} />
       </main>
