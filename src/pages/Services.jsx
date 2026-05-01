@@ -35,6 +35,7 @@ const SERVICES = [
     title: 'Find the time-wasters',
     body: 'We look at the tasks that eat up your week: copying information, chasing replies, updating sheets, writing the same message, or checking too many places.',
     tags: ['task review', 'plain-English plan', 'quick wins'],
+    price: 'Starts at $150',
   },
   {
     num: '02',
@@ -42,6 +43,7 @@ const SERVICES = [
     title: 'Make the task easier',
     body: 'I can help connect forms, email, spreadsheets, reminders, customer notes, and simple tools so fewer things have to be done by hand.',
     tags: ['forms', 'follow-ups', 'spreadsheets'],
+    price: 'Typical projects $250–$500',
   },
   {
     num: '03',
@@ -49,6 +51,7 @@ const SERVICES = [
     title: 'Clean up your web presence',
     body: 'If customers are confused by your website, I can help make the offer clearer, the page easier to read, and the next step obvious.',
     tags: ['landing pages', 'clearer copy', 'trust signals'],
+    price: 'Starts at $300',
   },
 ]
 
@@ -70,6 +73,7 @@ const ServiceCard = ({ s }) => {
       <div className="service-tags">
         {s.tags.map((t) => <span key={t} className="tag">{t}</span>)}
       </div>
+      {s.price && <div className="service-price">{s.price}</div>}
       <span className="service-link">
         <a href="/#contact">Discuss scope</a> <ArrowUpRight size={12} />
       </span>

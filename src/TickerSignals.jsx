@@ -215,6 +215,7 @@ export default function TickerSignals() {
                   Get started <ArrowRight size={15} className="arrow" />
                 </a>
               </div>
+              <div className="signal-sample-badge">Sample signal card</div>
             </div>
             <div className="ticker-hero-card">
               <SignalCard signal={SIGNAL_MOCK} />

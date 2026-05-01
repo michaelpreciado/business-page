@@ -900,15 +900,12 @@ function App() {
         <Hero onContact={() => setModal(true)} />
         <HireMichael />
         <TaskExamples />
+        <TickerSignals />
         <Offers />
-        <Builds />
-        <CaseStudy />
-        <How />
         <TrustClarity />
         <CTA onContact={() => setModal(true)} />
       </main>
       <StickyCta />
-      <TickerSignals />
       <Footer />
       <ContactModal open={modal} onClose={() => setModal(false)} />
     </>
