@@ -124,51 +124,20 @@ const HOW_STEPS = [
 /* ─── Pricing tiers ─── */
 const TIERS = [
   {
-    name: 'Free',
-    price: '$0',
-    period: 'forever',
-    tagline: 'One stock pick per week, in your inbox.',
-    features: [
-      '1 stock signal per week',
-      'Weekly market recap',
-      'Delivered every Friday',
-      'Plain-English format',
-    ],
-    cta: 'Join the list',
-    ctaHref: null,
-    highlight: false,
-  },
-  {
     name: 'Pro',
-    price: '$10',
+    price: '$5',
     period: '/month',
-    tagline: 'Daily signals for active traders who want more.',
+    tagline: 'Daily trading setups for $5/month.',
     features: [
       'Daily stock signals (Mon–Fri)',
       'Entry · Stop · Target · Confidence',
+      '1–3 supporting news articles per signal',
       'Weekly performance recap',
-      'Sector rotation alerts',
       'Email + Telegram delivery',
     ],
     cta: 'Get Pro access',
     ctaHref: 'https://buy.stripe.com/aFacMX7q03C20uS7AX4Ni00',
     highlight: true,
-  },
-  {
-    name: 'Elite',
-    price: '$15',
-    period: '/month',
-    tagline: 'Full trading intelligence for serious investors.',
-    features: [
-      'Everything in Pro',
-      'Options signals (calls & puts)',
-      'Real-time push alerts',
-      'Portfolio tracking dashboard',
-      'Priority support',
-    ],
-    cta: 'Get Elite access',
-    ctaHref: 'https://buy.stripe.com/00w00baCc0pQb9w8F14Ni01',
-    highlight: false,
   },
 ]
 
@@ -193,8 +162,8 @@ const FAQS = [
     a: 'Yes. Monthly plans cancel at the end of your billing period. No contracts, no cancellation fees.',
   },
   {
-    q: 'How do I pay for Pro or Elite?',
-    a: 'Links to paid plans are coming soon. Subscribe via Stripe -- simple, secure, cancel anytime.',
+    q: 'How do I pay for Pro?',
+    a: 'Subscribe via Stripe -- simple, secure, cancel anytime. Your first signal arrives within 24 hours of subscribing.',
   },
   {
     q: 'What brokers does this work with?',
@@ -249,8 +218,10 @@ export default function TickerSignals() {
               <div className="ticker-email-capture">
                 <EmailCapture
                   title="Get your first signal free"
-                  subtitle="Join the waitlist. We'll send you a real stock pick this Friday."
-                  cta="Join the waitlist"
+                  subtitle="Try Ticker for a week. We'll send you a real stock pick this Monday."
+                  cta="Get Pro for $5/mo"
+                  ctaHref="https://buy.stripe.com/aFacMX7q03C20uS7AX4Ni00"
+                  mode="payment"
                 />
               </div>
             </div>

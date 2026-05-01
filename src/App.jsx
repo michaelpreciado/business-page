@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import './App.css'
 
 import TickerSignals from './TickerSignals.jsx'
+import ServicesPage from './pages/Services.jsx'
 
 /* ─── Icon primitives ─── */
 const Icon = ({ d, size = 18, stroke = 1.5 }) => (
@@ -73,7 +74,6 @@ const MobileMenu = ({ onContact }) => {
       {open && (
         <div className="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
           <nav className="mobile-nav">
-            <a className="mobile-nav-link" href="#offers" onClick={() => setOpen(false)}>Services</a>
             <a className="mobile-nav-link" href="#hire" onClick={() => setOpen(false)}>Work with Michael</a>
             <a className="mobile-nav-link" href="#contact" onClick={() => { setOpen(false); onContact() }}>Get in Touch</a>
           </nav>
@@ -98,7 +98,6 @@ const Topbar = ({ onContact }) => (
         </span>
       </a>
       <nav className="topbar-right">
-        <a className="nav-link" href="#offers">Services</a>
         <a className="nav-link" href="#hire">Work with Michael</a>
         <span className="status"><span className="dot" />Available for small business projects</span>
         <a className="top-cta" href="#contact" onClick={(e) => { e.preventDefault(); onContact() }}>
@@ -855,6 +854,13 @@ const MatrixCanvas = () => {
 /* ─── App root ─── */
 function App() {
   const [modal, setModal] = useState(false)
+  const [route, setRoute] = useState(window.location.hash || '#home')
+
+  useEffect(() => {
+    const handler = () => setRoute(window.location.hash || '#home')
+    window.addEventListener('hashchange', handler)
+    return () => window.removeEventListener('hashchange', handler)
+  }, [])
 
   useEffect(() => {
     const io = new IntersectionObserver((entries) => {
@@ -862,7 +868,18 @@ function App() {
     }, { threshold: 0.12 })
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
     return () => io.disconnect()
-  }, [])
+  }, [route])
+
+  if (route === '#services') {
+    return (
+      <>
+        <Topbar onContact={() => setModal(true)} />
+        <ServicesPage />
+        <Footer />
+        <ContactModal open={modal} onClose={() => setModal(false)} />
+      </>
+    )
+  }
 
   return (
     <>
@@ -878,7 +895,6 @@ function App() {
       <main>
         <Hero onContact={() => setModal(true)} />
         <HireMichael />
-        <Services />
         <TaskExamples />
         <Offers />
         <Builds />

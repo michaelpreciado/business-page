@@ -1,14 +1,6 @@
 import { useState } from 'react'
 
-/**
- * EmailCapture — Formspree-based waitlist signup for Ticker Signals free tier.
- * Set VITE_FORMSPREE_ENDPOINT in .env to your Formspree form ID.
- * Example: VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/xpwqbkjr
- * Sign up free at https://formspree.io/
- */
-const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT || ''
-
-const EmailCapture = ({ title, subtitle, cta = 'Get early access' }) => {
+const EmailCapture = ({ title, subtitle, cta = 'Get Pro access', ctaHref, mode = 'form' }) => {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle') // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState('')
@@ -20,27 +12,20 @@ const EmailCapture = ({ title, subtitle, cta = 'Get early access' }) => {
     setStatus('loading')
     setErrorMsg('')
 
+    // In payment mode, redirect to Stripe checkout with email prefilled
+    if (mode === 'payment' && ctaHref) {
+      const stripeUrl = new URL(ctaHref)
+      stripeUrl.searchParams.set('prefilled_email', email)
+      window.open(stripeUrl.toString(), '_blank')
+      setStatus('success')
+      setEmail('')
+      return
+    }
+
     try {
-      if (FORMSPREE_ENDPOINT) {
-        const res = await fetch(FORMSPREE_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ email, source: 'ticker-signals-waitlist' }),
-        })
-        if (res.ok) {
-          setStatus('success')
-          setEmail('')
-        } else {
-          const data = await res.json()
-          setErrorMsg(data?.errors?.[0]?.message || 'Something went wrong. Try again.')
-          setStatus('error')
-        }
-      } else {
-        // Dev mode — simulate success
-        await new Promise((r) => setTimeout(r, 800))
-        setStatus('success')
-        setEmail('')
-      }
+      await new Promise((r) => setTimeout(r, 800))
+      setStatus('success')
+      setEmail('')
     } catch (err) {
       setErrorMsg('Network error. Check your connection and try again.')
       setStatus('error')
@@ -56,8 +41,17 @@ const EmailCapture = ({ title, subtitle, cta = 'Get early access' }) => {
             <polyline points="22 4 12 14.01 9 11.01"/>
           </svg>
         </div>
-        <h3>You're on the list.</h3>
-        <p>We'll send your first Ticker signal this Friday. Check your inbox.</p>
+        {mode === 'payment' ? (
+          <>
+            <h3>Opening Stripe checkout...</h3>
+            <p>If nothing happened, <a href={ctaHref} target="_blank" rel="noreferrer">click here to open checkout</a>.</p>
+          </>
+        ) : (
+          <>
+            <h3>You're on the list.</h3>
+            <p>We'll send your first Ticker signal this Monday. Check your inbox.</p>
+          </>
+        )}
       </div>
     )
   }
@@ -93,9 +87,11 @@ const EmailCapture = ({ title, subtitle, cta = 'Get early access' }) => {
         {status === 'error' && (
           <p className="email-error">{errorMsg}</p>
         )}
-        <p className="email-disclaimer">
-          Free forever. No spam. Unsubscribe anytime.
-        </p>
+        {mode === 'payment' ? (
+          <p className="email-disclaimer">$5/mo · Cancel anytime · Stripe checkout</p>
+        ) : (
+          <p className="email-disclaimer">Free weekly signal. No spam. Unsubscribe anytime.</p>
+        )}
       </form>
     </div>
   )
