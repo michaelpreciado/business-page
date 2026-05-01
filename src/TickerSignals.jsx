@@ -129,11 +129,10 @@ const TIERS = [
     period: '/month',
     tagline: 'Daily trading setups for $5/month.',
     features: [
-      'Daily stock signals (Mon–Fri)',
+      'Weekly email: 1–3 stocks with supporting news',
       'Entry · Stop · Target · Confidence',
-      '1–3 supporting news articles per signal',
-      'Weekly performance recap',
-      'Email + Telegram delivery',
+      'Supporting news articles for every pick',
+      'Email delivery directly to your inbox',
     ],
     cta: 'Get Pro access',
     ctaHref: 'https://buy.stripe.com/aFacMX7q03C20uS7AX4Ni00',
@@ -200,16 +199,16 @@ export default function TickerSignals() {
             <div className="ticker-hero-copy">
               <h2 className="ticker-hero-headline">
                 Your AI stock scout.<br />
-                <span>Daily signals, zero noise.</span>
+                <span>1–3 stocks. Supporting news. Every Monday.</span>
               </h2>
               <p className="ticker-hero-sub">
-                Ticker watches the market so you do not have to. Every day, it finds actionable
-                setups, scores them by confidence, and sends you a clean signal card -- entry,
-                stop, target, and why now.
+                Ticker scans the market every week and sends you actionable setups with entry,
+                stop, target, confidence score, and the latest news backing each pick.
+                No noise. Just 1–3 ready-to-research stock picks in your inbox every Monday.
               </p>
               <div className="ticker-hero-ctas">
                 <a className="btn btn-primary" href="#ticker-pricing">
-                  Get daily signals <ArrowRight size={15} className="arrow" />
+                  Get started <ArrowRight size={15} className="arrow" />
                 </a>
                 <a className="btn btn-ghost" href="#ticker-how">
                   See how it works
@@ -217,9 +216,9 @@ export default function TickerSignals() {
               </div>
               <div className="ticker-email-capture">
                 <EmailCapture
-                  title="Get your first signal free"
-                  subtitle="Try Ticker for a week. We'll send you a real stock pick this Monday."
-                  cta="Get Pro for $5/mo"
+                  title="Get Ticker Signals in your inbox"
+                  subtitle="1–3 stock picks with supporting news, every Monday morning."
+                  cta="Subscribe for $5/mo"
                   ctaHref="https://buy.stripe.com/aFacMX7q03C20uS7AX4Ni00"
                   mode="payment"
                 />
@@ -309,7 +308,7 @@ export default function TickerSignals() {
             <span className="eyebrow-num">Simple tiers</span>
             <span className="divider" />
           </div>
-          <h2 className="reveal">Start free. Scale when you are ready.</h2>
+          <h2 className="reveal">One plan. No fluff. Just the signals.</h2>
           <div className="ticker-tiers">
             {TIERS.map((tier) => (
               <div className={`ticker-tier reveal ${tier.highlight ? 'ticker-tier--highlight' : ''}`} key={tier.name}>
