@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import './App.css'
 
 import TickerSignals from './TickerSignals.jsx'
-import AgentCrew from './AgentCrew.jsx'
 
 /* ─── Icon primitives ─── */
 const Icon = ({ d, size = 18, stroke = 1.5 }) => (
@@ -36,6 +35,57 @@ const GlyphPresence = () => (
   </svg>
 )
 
+
+const MobileMenu = ({ onContact }) => {
+  const [open, setOpen] = useState(false)
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [open])
+
+  return (
+    <>
+      <button
+        className="hamburger"
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
+        onClick={() => setOpen(o => !o)}
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+          {open ? (
+            <>
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </>
+          ) : (
+            <>
+              <line x1="4" y1="8" x2="20" y2="8" />
+              <line x1="4" y1="14" x2="20" y2="14" />
+              <line x1="4" y1="20" x2="20" y2="20" />
+            </>
+          )}
+        </svg>
+      </button>
+      {open && (
+        <div className="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+          <nav className="mobile-nav">
+            <a className="mobile-nav-link" href="#offers" onClick={() => setOpen(false)}>Services</a>
+            <a className="mobile-nav-link" href="#hire" onClick={() => setOpen(false)}>Work with Michael</a>
+            <a className="mobile-nav-link" href="#contact" onClick={() => { setOpen(false); onContact() }}>Get in Touch</a>
+          </nav>
+          <a className="mobile-cta" href="#contact" onClick={() => { setOpen(false); onContact() }}>
+            Fix one repetitive task →
+          </a>
+        </div>
+      )}
+    </>
+  )
+}
+
 /* ─── Topbar ─── */
 const Topbar = ({ onContact }) => (
   <header className="topbar">
@@ -54,6 +104,7 @@ const Topbar = ({ onContact }) => (
         <a className="top-cta" href="#contact" onClick={(e) => { e.preventDefault(); onContact() }}>
           Fix one repetitive task <ArrowUpRight size={14} className="arrow" />
         </a>
+        <MobileMenu onContact={onContact} />
       </nav>
     </div>
   </header>
@@ -838,7 +889,6 @@ function App() {
       </main>
       <StickyCta />
       <TickerSignals />
-      <AgentCrew />
       <Footer />
       <ContactModal open={modal} onClose={() => setModal(false)} />
     </>
