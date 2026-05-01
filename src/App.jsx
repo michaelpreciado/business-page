@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import './App.css'
 
+import TickerSignals from './TickerSignals.jsx'
+import AgentCrew from './AgentCrew.jsx'
+
 /* ─── Icon primitives ─── */
 const Icon = ({ d, size = 18, stroke = 1.5 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -834,6 +837,8 @@ function App() {
         <CTA onContact={() => setModal(true)} />
       </main>
       <StickyCta />
+      <TickerSignals />
+      <AgentCrew />
       <Footer />
       <ContactModal open={modal} onClose={() => setModal(false)} />
     </>
