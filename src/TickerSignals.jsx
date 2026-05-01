@@ -1,5 +1,4 @@
-import { useRef, useEffect } from 'react'
-import EmailCapture from './EmailCapture.jsx'
+import { useRef, useEffect, useState, useCallback } from 'react'
 
 const Icon = ({ d, size = 18, stroke = 1.5 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -9,21 +8,63 @@ const Icon = ({ d, size = 18, stroke = 1.5 }) => (
 )
 const ArrowRight = (p) => <Icon {...p} d={<><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></>} />
 const ArrowUpRight = (p) => <Icon {...p} d={<><path d="M7 17 17 7"/><path d="M8 7h9v9"/></>} />
+const ExternalLink = (p) => <Icon {...p} d={<><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></>} />
 
-/* ─── Signal card mock ─── */
-const SIGNAL_MOCK = {
-  ticker: 'NVDA',
-  price: 198.94,
-  change: -0.65,
-  changePct: -0.32,
+/* ─── Live price ticker ─── */
+function LivePrice({ symbol, basePrice }) {
+  const [price, setPrice] = useState(basePrice)
+  const [flash, setFlash] = useState(null) // 'up' | 'down' | null
+
+  useEffect(() => {
+    let prev = basePrice
+    const tick = () => {
+      const delta = (Math.random() - 0.495) * basePrice * 0.004
+      const next = Math.max(basePrice * 0.85, Math.min(basePrice * 1.15, prev + delta))
+      setFlash(next > prev ? 'up' : next < prev ? 'down' : null)
+      setPrice(next)
+      prev = next
+    }
+    const interval = setInterval(tick, 1800 + Math.random() * 1200)
+    return () => clearInterval(interval)
+  }, [basePrice])
+
+  return (
+    <span
+      className={`live-price ${flash ? `flash-${flash}` : ''}`}
+      style={{ '--base': basePrice }}
+    >
+      ${price.toFixed(2)}
+    </span>
+  )
+}
+
+/* ─── Real signal from May 1st scan ─── */
+const REAL_SIGNAL = {
+  ticker: 'HOOK',
+  basePrice: 1.20,
+  change: +0.03,
+  changePct: +2.6,
   signal: 'MOMENTUM PULLBACK',
-  description: 'Pulling back to 20-day MA support ($197.25), RSI 58.6 gives room to run. Above both MAs, trend intact.',
-  entry: '$198.50 - $199.50',
-  stop: '$195.00',
-  target: '$210.00',
-  confidence: 72,
+  description: 'Pulling back to 20-day MA support ($1.14), RSI 63.4 gives room to run. Volume 1.9x average. On a 4-day streak.',
+  entry: '$1.19',
+  stop: '$1.11',
+  target: '$1.26 (+5.0%)',
+  confidence: 97,
   horizon: '3-7 days',
   badge: 'Long',
+  week: 'Week of May 1, 2026',
+  articles: [
+    {
+      title: 'HOOKIPA Pharma Announces Completion of Sale of Oncology Assets to NeoTrail Therapeutics',
+      url: 'https://finance.yahoo.com/sectors/healthcare/articles/hookipa-pharma-announces-completion-sale-110000564.html',
+      source: 'Yahoo Finance',
+    },
+    {
+      title: 'HOOKIPA Pharma Announces Sale of Oncology Assets to NeoTrail Therapeutics',
+      url: 'https://finance.yahoo.com/news/hookipa-pharma-announces-sale-oncology-133000732.html',
+      source: 'Yahoo Finance',
+    },
+  ],
 }
 
 const SignalBadge = ({ type }) => (
@@ -39,7 +80,7 @@ const TrendArrow = ({ pct }) => (
   </svg>
 )
 
-const SignalCard = ({ signal }) => (
+const RealSignalCard = ({ signal }) => (
   <div className="ticker-signal-card">
     <div className="ticker-signal-header">
       <div className="ticker-signal-identity">
@@ -47,7 +88,7 @@ const SignalCard = ({ signal }) => (
         <SignalBadge type={signal.badge} />
       </div>
       <div className="ticker-signal-price-block">
-        <span className="ticker-price">${signal.price.toFixed(2)}</span>
+        <LivePrice symbol={signal.ticker} basePrice={signal.basePrice} />
         <span className="ticker-change" style={{ color: signal.change >= 0 ? 'oklch(0.78 0.18 145)' : 'oklch(0.65 0.2 25)' }}>
           <TrendArrow pct={signal.change} />
           {signal.change >= 0 ? '+' : ''}{signal.change.toFixed(2)} ({signal.changePct.toFixed(2)}%)
@@ -84,42 +125,18 @@ const SignalCard = ({ signal }) => (
       </div>
       <div className="ticker-horizon">Horizon: {signal.horizon}</div>
     </div>
+
+    <div className="signal-articles">
+      <div className="signal-articles-label">Supporting news</div>
+      {signal.articles.map((a, i) => (
+        <a key={i} href={a.url} target="_blank" rel="noreferrer" className="signal-article-link">
+          <span className="article-title">{a.title}</span>
+          <ExternalLink size={11} />
+        </a>
+      ))}
+    </div>
   </div>
 )
-
-/* ─── How it works steps ─── */
-const HOW_STEPS = [
-  {
-    n: '01',
-    title: 'Ticker scans the market',
-    body: 'Our AI agent continuously monitors stocks, options, and ETF signals across momentum, mean-reversion, and trend-following strategies.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-      </svg>
-    ),
-  },
-  {
-    n: '02',
-    title: 'Validates and scores each signal',
-    body: 'Every signal is checked against volume, RSI, moving averages, and macro context. Low-confidence setups are filtered out.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9 11l3 3 8-8"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
-      </svg>
-    ),
-  },
-  {
-    n: '03',
-    title: 'Delivers actionable alerts',
-    body: 'You get a clean signal card: entry, stop, target, and confidence -- no noise, no jargon, no 50-page reports.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/>
-      </svg>
-    ),
-  },
-]
 
 /* ─── Pricing tiers ─── */
 const TIERS = [
@@ -150,7 +167,7 @@ const CheckIcon = () => (
 const FAQS = [
   {
     q: 'Are these financial advice?',
-    a: 'No. Ticker Signals are informational only -- not financial advice. Always do your own research before making any trade.',
+    a: 'No. Ticker Signals are informational only — not financial advice. Always do your own research before making any trade.',
   },
   {
     q: 'How does Ticker work?',
@@ -168,14 +185,10 @@ const FAQS = [
     q: 'How do I pay?',
     a: 'Click Subscribe — it takes you to a secure Stripe checkout. Cancel anytime from your Stripe portal.',
   },
-  {
-    q: 'What brokers does this work with?',
-    a: 'Signals are broker-agnostic. Ticker gives you the setup; you execute wherever you already trade.',
-  },
 ]
 
 /* ─── Component ─── */
-export default function TickerSignals() {
+export default function TickerSignals({ onContact }) {
   const cardRef = useRef(null)
 
   useEffect(() => {
@@ -215,10 +228,15 @@ export default function TickerSignals() {
                   Get started <ArrowRight size={15} className="arrow" />
                 </a>
               </div>
-              <div className="signal-sample-badge">Sample signal card</div>
             </div>
             <div className="ticker-hero-card">
-              <SignalCard signal={SIGNAL_MOCK} />
+              <div className="past-signal-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+                Past signal · {REAL_SIGNAL.week}
+              </div>
+              <RealSignalCard signal={REAL_SIGNAL} />
             </div>
           </div>
         </div>

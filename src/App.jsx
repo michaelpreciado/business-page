@@ -714,6 +714,7 @@ const ContactModal = ({ open, onClose }) => {
   const closeModal = useCallback(() => {
     setSent(false)
     setErrs({})
+    setForm({ name: '', email: '', focus: 'ai', details: '' })
     onClose()
   }, [onClose])
 
@@ -726,12 +727,11 @@ const ContactModal = ({ open, onClose }) => {
   const submit = (e) => {
     e.preventDefault()
     const ne = {}
-    if (!form.name.trim()) ne.name = 'Required'
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) ne.email = 'Valid email required'
     if (form.details.trim().length < 10) ne.details = 'A sentence or two helps'
     setErrs(ne)
     if (Object.keys(ne).length) return
-    window.location.href = `mailto:michael@preciadotech.com?subject=${encodeURIComponent('Preciado Tech Inquiry')}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nFocus: ${form.focus}\n\n${form.details}`)}`
+    window.location.href = `mailto:michael@preciadotech.com?subject=${encodeURIComponent('Preciado Tech Inquiry')}&body=${encodeURIComponent(`Name: ${form.name || '(not provided)'}\nEmail: ${form.email}\nFocus: ${form.focus}\n\n${form.details}`)}`
     setSent(true)
   }
 
@@ -750,35 +750,21 @@ const ContactModal = ({ open, onClose }) => {
           </div>
         ) : (
           <form onSubmit={submit} noValidate>
-            <div className="modal-eyebrow">Quick task review</div>
-            <h3>What task keeps wasting<br />your time?</h3>
-            <p>No technical details needed. A short note about the annoying part is enough.</p>
+            <div className="modal-eyebrow">Just tell me about one task</div>
+            <h3>What keeps wasting<br />your time?</h3>
+            <p>No tech jargon needed. A short note about the annoying part is enough.</p>
 
-            <div className="field">
-              <label>Name {errs.name && <span className="err">· {errs.name}</span>}</label>
-              <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your name" />
-            </div>
             <div className="field">
               <label>Email {errs.email && <span className="err">· {errs.email}</span>}</label>
               <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="you@domain.com" />
             </div>
             <div className="field">
-              <label>Area of focus</label>
-              <select value={form.focus} onChange={(e) => setForm({ ...form, focus: e.target.value })}>
-                <option value="ai">Writing, summaries, or AI help</option>
-                <option value="auto">Follow-ups, forms, or spreadsheets</option>
-                <option value="web">Website clarity</option>
-                <option value="mix">Not sure yet</option>
-              </select>
-            </div>
-            <div className="field">
-              <label>What do you want off your plate? {errs.details && <span className="err">· {errs.details}</span>}</label>
-              <textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} placeholder="Example: every week I copy new leads into a spreadsheet and forget to follow up with some of them." />
+              <label>What needs to stop being a manual chore? {errs.details && <span className="err">· {errs.details}</span>}</label>
+              <textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} placeholder="Example: every week I copy new leads into a spreadsheet and forget to follow up with some of them." rows={3} />
             </div>
 
             <div className="modal-actions">
-              <div className="spacer" />
-              <button type="button" className="btn btn-ghost" onClick={closeModal}>Cancel</button>
+              <a className="modal-alt-link" href="mailto:michael@preciadotech.com">Or just email me directly</a>
               <button type="submit" className="btn btn-primary">Send <ArrowRight size={14} className="arrow" /></button>
             </div>
           </form>
@@ -863,7 +849,12 @@ function App() {
   useEffect(() => {
     const handler = () => setRoute(window.location.hash || '#home')
     window.addEventListener('hashchange', handler)
-    return () => window.removeEventListener('hashchange', handler)
+    const openModal = () => setModal(true)
+    window.addEventListener('open-contact-modal', openModal)
+    return () => {
+      window.removeEventListener('hashchange', handler)
+      window.removeEventListener('open-contact-modal', openModal)
+    }
   }, [])
 
   useEffect(() => {
@@ -878,7 +869,7 @@ function App() {
     return (
       <>
         <Topbar onContact={() => setModal(true)} />
-        <ServicesPage />
+        <ServicesPage onContact={() => setModal(true)} />
         <Footer />
         <ContactModal open={modal} onClose={() => setModal(false)} />
       </>

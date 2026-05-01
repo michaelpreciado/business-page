@@ -75,13 +75,27 @@ const ServiceCard = ({ s }) => {
       </div>
       {s.price && <div className="service-price">{s.price}</div>}
       <span className="service-link">
-        <a href="/#contact">Discuss scope</a> <ArrowUpRight size={12} />
+        <a href="#" onClick={handleDiscuss}>Discuss scope</a> <ArrowUpRight size={12} />
       </span>
     </article>
   )
 }
 
-export default function ServicesPage() {
+export default function ServicesPage({ onContact }) {
+  const handleDiscuss = (e) => {
+    e.preventDefault();
+    if (onContact) {
+      // Switch back to main hash and open modal
+      window.location.hash = ''
+      setTimeout(() => {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+        // Dispatch a custom event so App.jsx can open the modal
+        window.dispatchEvent(new CustomEvent('open-contact-modal'))
+      }, 100)
+    } else {
+      window.location.href = '/#contact'
+    }
+  }
   const ref = useRef(null)
 
   useEffect(() => {
