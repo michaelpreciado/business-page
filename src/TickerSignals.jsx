@@ -38,31 +38,30 @@ function LivePrice({ symbol, basePrice }) {
   )
 }
 
-/* ─── Real signal from May 1st scan ─── */
-const REAL_SIGNAL = {
-  ticker: 'HOOK',
-  basePrice: 1.20,
-  change: +0.03,
-  changePct: +2.6,
-  signal: 'MOMENTUM PULLBACK',
-  description: 'Pulling back to 20-day MA support ($1.14), RSI 63.4 gives room to run. Volume 1.9x average. On a 4-day streak.',
-  entry: '$1.19',
-  stop: '$1.11',
-  target: '$1.26 (+5.0%)',
-  confidence: 97,
-  horizon: '3-7 days',
+/* ─── Example signal (not a real subscriber pick) ─── */
+const EXAMPLE = {
+  ticker: 'TECH',
+  basePrice: 48.32,
+  change: -0.74,
+  changePct: -1.51,
+  signal: 'MEAN REVERSION',
+  description: 'Pulling back toward 20-day MA support ($47.80), RSI 44 gives room to run. Volume picking up on the dip. Above both moving averages, trend intact.',
+  entry: '$47.90 – $48.20',
+  stop: '$46.40',
+  target: '$50.80 (+5.0%)',
+  confidence: 81,
+  horizon: '3–7 days',
   badge: 'Long',
-  week: 'Week of May 1, 2026',
   articles: [
     {
-      title: 'HOOKIPA Pharma Announces Completion of Sale of Oncology Assets to NeoTrail Therapeutics',
-      url: 'https://finance.yahoo.com/sectors/healthcare/articles/hookipa-pharma-announces-completion-sale-110000564.html',
-      source: 'Yahoo Finance',
+      title: 'Tech sector rebounds as inflation data spurs rate-cut optimism',
+      url: '#',
+      source: 'Financial Times',
     },
     {
-      title: 'HOOKIPA Pharma Announces Sale of Oncology Assets to NeoTrail Therapeutics',
-      url: 'https://finance.yahoo.com/news/hookipa-pharma-announces-sale-oncology-133000732.html',
-      source: 'Yahoo Finance',
+      title: ' earnings beat estimates; guidance raised for full year',
+      url: '#',
+      source: 'Reuters',
     },
   ],
 }
@@ -230,13 +229,13 @@ export default function TickerSignals({ onContact }) {
               </div>
             </div>
             <div className="ticker-hero-card">
-              <div className="past-signal-badge">
+              <div className="example-signal-badge">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
                 </svg>
-                Past signal · {REAL_SIGNAL.week}
+                Example signal card
               </div>
-              <RealSignalCard signal={REAL_SIGNAL} />
+              <RealSignalCard signal={EXAMPLE} />
             </div>
           </div>
         </div>
