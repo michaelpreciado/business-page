@@ -632,41 +632,6 @@ const How = () => (
   </section>
 )
 
-/* ─── Trust clarity ─── */
-const NOT_ITEMS = [
-  'Not a giant software rebuild',
-  'Not complicated AI consulting',
-  'Not replacing your team',
-  'Not another tool you will never use',
-]
-
-const TrustClarity = () => (
-  <section className="trust-clarity" id="trust">
-    <div className="wrap">
-      <div className="trust-panel reveal">
-        <div>
-          <div className="section-head">
-            <span className="eyebrow">Simple by design</span>
-            <span className="eyebrow-num">Trust</span>
-            <span className="divider" />
-          </div>
-          <h2>What this is not.</h2>
-          <p>
-            The first step is small on purpose. We look at one repeated task, decide what is realistic,
-            and only build what will actually make the work easier.
-          </p>
-          <div className="pricing-note">
-            Small scoped projects are available. Start with a simple task review before committing to a build.
-          </div>
-        </div>
-        <ul className="not-list">
-          {NOT_ITEMS.map((item) => <li key={item}>{item}</li>)}
-        </ul>
-      </div>
-    </div>
-  </section>
-)
-
 /* ─── CTA ─── */
 const CTA = ({ onContact }) => (
   <section className="cta" id="contact">
@@ -892,7 +857,6 @@ function App() {
         <HireMichael />
         <TaskExamples />
         <TickerSignals />
-        <TrustClarity />
         <CTA onContact={() => setModal(true)} />
       </main>
       <StickyCta />
