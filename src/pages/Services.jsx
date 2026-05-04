@@ -27,6 +27,11 @@ const GlyphPresence = () => (
     <path d="M3 9h18"/><path d="M8 14h4"/>
   </svg>
 )
+const GlyphWorkflowAI = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+  </svg>
+)
 
 const SERVICES = [
   {
@@ -53,6 +58,14 @@ const SERVICES = [
     tags: ['landing pages', 'clearer copy', 'trust signals'],
     price: 'Starts at $300',
   },
+  {
+    num: '04',
+    Glyph: GlyphWorkflowAI,
+    title: 'Automate client follow-up sequences',
+    body: 'Every inquiry that goes unanswered is money left on the table. I build automated sequences — booking confirmations, intake forms, check-in reminders, and lead nurture — so clients hear from you without you lifting a finger.',
+    tags: ['inquiry responses', 'intake forms', 'follow-up sequences'],
+    price: 'Typical projects $300–$600',
+  },
 ]
 
 const ServiceCard = ({ s }) => {
@@ -65,7 +78,7 @@ const ServiceCard = ({ s }) => {
   return (
     <article className="service" ref={ref} onMouseMove={onMove}>
       <div className="service-num">
-        <span>{s.num} / 03</span>
+        <span>{s.num} / 04</span>
         <span className="service-glyph"><s.Glyph /></span>
       </div>
       <h3>{s.title}</h3>
