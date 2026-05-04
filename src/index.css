@@ -106,9 +106,10 @@ html { scroll-behavior: smooth; }
 
 ::selection { background: oklch(0.82 0.09 255 / 0.22); color: var(--ink); }
 
-/* Disable heavy animations on small touch devices */
+/* Disable heavy background effects on small touch devices */
 @media (max-width: 480px) {
   .matrix-grid, .floating-orbs, .ambient { display: none; }
+  .hero { background-attachment: scroll; }
 }
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
