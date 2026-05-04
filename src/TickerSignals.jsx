@@ -151,7 +151,7 @@ const TIERS = [
       'Email delivery directly to your inbox',
     ],
     cta: 'Get Pro access',
-    ctaHref: 'https://buy.stripe.com/aFacMX7q03C20uS7AX4Ni00',
+    ctaHref: 'https://buy.stripe.com/fZucMX25G0pQa5sf3p4Ni02',
     highlight: true,
   },
 ]
