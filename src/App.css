@@ -499,6 +499,8 @@ section { position: relative; z-index: 1; }
   border: 1px solid oklch(0.82 0.09 255 / 0.38);
   box-shadow: 0 18px 36px -18px rgba(0,0,0,0.72);
   z-index: 1;
+  max-width: 18vw;
+  max-height: 18vw;
 }
 .founder-copy {
   position: absolute;
@@ -529,6 +531,27 @@ section { position: relative; z-index: 1; }
   background: var(--line);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+}
+@media (max-width: 480px) {
+  .proof-list > * + * { border-top: 1px solid var(--line); }
+  /* Hero visual card — show only on screens wide enough */
+  .hero-visual-card { display: none; }
+  .hero h1 { font-size: clamp(38px, 16vw, 52px); }
+  /* Hire panel — tighter padding on very small screens */
+  .hire-panel { padding: 24px 16px; gap: 24px; }
+  /* Task list — smaller font */
+  .task-list li { font-size: 13.5px; padding: 12px 12px 12px 34px; }
+  .task-list li::before { top: 12px; left: 12px; }
+  /* Offer list — tighter padding */
+  .offer { padding: 22px 16px; }
+  /* Build card — tighter padding */
+  .build-card { padding: 20px 16px; }
+  /* Service card — tighter padding */
+  .service { padding: 32px 20px 28px; }
+  /* How steps — compact on tiny screens */
+  .step { padding: 24px 0; gap: 16px; }
+  /* Ticker signal header — stack everything */
+  .ticker-signal-header { flex-direction: column; align-items: flex-start !important; gap: 8px; }
 }
 .proof {
   padding: 18px 0;
@@ -572,7 +595,8 @@ section { position: relative; z-index: 1; }
   .hire-panel { padding: 32px 22px; gap: 34px; border-radius: 18px; }
   .hire-copy h2 { font-size: clamp(34px, 11vw, 46px); }
   .hire-copy p { font-size: 16px; line-height: 1.62; }
-  .hire-actions .btn { width: 100%; justify-content: center; }
+  .hire-actions { flex-direction: column; }
+  .hire-actions .btn { width: 100%; justify-content: center; min-height: 52px; }
   .founder-card { min-height: 220px; }
   .founder-photo { width: 62px; height: 62px; left: 18px; bottom: 18px; }
   .founder-copy { left: 94px; right: 16px; bottom: 16px; }
@@ -716,6 +740,7 @@ section { position: relative; z-index: 1; }
 }
 .task-example-img {
   width: 100%;
+  height: auto;
   margin-top: 28px;
   border: 1px solid oklch(0.82 0.09 255 / 0.16);
   border-radius: var(--radius-lg);
@@ -802,7 +827,6 @@ section { position: relative; z-index: 1; }
   background:
     radial-gradient(560px 220px at 0% 0%, oklch(0.82 0.09 255 / 0.1), transparent 62%),
     var(--bg-3);
-  padding-left: 44px;
 }
 .offer-num {
   font-family: var(--mono);
@@ -1372,6 +1396,9 @@ footer::before {
     0 0 60px -20px oklch(0.78 0.18 260 / 0.15);
   position: relative; overflow: hidden;
 }
+@media (max-width: 480px) {
+  .modal { padding: 28px 20px 24px; border-radius: 18px; }
+}
 .modal::before {
   content: ""; position: absolute; inset: -1px;
   background: radial-gradient(600px 220px at 50% -10%, oklch(0.78 0.18 260 / 0.18), transparent 60%);
@@ -1415,6 +1442,7 @@ footer::before {
   color: var(--ink);
   padding: 12px 14px; border-radius: 10px;
   font: inherit;
+  font-size: 16px; /* prevents iOS zoom on focus */
   transition: border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
   outline: none;
 }
@@ -1450,14 +1478,16 @@ footer::before {
 
 /* ── Sticky CTA ─────────────────────────────────────── */
 .sticky-cta {
-  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-  padding: 14px 32px;
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  padding: 16px 32px;
   background: linear-gradient(135deg, #00d4ff, #1e90ff);
-  color: #030408; font-weight: 600; font-size: 14px;
+  color: #030408; font-weight: 600; font-size: 15px;
   border: none; border-radius: 999px;
-  box-shadow: 0 8px 32px rgba(0,212,255,0.3);
+  box-shadow: 0 8px 32px rgba(0,212,255,0.3), 0 2px 12px rgba(0,0,0,0.4);
   cursor: pointer; z-index: 900;
   animation: slide-up 300ms ease;
+  min-height: 56px;
+  display: flex; align-items: center;
 }
 .sticky-cta:hover {
   transform: translateX(-50%) scale(1.05);
@@ -1467,7 +1497,7 @@ footer::before {
   from { opacity: 0; transform: translateX(-50%) translateY(20px); }
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
-@media (min-width: 641px) { .sticky-cta { display: none; } }
+@media (min-width: 721px) { .sticky-cta { display: none; } }
 
 /* ═══════════════════════════════════════════
    TICKER SIGNALS — component styles
@@ -2288,7 +2318,12 @@ footer::before {
   text-decoration: none;
   text-transform: uppercase;
   transition: color 200ms;
+  padding: 12px 24px;
+  min-height: 52px;
+  display: flex; align-items: center;
+  border-radius: 10px;
 }
+.mobile-nav-link:hover { color: var(--accent); background: rgba(255,255,255,0.04); }
 .mobile-nav-link:hover { color: var(--accent); }
 
 .mobile-cta {

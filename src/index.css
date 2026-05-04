@@ -88,8 +88,29 @@ html { scroll-behavior: smooth; }
 
 #root { width: 100%; }
 
+/* ── Custom Scrollbar ─────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: oklch(0.35 0.08 260 / 0.6);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: oklch(0.55 0.10 260 / 0.8); }
+
+/* ── Focus visible ──────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid oklch(0.82 0.09 255 / 0.5);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 ::selection { background: oklch(0.82 0.09 255 / 0.22); color: var(--ink); }
 
+/* Disable heavy animations on small touch devices */
+@media (max-width: 480px) {
+  .matrix-grid, .floating-orbs, .ambient { display: none; }
+}
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
