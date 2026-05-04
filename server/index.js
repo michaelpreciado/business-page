@@ -151,11 +151,72 @@ app.get('/api/subscribers', (req, res) => {
   });
 });
 
+// ─── Contact Form ───────────────────────────────────────────────────────────
+app.post('/api/contact', async (req, res) => {
+  const { name, email, focus, details } = req.body;
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'Valid email required' });
+  }
+  if (!details || details.trim().length < 10) {
+    return res.status(400).json({ error: 'Please describe your task (at least 10 characters)' });
+  }
+  if (!process.env.RESEND_API_KEY) {
+    return res.status(500).json({ error: 'Email service not configured' });
+  }
+
+  const https = require('https');
+  const b = '<br><br>';
+  const htmlBody = [
+    `New inquiry from preciadotech.com`,
+    b,
+    `<strong>Name:</strong> ${name || '(not provided)'}`,
+    `<strong>Email:</strong> ${email}`,
+    `<strong>Interested in:</strong> ${focus || 'automation'}`,
+    b,
+    `<strong>Task / Pain point:</strong>`,
+    `<p>${details}</p>`,
+  ].join('');
+
+  const payload = JSON.stringify({
+    from: 'Preciado Tech Website <signals@preciado-tech.com>',
+    to: ['michael@preciadotech.com'],
+    subject: `[Lead] ${name || email} — ${focus || 'automation'} inquiry`,
+    html: htmlBody,
+  });
+
+  const apiKey = process.env.RESEND_API_KEY;
+  const opts = {
+    hostname: 'api.resend.com', path: '/emails', method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) },
+  };
+
+
+  return new Promise((resolve) => {
+    const req2 = https.request(opts, (r) => {
+      let data = ''; r.on('data', c => data += c);
+      r.on('end', () => {
+        if (r.statusCode === 200) {
+          res.json({ message: 'Message received — Michael will reply within 1 business day.' });
+        } else {
+          console.error('[contact] Resend error:', data);
+          res.status(500).json({ error: 'Failed to send. Please email directly at michael@preciadotech.com' });
+        }
+        resolve();
+      });
+    });
+    req2.on('error', (e) => {
+      console.error('[contact] request error:', e.message);
+      res.status(500).json({ error: 'Network error. Please email directly at michael@preciadotech.com' });
+      resolve();
+    });
+    req2.write(payload); req2.end();
+  });
+});
+
 // Health check
 app.get('/api/health', (_, res) => res.json({ ok: true, ts: Date.now() }));
 
 app.listen(PORT, () => {
-  console.log(`Ticker server running on port ${PORT}`);
-  console.log(`Webhook endpoint: POST /api/webhook/stripe`);
-  console.log(`Subscribe endpoint: POST /api/subscribe`);
+  console.log(`Server running on port ${PORT}`);
+  console.log(`Endpoints: /api/webhook/stripe | /api/subscribe | /api/contact`);
 });

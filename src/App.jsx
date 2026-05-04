@@ -4,6 +4,8 @@ import './App.css'
 import TickerSignals from './TickerSignals.jsx'
 import ServicesPage from './pages/Services.jsx'
 
+const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/mykozeqy'
+
 /* ─── Icon primitives ─── */
 const Icon = ({ d, size = 18, stroke = 1.5 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -675,10 +677,13 @@ const ContactModal = ({ open, onClose }) => {
   const [form, setForm] = useState({ name: '', email: '', focus: 'ai', details: '' })
   const [errs, setErrs] = useState({})
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [sendErr, setSendErr] = useState('')
 
   const closeModal = useCallback(() => {
     setSent(false)
     setErrs({})
+    setSendErr('')
     setForm({ name: '', email: '', focus: 'ai', details: '' })
     onClose()
   }, [onClose])
@@ -689,15 +694,37 @@ const ContactModal = ({ open, onClose }) => {
     return () => window.removeEventListener('keydown', esc)
   }, [open, closeModal])
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault()
     const ne = {}
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) ne.email = 'Valid email required'
     if (form.details.trim().length < 10) ne.details = 'A sentence or two helps'
     setErrs(ne)
     if (Object.keys(ne).length) return
-    window.location.href = `mailto:michael@preciadotech.com?subject=${encodeURIComponent('Preciado Tech Inquiry')}&body=${encodeURIComponent(`Name: ${form.name || '(not provided)'}\nEmail: ${form.email}\nFocus: ${form.focus}\n\n${form.details}`)}`
-    setSent(true)
+
+    setSending(true)
+    setSendErr('')
+    try {
+      const r = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name || '(not provided)',
+          email: form.email,
+          focus: form.focus,
+          message: form.details,
+        }),
+      })
+      if (r.ok) {
+        setSent(true)
+      } else {
+        setSendErr('Something went wrong. Email me directly at michael@preciadotech.com')
+      }
+    } catch (err) {
+      setSendErr('Network error. Email me directly at michael@preciadotech.com')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -728,9 +755,10 @@ const ContactModal = ({ open, onClose }) => {
               <textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} placeholder="Example: every week I copy new leads into a spreadsheet and forget to follow up with some of them." rows={3} />
             </div>
 
+            {sendErr && <p style={{color:'var(--red)',fontSize:'0.85rem',marginBottom:'0.5rem'}}>{sendErr}</p>}
             <div className="modal-actions">
               <a className="modal-alt-link" href="mailto:michael@preciadotech.com">Or just email me directly</a>
-              <button type="submit" className="btn btn-primary">Send <ArrowRight size={14} className="arrow" /></button>
+              <button type="submit" className="btn btn-primary" disabled={sending}>{sending ? 'Sending…' : 'Send'} <ArrowRight size={14} className="arrow" /></button>
             </div>
           </form>
         )}
