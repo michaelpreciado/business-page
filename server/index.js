@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const { spawn } = require('child_process');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -88,6 +89,27 @@ app.post('/api/webhook/stripe', express.raw({ type: 'application/json' }), (req,
   res.json({ received: true });
 });
 
+// ─── Welcome email (instant first signal) ──────────────────────────────────
+function sendWelcomeEmail(email) {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn('[subscribe] RESEND_API_KEY not set — skipping welcome email');
+    return;
+  }
+  const scriptPath = path.join(__dirname, '../../data/stocks/scripts/send-welcome-email.cjs');
+  if (!fs.existsSync(scriptPath)) {
+    console.warn('[subscribe] send-welcome-email.cjs not found at', scriptPath);
+    return;
+  }
+  spawn('node', [scriptPath, email], {
+    stdio: ['ignore', 'pipe', 'pipe'],
+    detached: true,
+    env: { ...process.env },
+  }).on('error', (err) => {
+    console.error('[subscribe] Welcome email spawn error:', err.message);
+  });
+  console.log(`[subscribe] Triggered welcome email for ${email}`);
+}
+
 // ─── API Routes ─────────────────────────────────────────────────────────────
 app.use(express.json());
 
@@ -102,7 +124,8 @@ app.post('/api/subscribe', (req, res) => {
     return res.json({ message: 'Already subscribed', status: 'active' });
   }
   upsertSub(email, { status: 'pending' });
-  res.json({ message: 'Added to waitlist', status: 'pending' });
+  sendWelcomeEmail(email);
+  res.json({ message: "You're in — check your inbox for your first signal!", status: 'pending' });
 });
 
 // Confirm a subscriber manually (admin use)

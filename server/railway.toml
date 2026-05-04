@@ -1,0 +1,6 @@
+[railway]
+  [railway.variables]
+    NODE_ENV = "production"
+
+# Deploy the server as a separate Railway service
+# pointing to business-page/server/

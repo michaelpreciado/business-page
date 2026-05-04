@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+
 const EmailCapture = ({ title, subtitle, cta = 'Get Pro access', ctaHref, mode = 'form' }) => {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle') // idle | loading | success | error
@@ -12,8 +14,21 @@ const EmailCapture = ({ title, subtitle, cta = 'Get Pro access', ctaHref, mode =
     setStatus('loading')
     setErrorMsg('')
 
-    // In payment mode, redirect to Stripe checkout with email prefilled
+    // In payment mode: call /api/subscribe first (captures email, sends instant signal)
+    // then redirect to Stripe checkout
     if (mode === 'payment' && ctaHref) {
+      try {
+        // Call subscribe API to capture email and trigger instant welcome signal
+        if (API_BASE) {
+          await fetch(`${API_BASE}/api/subscribe`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+          })
+        }
+      } catch (_) {
+        // Non-fatal — proceed to Stripe anyway
+      }
       const stripeUrl = new URL(ctaHref)
       stripeUrl.searchParams.set('prefilled_email', email)
       window.open(stripeUrl.toString(), '_blank')
