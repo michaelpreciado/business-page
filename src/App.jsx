@@ -239,13 +239,13 @@ const HireMichael = () => (
             hand every week, that is usually a good place to start.
           </p>
           <div className="hire-actions">
-            <a className="btn btn-primary" href="mailto:michael@preciadotech.com?subject=Role%20opportunity%20for%20Michael%20Preciado">
+            <a className="btn btn-primary" href="mailto:michael@preciado-tech.com?subject=Role%20opportunity%20for%20Michael%20Preciado">
               Talk through a task <ArrowRight size={15} className="arrow" />
             </a>
             <a className="btn btn-ghost" href="#examples">
               See common examples
             </a>
-            <a className="btn btn-ghost" href="mailto:michael@preciadotech.com">
+            <a className="btn btn-ghost" href="mailto:michael@preciado-tech.com">
               Email Michael
             </a>
           </div>
@@ -653,8 +653,8 @@ const CTA = ({ onContact }) => (
           <button className="btn btn-primary" onClick={onContact}>
             Ask what can be automated <ArrowRight size={15} className="arrow" />
           </button>
-          <a className="btn btn-ghost" href="mailto:michael@preciadotech.com">
-            michael@preciadotech.com
+          <a className="btn btn-ghost" href="mailto:michael@preciado-tech.com">
+            michael@preciado-tech.com
           </a>
         </div>
       </div>
@@ -668,7 +668,7 @@ const Footer = () => (
     <div className="wrap foot-row">
       <div className="foot-meta">© {new Date().getFullYear()} · Preciado Tech · Remote studio</div>
       <nav className="foot-socials" aria-label="Social links">
-        <a href="mailto:michael@preciadotech.com">Email</a>
+        <a href="mailto:michael@preciado-tech.com">Email</a>
         <a href="https://www.tiktok.com/@preciado.tech" target="_blank" rel="noreferrer">TikTok</a>
         <a href="https://www.michael-preciado.com" target="_blank" rel="noreferrer">Photography</a>
       </nav>
@@ -722,10 +722,10 @@ const ContactModal = ({ open, onClose }) => {
       if (r.ok) {
         setSent(true)
       } else {
-        setSendErr('Something went wrong. Email me directly at michael@preciadotech.com')
+        setSendErr('Something went wrong. Email me directly at michael@preciado-tech.com')
       }
     } catch (err) {
-      setSendErr('Network error. Email me directly at michael@preciadotech.com')
+      setSendErr('Network error. Email me directly at michael@preciado-tech.com')
     } finally {
       setSending(false)
     }
@@ -761,7 +761,7 @@ const ContactModal = ({ open, onClose }) => {
 
             {sendErr && <p style={{color:'var(--red)',fontSize:'0.85rem',marginBottom:'0.5rem'}}>{sendErr}</p>}
             <div className="modal-actions">
-              <a className="modal-alt-link" href="mailto:michael@preciadotech.com">Or just email me directly</a>
+              <a className="modal-alt-link" href="mailto:michael@preciado-tech.com">Or just email me directly</a>
               <button type="submit" className="btn btn-primary" disabled={sending}>{sending ? 'Sending…' : 'Send'} <ArrowRight size={14} className="arrow" /></button>
             </div>
           </form>

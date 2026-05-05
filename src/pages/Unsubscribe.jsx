@@ -27,7 +27,7 @@ export default function Unsubscribe() {
               You're unsubscribed. You'll no longer receive Ticker Signals emails.
             </p>
             <p style={{ fontFamily: 'ui-monospace, monospace', color: 'rgba(230,241,255,0.4)', fontSize: '11px', margin: '12px 0 0' }}>
-              Come back anytime at preciadotech.com
+              Come back anytime at preciado-tech.com
             </p>
           </div>
         ) : (
@@ -49,7 +49,7 @@ export default function Unsubscribe() {
 
         <div style={{ marginTop: '24px', textAlign: 'center', borderTop: '1px solid rgba(74,184,255,0.15)', paddingTop: '20px' }}>
           <p style={{ color: 'rgba(230,241,255,0.4)', fontFamily: 'ui-monospace, monospace', fontSize: '11px', margin: '0' }}>
-            Ticker Signals · preciadotech.com
+            Ticker Signals · preciado-tech.com
           </p>
         </div>
       </div>

@@ -20,7 +20,7 @@ const InlineCalendly = ({
       window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer')
     } else {
       // Fallback: open mailto
-      window.location.href = 'mailto:michael@preciadotech.com?subject=Crew+Call+Request&body=Hi%20Michael%2C%0A%0AI%27d%20like%20to%20schedule%20a%20crew%20call%20to%20discuss%20the%20Agent%20Crew%20service.%0A%0ACompany%3A%0ABest%20time%20to%20reach%20me%3A%0A'
+      window.location.href = 'mailto:michael@preciado-tech.com?subject=Crew+Call+Request&body=Hi%20Michael%2C%0A%0AI%27d%20like%20to%20schedule%20a%20crew%20call%20to%20discuss%20the%20Agent%20Crew%20service.%0A%0ACompany%3A%0ABest%20time%20to%20reach%20me%3A%0A'
     }
   }
 

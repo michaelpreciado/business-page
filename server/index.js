@@ -167,7 +167,7 @@ app.post('/api/contact', async (req, res) => {
   const https = require('https');
   const b = '<br><br>';
   const htmlBody = [
-    `New inquiry from preciadotech.com`,
+    `New inquiry from preciado-tech.com`,
     b,
     `<strong>Name:</strong> ${name || '(not provided)'}`,
     `<strong>Email:</strong> ${email}`,
@@ -179,7 +179,7 @@ app.post('/api/contact', async (req, res) => {
 
   const payload = JSON.stringify({
     from: 'Preciado Tech Website <signals@preciado-tech.com>',
-    to: ['michael@preciadotech.com'],
+    to: ['michael@preciado-tech.com'],
     subject: `[Lead] ${name || email} — ${focus || 'automation'} inquiry`,
     html: htmlBody,
   });
@@ -199,14 +199,14 @@ app.post('/api/contact', async (req, res) => {
           res.json({ message: 'Message received — Michael will reply within 1 business day.' });
         } else {
           console.error('[contact] Resend error:', data);
-          res.status(500).json({ error: 'Failed to send. Please email directly at michael@preciadotech.com' });
+          res.status(500).json({ error: 'Failed to send. Please email directly at michael@preciado-tech.com' });
         }
         resolve();
       });
     });
     req2.on('error', (e) => {
       console.error('[contact] request error:', e.message);
-      res.status(500).json({ error: 'Network error. Please email directly at michael@preciadotech.com' });
+      res.status(500).json({ error: 'Network error. Please email directly at michael@preciado-tech.com' });
       resolve();
     });
     req2.write(payload); req2.end();
@@ -367,6 +367,31 @@ app.get('/api/office/outreach', (_, res) => {
 app.get('/api/office/signals', (_, res) => {
   const signal = getLatestSignal();
   res.json({ signal, ts: Date.now() });
+});
+
+// GET /api/office/trading/portfolio — trading bot status
+app.get('/api/office/trading/portfolio', (_, res) => {
+  const tradingDir = path.join(DATA_DIR, 'trading');
+  const tradesFile = path.join(tradingDir, 'trades.json');
+  const stateFile = path.join(tradingDir, 'state.json');
+
+  const trades = fs.existsSync(tradesFile) ? JSON.parse(fs.readFileSync(tradesFile, 'utf8')) : { trades: [], stats: {} };
+  const state = fs.existsSync(stateFile) ? JSON.parse(fs.readFileSync(stateFile, 'utf8')) : { openPosition: null, dailyLoss: 0 };
+
+  res.json({
+    openPosition: state.openPosition,
+    dailyLoss: state.dailyLoss,
+    stats: trades.stats,
+    recentTrades: trades.trades.slice(-10).reverse(),
+    ts: Date.now(),
+  });
+});
+
+// GET /api/office/trading/scan — one-shot market scan
+app.get('/api/office/trading/scan', async (req, res) => {
+  const result = await runScript('trading-bot.cjs', ['scan']);
+  const lines = (result.stdout || '').split('\n').filter(l => l.trim());
+  res.json({ output: lines, code: result.code, ts: Date.now() });
 });
 
 // GET /api/office/health — system health check
