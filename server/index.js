@@ -216,6 +216,173 @@ app.post('/api/contact', async (req, res) => {
 // Health check
 app.get('/api/health', (_, res) => res.json({ ok: true, ts: Date.now() }));
 
+// ═══════════════════════════════════════════════════════════════════════════
+// MISSION CONTROL — Agent Office Endpoints
+// ═══════════════════════════════════════════════════════════════════════════
+
+const LEADS_FILE = '/home/mp/Documents/Preciado Tech/Friday/Outreach/leads.md';
+const DATA_DIR   = '/home/mp/openclaw-workspaces/friday/data/stocks/data';
+const SCRIPTS_DIR = '/home/mp/openclaw-workspaces/friday/data/stocks/scripts';
+
+function runScript(scriptName, args = []) {
+  return new Promise((resolve) => {
+    const scriptPath = path.join(SCRIPTS_DIR, scriptName);
+    if (!fs.existsSync(scriptPath)) { resolve({ error: `Script not found: ${scriptPath}` }); return; }
+    const child = spawn('node', [scriptPath, ...args], { stdio: ['ignore', 'pipe', 'pipe'] });
+    let stdout = '', stderr = '';
+    child.stdout.on('data', d => stdout += d);
+    child.stderr.on('data', d => stderr += d);
+    child.on('close', code => resolve({ stdout, stderr, code }));
+    child.on('error', err => resolve({ error: err.message }));
+  });
+}
+
+function parseLeads() {
+  if (!fs.existsSync(LEADS_FILE)) return [];
+  const content = fs.readFileSync(LEADS_FILE, 'utf8');
+  const lines = content.split('\n');
+  const leads = [];
+  let inTable = false;
+  for (const line of lines) {
+    if (line.includes('Date Added')) { inTable = true; continue; }
+    if (!inTable) continue;
+    if (line.includes('---')) continue;
+    if (!line.trim()) { inTable = false; continue; }
+    const cols = line.split('|').slice(1, -1).map(c => c.trim()).filter(Boolean);
+    if (cols.length < 9) continue;
+    leads.push({
+      name: cols[1], contact: cols[2], industry: cols[3],
+      source: cols[4], score: parseInt(cols[5]) || 0,
+      painPoint: cols[6], offer: cols[7],
+      status: (cols[8] || '').toLowerCase().trim(),
+      dateContacted: cols[9] || '', followUpDue: cols[10] || '',
+      response: cols[11] || '', nextStep: cols[12] || '', notes: cols[13] || '',
+    });
+  }
+  return leads;
+}
+
+function getSubscriberStats() {
+  const dbPath = path.join(DATA_DIR, 'subscribers.json');
+  if (!fs.existsSync(dbPath)) return { total: 0, active: 0, pending: 0, cancelled: 0 };
+  const subs = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+  return {
+    total: subs.length,
+    active: subs.filter(s => s.status === 'active').length,
+    pending: subs.filter(s => s.status === 'pending').length,
+    cancelled: subs.filter(s => s.status === 'cancelled').length,
+  };
+}
+
+function getLatestSignal() {
+  const artifactsDir = path.join(DATA_DIR, '../artifacts');
+  if (!fs.existsSync(artifactsDir)) return null;
+  const dirs = fs.readdirSync(artifactsDir).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d));
+  if (!dirs.length) return null;
+  dirs.sort().reverse();
+  const latestDir = dirs[0];
+  const files = fs.readdirSync(path.join(artifactsDir, latestDir)).filter(f => f.endsWith('.md') && !f.includes('design'));
+  if (!files.length) return { date: latestDir, hasDesign: fs.existsSync(path.join(artifactsDir, latestDir, 'ticker-signals-design.png')) };
+  const signalFile = path.join(artifactsDir, latestDir, files[0]);
+  const raw = fs.readFileSync(signalFile, 'utf8');
+  const titleMatch = raw.match(/^#\s+(.+)/m);
+  const tickerMatch = raw.match(/\$([A-Z]{1,5})/g);
+  return {
+    date: latestDir,
+    title: titleMatch ? titleMatch[1].trim() : files[0].replace('.md', ''),
+    tickers: tickerMatch ? [...new Set(tickerMatch.map(m => m.substring(1)))] : [],
+    hasDesign: fs.existsSync(path.join(artifactsDir, latestDir, 'ticker-signals-design.png')),
+    designPath: `/artifacts/${latestDir}/ticker-signals-design.png`,
+  };
+}
+
+// GET /api/office/summary — high-level overview of all agents
+app.get('/api/office/summary', async (_, res) => {
+  const leads = parseLeads();
+  const subs = getSubscriberStats();
+  const signal = getLatestSignal();
+  const today = new Date().toISOString().split('T')[0];
+  const followUpsDue = leads.filter(l => l.followUpDue?.trim() && l.followUpDue.trim() <= today && l.status === 'sent');
+  const outreachLogPath = path.join(DATA_DIR, 'outreach-log.json');
+  const lastOutreach = fs.existsSync(outreachLogPath)
+    ? JSON.parse(fs.readFileSync(outreachLogPath, 'utf8')).slice(-1)[0]
+    : null;
+
+  res.json({
+    ts: Date.now(),
+    campaign: {
+      total: leads.length,
+      candidates: leads.filter(l => l.status === 'candidate').length,
+      sent: leads.filter(l => l.status === 'sent').length,
+      positiveReplies: leads.filter(l => l.status === 'positive_reply').length,
+      followUpsDue: followUpsDue.length,
+    },
+    subscribers: subs,
+    signal: signal ? { date: signal.date, tickers: signal.tickers } : null,
+    outreach: lastOutreach ? { date: lastOutreach.date, results: lastOutreach.results } : null,
+  });
+});
+
+// GET /api/office/campaign — full campaign agent data
+app.get('/api/office/campaign', (_, res) => {
+  const leads = parseLeads();
+  const today = new Date().toISOString().split('T')[0];
+  const buckets = { candidate: 0, approved_to_send: 0, sent: 0, follow_up_due: 0, positive_reply: 0, not_interested: 0, client: 0 };
+  leads.forEach(l => { buckets[l.status] = (buckets[l.status] || 0) + 1; });
+  const sortedLeads = [...leads].sort((a, b) => b.score - a.score);
+  const enriched = sortedLeads.map(l => ({
+    ...l,
+    followUpDueSoon: !!(l.followUpDue?.trim() && l.followUpDue.trim() <= today && l.status === 'sent'),
+  }));
+  res.json({ buckets, leads: enriched, ts: Date.now() });
+});
+
+// GET /api/office/subscribers — enhanced subscriber data
+app.get('/api/office/subscribers', (_, res) => {
+  const dbPath = path.join(DATA_DIR, 'subscribers.json');
+  if (!fs.existsSync(dbPath)) return res.json({ total: 0, active: 0, pending: 0, cancelled: 0, subscribers: [], ts: Date.now() });
+  const subs = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+  const stats = getSubscriberStats();
+  res.json({
+    ...stats,
+    subscribers: subs.map(s => ({
+      email: s.email,
+      status: s.status,
+      plan: s.plan,
+      subscribedAt: s.subscribedAt,
+      updatedAt: s.updatedAt,
+    })),
+    ts: Date.now(),
+  });
+});
+
+// GET /api/office/outreach — outreach log + last run
+app.get('/api/office/outreach', (_, res) => {
+  const logPath = path.join(DATA_DIR, 'outreach-log.json');
+  const logs = fs.existsSync(logPath) ? JSON.parse(fs.readFileSync(logPath, 'utf8')) : [];
+  res.json({ logs, ts: Date.now() });
+});
+
+// GET /api/office/signals — latest signal metadata
+app.get('/api/office/signals', (_, res) => {
+  const signal = getLatestSignal();
+  res.json({ signal, ts: Date.now() });
+});
+
+// GET /api/office/health — system health check
+app.get('/api/office/health', async (_, res) => {
+  const checks = {
+    leadsFile: { ok: fs.existsSync(LEADS_FILE), path: LEADS_FILE },
+    subscriberDb: { ok: fs.existsSync(path.join(DATA_DIR, 'subscribers.json')), path: path.join(DATA_DIR, 'subscribers.json') },
+    outreachLog: { ok: fs.existsSync(path.join(DATA_DIR, 'outreach-log.json')), path: path.join(DATA_DIR, 'outreach-log.json') },
+    scriptsDir: { ok: fs.existsSync(SCRIPTS_DIR), path: SCRIPTS_DIR },
+    resendConfigured: { ok: !!process.env.RESEND_API_KEY },
+    stripeConfigured: { ok: !!process.env.STRIPE_SECRET_KEY },
+  };
+  const allOk = Object.values(checks).every(c => c.ok);
+  res.json({ ok: allOk, checks, ts: Date.now() });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Endpoints: /api/webhook/stripe | /api/subscribe | /api/contact`);

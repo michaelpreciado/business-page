@@ -3,6 +3,7 @@ import './App.css'
 
 import TickerSignals from './TickerSignals.jsx'
 import ServicesPage from './pages/Services.jsx'
+import MissionControl from './pages/MissionControl.jsx'
 import UnsubscribePage from './pages/Unsubscribe.jsx'
 
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/mykozeqy'
@@ -80,6 +81,7 @@ const MobileMenu = ({ onContact }) => {
             <a className="mobile-nav-link" href="#signals" onClick={() => setOpen(false)}>Ticker Signals</a>
             <a className="mobile-nav-link" href="/#services" onClick={() => setOpen(false)}>Services</a>
             <a className="mobile-nav-link" href="#hire" onClick={() => setOpen(false)}>Work with Michael</a>
+            <a className="mobile-nav-link" href="#mission-control" onClick={() => setOpen(false)} style={{ color: 'var(--accent)' }}>⚡ Mission Control</a>
             <a className="mobile-nav-link" href="#contact" onClick={() => { setOpen(false); onContact() }}>Get in Touch</a>
           </nav>
           <a className="mobile-cta" href="#contact" onClick={() => { setOpen(false); onContact() }}>
@@ -106,6 +108,7 @@ const Topbar = ({ onContact }) => (
         <a className="nav-link" href="#signals">Ticker Signals</a>
         <a className="nav-link" href="/#services">Services</a>
         <a className="nav-link" href="#hire">Work with Michael</a>
+        <a className="nav-link" href="#mission-control" style={{ color: 'var(--accent)', fontFamily: 'var(--mono)', fontSize: 12 }}>⚡ Mission Control</a>
         <span className="status"><span className="dot" />Available for small business projects</span>
         <a className="top-cta" href="#contact" onClick={(e) => { e.preventDefault(); onContact() }}>
           Fix one repetitive task <ArrowUpRight size={14} className="arrow" />
@@ -858,6 +861,14 @@ function App() {
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
     return () => io.disconnect()
   }, [route])
+
+  if (route === '#mission-control') {
+    return (
+      <div style={{ minHeight: '100vh', background: '#07080b' }}>
+        <MissionControl />
+      </div>
+    )
+  }
 
   if (route === '#unsubscribe') {
     return (
