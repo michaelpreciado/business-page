@@ -3,6 +3,7 @@ import './App.css'
 
 import TickerSignals from './TickerSignals.jsx'
 import ServicesPage from './pages/Services.jsx'
+import UnsubscribePage from './pages/Unsubscribe.jsx'
 
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/mykozeqy'
 
@@ -857,6 +858,17 @@ function App() {
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
     return () => io.disconnect()
   }, [route])
+
+  if (route === '#unsubscribe') {
+    return (
+      <>
+        <div style={{ minHeight: '100vh', background: '#0a0a0c', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+          <UnsubscribePage />
+        </div>
+        <Footer />
+      </>
+    )
+  }
 
   if (route === '#services') {
     return (
