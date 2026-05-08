@@ -135,16 +135,17 @@ export default function ServicesPage({ onContact }) {
       {/* Hero */}
       <section className="services-hero">
         <div className="wrap">
-          <div className="services-intro reveal">
-            <div>
-              <div className="section-head">
-                <span className="eyebrow">Services</span>
-                <span className="eyebrow-num">§ 01</span>
-                <span className="divider" />
-              </div>
-              <h2>What Preciado Tech<br />can take off your plate.</h2>
+          <div className="services-hero-banner reveal">
+            <div className="section-head">
+              <span className="eyebrow">Services</span>
+              <span className="eyebrow-num">What I do</span>
+              <span className="divider" />
             </div>
-            <p>
+            <h1 className="services-headline">
+              What Preciado Tech<br />
+              <span>can take off your plate.</span>
+            </h1>
+            <p className="services-subhead">
               You do not need to know what software you need. You only need to know
               what feels slow, messy, or repetitive. I help turn that into a simple next step.
             </p>
