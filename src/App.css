@@ -2771,3 +2771,68 @@ footer::before {
 html {
   scroll-behavior: smooth;
 }
+
+/* ===== Liquid Glass UI Overrides ===== */
+/* Base glass material */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Mobile menu glass effect */
+.mobile-menu {
+  background: rgba(10, 10, 12, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Pricing cards glass */
+.package-card {
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease !important;
+}
+.package-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Testimonial cards glass */
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 14px !important;
+}
+
+/* Hire banner glass */
+.hire-banner {
+  background: rgba(0, 212, 255, 0.03) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 212, 255, 0.1) !important;
+  border-radius: 16px;
+  margin: 0 24px;
+}
+
+/* Topbar glass on scroll (add via JS later, or keep transparent) */
+.topbar {
+  background: rgba(7, 8, 11, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Ensure text contrast over glass */
+.mobile-nav-link, .mobile-cta, .package-card h3, .testimonial-card p {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
