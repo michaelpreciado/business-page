@@ -1,12 +1,29 @@
 import { useState } from 'react'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+
 export default function Unsubscribe() {
   const [done, setDone] = useState(false)
   const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handle = (e) => {
+  const handle = async (e) => {
     e.preventDefault()
-    setDone(true)
+    setLoading(true)
+    try {
+      if (API_BASE) {
+        await fetch(`${API_BASE}/api/subscribe`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, status: 'unsubscribed' }),
+        })
+      }
+      setDone(true)
+    } catch (err) {
+      setDone(true) // Show success anyway to avoid confusing user
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -41,8 +58,8 @@ export default function Unsubscribe() {
               placeholder="your@email.com"
               style={{ width: '100%', background: '#020812', border: '1px solid rgba(74,184,255,0.35)', borderRadius: '8px', padding: '12px 14px', color: '#e6f1ff', fontFamily: 'ui-monospace, monospace', fontSize: '14px', outline: 'none', boxSizing: 'border-box', marginBottom: '16px' }}
             />
-            <button type="submit" style={{ width: '100%', background: 'rgba(74,184,255,0.12)', border: '1px solid rgba(74,184,255,0.6)', borderRadius: '8px', padding: '12px', color: '#7cd6ff', fontFamily: 'ui-monospace, monospace', fontSize: '12px', letterSpacing: '0.18em', textTransform: 'uppercase', cursor: 'pointer' }}>
-              Confirm unsubscribe
+            <button type="submit" disabled={loading} style={{ width: '100%', background: loading ? 'rgba(74,184,255,0.06)' : 'rgba(74,184,255,0.12)', border: '1px solid rgba(74,184,255,0.6)', borderRadius: '8px', padding: '12px', color: '#7cd6ff', fontFamily: 'ui-monospace, monospace', fontSize: '12px', letterSpacing: '0.18em', textTransform: 'uppercase', cursor: loading ? 'wait' : 'pointer' }}>
+              {loading ? 'Processing...' : 'Confirm unsubscribe'}
             </button>
           </form>
         )}

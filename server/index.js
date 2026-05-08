@@ -24,7 +24,7 @@ function upsertSub(email, updates = {}) {
   if (existing) {
     Object.assign(existing, updates, { updatedAt: Date.now() });
   } else {
-    subs.push({ email, subscribedAt: Date.now(), plan: 'pro', ...updates });
+    subs.push({ email, subscribedAt: Date.now(), plan: 'free', ...updates });
   }
   saveSubs(subs);
   return loadSubs().find(s => s.email.toLowerCase() === email.toLowerCase());
@@ -59,10 +59,21 @@ app.use(express.json());
 
 // Add a pending subscriber (called from email capture or admin)
 app.post('/api/subscribe', (req, res) => {
-  const { email } = req.body;
+  const { email, status } = req.body;
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Valid email required' });
   }
+
+  // Handle unsubscribe
+  if (status === 'unsubscribed') {
+    const existing = loadSubs().find(s => s.email.toLowerCase() === email.toLowerCase());
+    if (existing) {
+      upsertSub(email, { status: 'cancelled' });
+      return res.json({ message: 'Unsubscribed', status: 'cancelled' });
+    }
+    return res.json({ message: 'Email not found', status: 'not_found' });
+  }
+
   const existing = loadSubs().find(s => s.email.toLowerCase() === email.toLowerCase());
   if (existing?.status === 'active') {
     return res.json({ message: 'Already subscribed', status: 'active' });
