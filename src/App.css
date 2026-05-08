@@ -2628,3 +2628,49 @@ footer::before {
   font-size: 12px;
   color: oklch(60% 0.02 250);
 }
+
+/* ─── Hire Banner ─── */
+.hire-banner {
+  background: linear-gradient(135deg, oklch(18% 0.05 250), oklch(15% 0.03 250));
+  border-top: 1px solid oklch(100% 0 0 / 0.08);
+  border-bottom: 1px solid oklch(100% 0 0 / 0.08);
+  padding: 60px 0;
+}
+
+.hire-banner-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.hire-banner-text h2 {
+  font-size: clamp(28px, 3.5vw, 42px);
+  margin: 0 0 12px;
+  color: oklch(95% 0.02 250);
+}
+
+.hire-banner-text h2 em {
+  color: var(--accent, #4ab8ff);
+  font-style: italic;
+}
+
+.hire-banner-sub {
+  font-size: 16px;
+  line-height: 1.6;
+  color: oklch(75% 0.02 250);
+  margin: 0;
+  max-width: 500px;
+}
+
+.hire-banner-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-large {
+  padding: 14px 28px;
+  font-size: 15px;
+}

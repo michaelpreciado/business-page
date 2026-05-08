@@ -207,6 +207,31 @@ const Hero = ({ onContact }) => {
   )
 }
 
+/* ─── Hire Banner ─── */
+const HireBanner = () => (
+  <section className="hire-banner">
+    <div className="wrap">
+      <div className="hire-banner-content reveal">
+        <div className="hire-banner-text">
+          <h2>Ready to <em>hire Michael?</em></h2>
+          <p className="hire-banner-sub">
+            Get automation help without the tech headache. 
+            Start with one task, see results fast.
+          </p>
+        </div>
+        <div className="hire-banner-ctas">
+          <a href="#contact" className="btn btn-primary btn-large">
+            Hire Michael <ArrowRight size={16} className="arrow" />
+          </a>
+          <a href="/#services" className="btn btn-ghost">
+            See Pricing
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
 /* ─── Hiring signal ─── */
 const HIRING_PROOFS = [
   {
@@ -972,7 +997,7 @@ function App() {
       <Topbar onContact={() => setModal(true)} />
       <main>
         <Hero onContact={() => setModal(true)} />
-        <WhatsIncluded />
+        <HireBanner />
         <HireMichael />
         <TaskExamples />
         <CTA onContact={() => setModal(true)} />
