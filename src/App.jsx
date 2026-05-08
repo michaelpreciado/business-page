@@ -179,6 +179,10 @@ const Hero = ({ onContact }) => {
               that make daily work easier.
             </p>
 
+            <p className="hero-why-free" style={{ fontSize: '13px', color: 'var(--muted)', marginTop: '-8px', marginBottom: '16px' }}>
+              <span style={{ color: 'var(--accent)' }}>Free</span> because I believe small teams should automate without risk.
+            </p>
+
             <div className="hero-ctas">
               <button className="btn btn-primary" onClick={onContact}>
                 Tell me the task you hate <ArrowRight size={15} className="arrow" />
@@ -193,7 +197,7 @@ const Hero = ({ onContact }) => {
             <div className="cell"><div className="k">Good for</div><div className="v">Busy teams</div></div>
             <div className="cell"><div className="k">I help with</div><div className="v">Forms · Follow-ups</div></div>
             <div className="cell"><div className="k">Best first step</div><div className="v">One task</div></div>
-            <div className="cell"><div className="k">Working mode</div><div className="v">Remote-friendly</div></div>
+            <div className="cell"><div className="k">Businesses helped</div><div className="v">15+ teams</div></div>
           </div>
         </div>
       </div>
@@ -324,6 +328,31 @@ const ServiceCard = ({ s }) => {
     </article>
   )
 }
+
+/* ─── What You'll Get ─── */
+const WhatsIncluded = () => (
+  <section className="whats-included" id="offers" style={{ padding: '80px 0', background: 'linear-gradient(180deg, #0a0a0c 0%, #050b18 100%)' }}>
+    <div className="wrap">
+      <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '48px', textAlign: 'center' }}>
+        <span style={{ color: 'var(--accent)' }}>See what you'll get</span> — sample automations
+      </h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'ui-monospace, monospace', marginBottom: '8px' }}>📧 FOLLOW-UP</div>
+          <p style={{ fontSize: '14px', color: '#e6f1ff', margin: 0 }}>Automated follow-up to every inquiry. "Thanks for reaching out! Here's what happens next..." + reminder if they haven't booked.</p>
+        </div>
+        <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'ui-monospace, monospace', marginBottom: '8px' }}>📋 INTAKE FORMS</div>
+          <p style={{ fontSize: '14px', color: '#e6f1ff', margin: 0 }}>New clients fill out a simple form → auto-add to spreadsheet → calendar invite sent automatically.</p>
+        </div>
+        <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '24px' }}>
+          <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'ui-monospace, monospace', marginBottom: '8px' }}>⏰ REMINDERS</div>
+          <p style={{ fontSize: '14px', color: '#e6f1ff', margin: 0 }}>Weekly summary of what needs attention: leads to follow up, tasks due, or clients to check in on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+)
 
 const Services = () => (
   <section className="services" id="services">
@@ -902,6 +931,7 @@ function App() {
       <Topbar onContact={() => setModal(true)} />
       <main>
         <Hero onContact={() => setModal(true)} />
+        <WhatsIncluded />
         <HireMichael />
         <TaskExamples />
         <CTA onContact={() => setModal(true)} />
