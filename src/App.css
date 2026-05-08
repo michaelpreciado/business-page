@@ -2277,70 +2277,6 @@ footer::before {
 }
 
 /*** MOBILE NAV ***/
-.hamburger {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--ink);
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 8px;
-  transition: color 200ms;
-  flex-shrink: 0;
-}
-.hamburger:hover { color: var(--accent); }
-
-.mobile-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: var(--bg);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  animation: fadeIn 200ms ease;
-}
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-.mobile-nav {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-}
-.mobile-nav-link {
-  font-family: var(--mono);
-  font-size: 22px;
-  letter-spacing: 0.1em;
-  color: var(--ink);
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: color 200ms;
-  padding: 12px 24px;
-  min-height: 52px;
-  display: flex; align-items: center;
-  border-radius: 10px;
-}
-.mobile-nav-link:hover { color: var(--accent); background: rgba(255,255,255,0.04); }
-.mobile-nav-link:hover { color: var(--accent); }
-
-.mobile-cta {
-  margin-top: 24px;
-  padding: 14px 28px;
-  background: var(--accent);
-  color: var(--bg);
-  border-radius: 10px;
-  font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: opacity 200ms;
-}
-.mobile-cta:hover { opacity: 0.85; }
 
 @media (max-width: 720px) {
   .hamburger { display: flex; align-items: center; justify-content: center; }
@@ -2783,12 +2719,133 @@ html {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
-/* Mobile menu glass effect */
+/* Mobile menu glass effect - full styles */
 .mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 85%;
+  max-width: 320px;
+  height: 100vh;
   background: rgba(10, 10, 12, 0.85) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
+  padding: 80px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
   border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+/* Mobile nav container */
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+/* Mobile nav links */
+.mobile-nav-link {
+  font-family: var(--mono);
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s ease;
+  padding: 12px 24px;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateX(20px);
+}
+.mobile-menu.open .mobile-nav-link {
+  opacity: 1;
+  transform: translateX(0);
+}
+.mobile-nav-link:hover { color: var(--accent); background: rgba(255,255,255,0.04); }
+
+/* Mobile CTA button */
+.mobile-cta {
+  margin-top: 24px;
+  padding: 14px 28px;
+  background: var(--accent) !important;
+  color: var(--bg) !important;
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+}
+.mobile-menu.open .mobile-cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+.mobile-cta:hover { opacity: 0.85; }
+
+/* Mobile backdrop */
+.mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+}
+.mobile-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Hamburger button */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, color 200ms;
+  flex-shrink: 0;
+  z-index: 1001;
+}
+.hamburger:hover { color: var(--accent); }
+.hamburger.open {
+  transform: rotate(90deg);
+}
+.ham-line {
+  transition: transform 0.3s ease, opacity 0.2s ease;
+  transform-origin: center;
+}
+.hamburger.open .line1 {
+  transform: translateY(6px) rotate(45deg);
+}
+.hamburger.open .line2 {
+  opacity: 0;
+}
+.hamburger.open .line3 {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+@media (max-width: 720px) {
+  .hamburger { display: flex; align-items: center; justify-content: center; }
 }
 
 /* Pricing cards glass */
