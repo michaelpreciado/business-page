@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
 
-const EmailCapture = ({ title, subtitle, cta = 'Get Pro access', ctaHref, mode = 'form' }) => {
+const EmailCapture = ({ title, subtitle, cta = 'Subscribe' }) => {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle') // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState('')
@@ -14,35 +14,19 @@ const EmailCapture = ({ title, subtitle, cta = 'Get Pro access', ctaHref, mode =
     setStatus('loading')
     setErrorMsg('')
 
-    // In payment mode: call /api/subscribe first (captures email, sends instant signal)
-    // then redirect to Stripe checkout
-    if (mode === 'payment' && ctaHref) {
-      try {
-        // Call subscribe API to capture email and trigger instant welcome signal
-        if (API_BASE) {
-          await fetch(`${API_BASE}/api/subscribe`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email }),
-          })
-        }
-      } catch (_) {
-        // Non-fatal — proceed to Stripe anyway
-      }
-      const stripeUrl = new URL(ctaHref)
-      stripeUrl.searchParams.set('prefilled_email', email)
-      window.open(stripeUrl.toString(), '_blank')
-      setStatus('success')
-      setEmail('')
-      return
-    }
-
     try {
-      await new Promise((r) => setTimeout(r, 800))
+      if (API_BASE) {
+        const r = await fetch(`${API_BASE}/api/subscribe`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        })
+        if (!r.ok) throw new Error('Subscription failed')
+      }
       setStatus('success')
       setEmail('')
     } catch (err) {
-      setErrorMsg('Network error. Check your connection and try again.')
+      setErrorMsg('Something went wrong. Please try again or email michael@preciado-tech.com')
       setStatus('error')
     }
   }
@@ -56,17 +40,8 @@ const EmailCapture = ({ title, subtitle, cta = 'Get Pro access', ctaHref, mode =
             <polyline points="22 4 12 14.01 9 11.01"/>
           </svg>
         </div>
-        {mode === 'payment' ? (
-          <>
-            <h3>Opening Stripe checkout...</h3>
-            <p>If nothing happened, <a href={ctaHref} target="_blank" rel="noreferrer">click here to open checkout</a>.</p>
-          </>
-        ) : (
-          <>
-            <h3>You're on the list.</h3>
-            <p>We'll send your first Ticker signal this Monday. Check your inbox.</p>
-          </>
-        )}
+        <h3>You're on the list.</h3>
+        <p>Thanks for subscribing to Preciado Tech updates. We'll keep you posted.</p>
       </div>
     )
   }
@@ -102,11 +77,7 @@ const EmailCapture = ({ title, subtitle, cta = 'Get Pro access', ctaHref, mode =
         {status === 'error' && (
           <p className="email-error">{errorMsg}</p>
         )}
-        {mode === 'payment' ? (
-          <p className="email-disclaimer">$5/mo · Cancel anytime · Stripe checkout</p>
-        ) : (
-          <p className="email-disclaimer">Free weekly signal. No spam. Unsubscribe anytime.</p>
-        )}
+        <p className="email-disclaimer">Free updates. No spam. Unsubscribe anytime.</p>
       </form>
     </div>
   )

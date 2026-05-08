@@ -33,62 +33,6 @@ function upsertSub(email, updates = {}) {
 // ─── Middleware ────────────────────────────────────────────────────────────
 app.use(cors());
 
-// Stripe webhook needs raw body — mount before json parser
-app.post('/api/webhook/stripe', express.raw({ type: 'application/json' }), (req, res) => {
-  const sig = req.headers['stripe-signature'];
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-  if (!webhookSecret) {
-    console.warn('[webhook] STRIPE_WEBHOOK_SECRET not set — skipping signature verification');
-    return res.status(500).json({ error: 'Webhook secret not configured' });
-  }
-
-  let event;
-  try {
-    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-    event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
-  } catch (err) {
-    console.error('[webhook] Signature verification failed:', err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
-  }
-
-  const subs = loadSubs();
-
-  if (event.type === 'checkout.session.completed') {
-    const session = event.data.object;
-    const email = session.customer_email || session.metadata?.email;
-    if (email) {
-      const existing = subs.find(s => s.email.toLowerCase() === email.toLowerCase());
-      if (existing) {
-        existing.status = 'active';
-        existing.customerId = session.customer;
-        existing.plan = session.metadata?.plan || 'pro';
-      } else {
-        subs.push({
-          email,
-          status: 'active',
-          customerId: session.customer,
-          subscribedAt: Date.now(),
-          plan: session.metadata?.plan || 'pro',
-        });
-      }
-      console.log(`[webhook] Activated: ${email}`);
-    }
-  }
-
-  if (event.type === 'customer.subscription.deleted') {
-    const sub = event.data.object;
-    const record = subs.find(s => s.customerId === sub.customer);
-    if (record) {
-      record.status = 'cancelled';
-      console.log(`[webhook] Cancelled: ${record.email}`);
-    }
-  }
-
-  saveSubs(subs);
-  res.json({ received: true });
-});
-
 // ─── Welcome email (instant first signal) ──────────────────────────────────
 function sendWelcomeEmail(email) {
   if (!process.env.RESEND_API_KEY) {
@@ -274,33 +218,12 @@ function getSubscriberStats() {
   };
 }
 
-function getLatestSignal() {
-  const artifactsDir = path.join(DATA_DIR, '../artifacts');
-  if (!fs.existsSync(artifactsDir)) return null;
-  const dirs = fs.readdirSync(artifactsDir).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d));
-  if (!dirs.length) return null;
-  dirs.sort().reverse();
-  const latestDir = dirs[0];
-  const files = fs.readdirSync(path.join(artifactsDir, latestDir)).filter(f => f.endsWith('.md') && !f.includes('design'));
-  if (!files.length) return { date: latestDir, hasDesign: fs.existsSync(path.join(artifactsDir, latestDir, 'ticker-signals-design.png')) };
-  const signalFile = path.join(artifactsDir, latestDir, files[0]);
-  const raw = fs.readFileSync(signalFile, 'utf8');
-  const titleMatch = raw.match(/^#\s+(.+)/m);
-  const tickerMatch = raw.match(/\$([A-Z]{1,5})/g);
-  return {
-    date: latestDir,
-    title: titleMatch ? titleMatch[1].trim() : files[0].replace('.md', ''),
-    tickers: tickerMatch ? [...new Set(tickerMatch.map(m => m.substring(1)))] : [],
-    hasDesign: fs.existsSync(path.join(artifactsDir, latestDir, 'ticker-signals-design.png')),
-    designPath: `/artifacts/${latestDir}/ticker-signals-design.png`,
-  };
-}
+
 
 // GET /api/office/summary — high-level overview of all agents
 app.get('/api/office/summary', async (_, res) => {
   const leads = parseLeads();
   const subs = getSubscriberStats();
-  const signal = getLatestSignal();
   const today = new Date().toISOString().split('T')[0];
   const followUpsDue = leads.filter(l => l.followUpDue?.trim() && l.followUpDue.trim() <= today && l.status === 'sent');
   const outreachLogPath = path.join(DATA_DIR, 'outreach-log.json');
@@ -318,7 +241,6 @@ app.get('/api/office/summary', async (_, res) => {
       followUpsDue: followUpsDue.length,
     },
     subscribers: subs,
-    signal: signal ? { date: signal.date, tickers: signal.tickers } : null,
     outreach: lastOutreach ? { date: lastOutreach.date, results: lastOutreach.results } : null,
   });
 });
@@ -363,11 +285,7 @@ app.get('/api/office/outreach', (_, res) => {
   res.json({ logs, ts: Date.now() });
 });
 
-// GET /api/office/signals — latest signal metadata
-app.get('/api/office/signals', (_, res) => {
-  const signal = getLatestSignal();
-  res.json({ signal, ts: Date.now() });
-});
+
 
 // GET /api/office/trading/portfolio — trading bot status
 app.get('/api/office/trading/portfolio', (_, res) => {
