@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
 
@@ -6,6 +6,14 @@ const EmailCapture = ({ title, subtitle, cta = 'Subscribe' }) => {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle') // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState('')
+
+  // Auto-clear success after 5 seconds to allow re-subscribe
+  useEffect(() => {
+    if (status === 'success') {
+      const t = setTimeout(() => setStatus('idle'), 5000)
+      return () => clearTimeout(t)
+    }
+  }, [status])
 
   const handleSubmit = async (e) => {
     e.preventDefault()

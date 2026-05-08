@@ -78,6 +78,7 @@ const MobileMenu = ({ onContact }) => {
         <div className="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
           <nav className="mobile-nav">
             <a className="mobile-nav-link" href="/#services" onClick={() => setOpen(false)}>Services</a>
+            <a className="mobile-nav-link" href="#updates" onClick={() => setOpen(false)}>Tips</a>
             <a className="mobile-nav-link" href="#hire" onClick={() => setOpen(false)}>Work with Michael</a>
             <a className="mobile-nav-link" href="#mission-control" onClick={() => setOpen(false)} style={{ color: 'var(--accent)' }}>⚡ Mission Control</a>
             <a className="mobile-nav-link" href="#contact" onClick={() => { setOpen(false); onContact() }}>Get in Touch</a>
@@ -104,6 +105,7 @@ const Topbar = ({ onContact }) => (
       </a>
       <nav className="topbar-right">
         <a className="nav-link" href="/#services">Services</a>
+        <a className="nav-link" href="#updates">Tips</a>
         <a className="nav-link" href="#hire">Work with Michael</a>
         <a className="nav-link" href="#mission-control" style={{ color: 'var(--accent)', fontFamily: 'var(--mono)', fontSize: 12 }}>⚡ Mission Control</a>
         <span className="status"><span className="dot" />Available for small business projects</span>
@@ -903,6 +905,45 @@ function App() {
           <UnsubscribePage />
         </div>
         <Footer />
+      </>
+    )
+  }
+
+  if (route === '#updates') {
+    return (
+      <>
+        <Topbar onContact={() => setModal(true)} />
+        <div style={{ minHeight: '100vh', background: '#0a0a0c', padding: '120px 24px 80px' }}>
+          <div className="wrap" style={{ maxWidth: '700px' }}>
+            <h1 style={{ fontSize: '36px', fontWeight: '700', marginBottom: '16px' }}>Weekly Automation Tips</h1>
+            <p style={{ fontSize: '16px', color: 'var(--muted)', marginBottom: '48px' }}>Simple ways to save time and reduce busywork.</p>
+            
+            <article style={{ marginBottom: '40px', padding: '24px', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'ui-monospace, monospace', marginBottom: '8px' }}>TIP #1</div>
+              <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '12px' }}>Set up auto-follow-ups for inquiries</h3>
+              <p style={{ fontSize: '14px', color: 'var(--muted)', lineHeight: '1.6' }}>Every unanswered inquiry is potential revenue lost. Set up a simple automated sequence: within 24 hours, send a friendly follow-up. Most tools (GMail, Outlook, HubSpot) have this built in.</p>
+            </article>
+
+            <article style={{ marginBottom: '40px', padding: '24px', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'ui-monospace, monospace', marginBottom: '8px' }}>TIP #2</div>
+              <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '12px' }}>Use forms instead of email for intake</h3>
+              <p style={{ fontSize: '14px', color: 'var(--muted)', lineHeight: '1.6' }}>Stop copy-pasting from emails into spreadsheets. A simple form (Google Forms, Typeform) can automatically add rows to a sheet, trigger notifications, and even book meetings.</p>
+            </article>
+
+            <article style={{ marginBottom: '40px', padding: '24px', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'ui-monospace, monospace', marginBottom: '8px' }}>TIP #3</div>
+              <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '12px' }}>Block time for weekly review</h3>
+              <p style={{ fontSize: '14px', color: 'var(--muted)', lineHeight: '1.6' }}>Spend 30 minutes each Friday reviewing what repeat tasks took the most time. Small tweaks compound — saving 10 minutes/day = 40+ hours/year.</p>
+            </article>
+
+            <div style={{ padding: '24px', background: 'rgba(74,184,255,0.08)', borderRadius: '12px', border: '1px solid rgba(74,184,255,0.3)', textAlign: 'center' }}>
+              <p style={{ margin: '0 0 16px', fontSize: '14px' }}>Get these tips delivered weekly.</p>
+              <EmailCapture cta="Send me tips" />
+            </div>
+          </div>
+        </div>
+        <Footer />
+        <ContactModal open={modal} onClose={() => setModal(false)} />
       </>
     )
   }
