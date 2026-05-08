@@ -54,40 +54,55 @@ const MobileMenu = ({ onContact }) => {
   return (
     <>
       <button
-        className="hamburger"
+        className={`hamburger ${open ? 'open' : ''}`}
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
         onClick={() => setOpen(o => !o)}
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-          {open ? (
-            <>
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </>
-          ) : (
-            <>
-              <line x1="4" y1="8" x2="20" y2="8" />
-              <line x1="4" y1="14" x2="20" y2="14" />
-              <line x1="4" y1="20" x2="20" y2="20" />
-            </>
-          )}
+          <line className="ham-line line1" x1="4" y1="8" x2="20" y2="8" />
+          <line className="ham-line line2" x1="4" y1="14" x2="20" y2="14" />
+          <line className="ham-line line3" x1="4" y1="20" x2="20" y2="20" />
         </svg>
       </button>
-      {open && (
-        <div className="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-          <nav className="mobile-nav">
-            <a className="mobile-nav-link" href="/#services" onClick={() => setOpen(false)}>Services</a>
-            <a className="mobile-nav-link" href="#updates" onClick={() => setOpen(false)}>Tips</a>
-            <a className="mobile-nav-link" href="#hire" onClick={() => setOpen(false)}>Work with Michael</a>
-            <a className="mobile-nav-link" href="#mission-control" onClick={() => setOpen(false)} style={{ color: 'var(--accent)' }}>⚡ Mission Control</a>
-            <a className="mobile-nav-link" href="#contact" onClick={() => { setOpen(false); onContact() }}>Get in Touch</a>
-          </nav>
-          <a className="mobile-cta" href="#contact" onClick={() => { setOpen(false); onContact() }}>
-            Fix one repetitive task →
-          </a>
-        </div>
-      )}
+      {/* Backdrop overlay */}
+      <div className={`mobile-backdrop ${open ? 'open' : ''}`} onClick={() => setOpen(false)} />
+      {/* Animated slide-in menu */}
+      <div className={`mobile-menu ${open ? 'open' : ''}`} role="dialog" aria-modal="true" aria-label="Navigation menu">
+        <nav className="mobile-nav">
+          {[
+            { href: "/#services", label: "Services" },
+            { href: "#updates", label: "Tips" },
+            { href: "#hire", label: "Work with Michael" },
+            { href: "#mission-control", label: "⚡ Mission Control", style: { color: 'var(--accent)' } },
+            { href: "#contact", label: "Get in Touch", onClick: onContact },
+          ].map((item, i) => (
+            <a
+              key={item.label}
+              className="mobile-nav-link"
+              href={item.href}
+              style={{ transitionDelay: `${i * 0.08}s` }}
+              onClick={(e) => {
+                setOpen(false)
+                if (item.onClick) item.onClick()
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <a
+          className="mobile-cta"
+          href="#contact"
+          style={{ transitionDelay: '0.4s' }}
+          onClick={(e) => {
+            setOpen(false)
+            onContact()
+          }}
+        >
+          Fix one repetitive task →
+        </a>
+      </div>
     </>
   )
 }
